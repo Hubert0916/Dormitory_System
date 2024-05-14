@@ -18,3 +18,39 @@
     bottom: 0;
     width: 100%;
 }
+.nav #main-nav{
+    background-color: #7D9D9C;
+    color: #F0EBE3;
+    list-style: none;
+    text-align: center;
+    padding: 0;
+}
+.nav #main-nav li{
+    display: inline;
+    padding: 10px;
+}
+.nav #main-nav li a{
+    color: #F0EBE3;
+    text-decoration: none;
+}
+.nav #main-nav li a:hover{
+    color: #576F72;
+}
+.nav #main-nav li a.active{
+    color: #576F72;
+}
+.nav #main-nav li a.active:hover{
+    color: #F0EBE3;
+}
+.nav #main-nav li a:visited{
+    color: #F0EBE3;
+}
+.nav #main-nav li a:visited:hover{
+    color: #576F72;
+}
+.nav #main-nav li a:visited.active{
+    color: #576F72;
+}
+.nav #main-nav li a:visited.active:hover{
+    color: #F0EBE3;
+}
