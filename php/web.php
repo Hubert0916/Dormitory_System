@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Homepage</title>
+    <title>Dormitory System</title>
 </head>
 <body>
-    <h1>Welcome to the Homepage</h1>
+    <h1>Welcome to Dormitory System</h1>
     
     <?php
     // PHP code here
