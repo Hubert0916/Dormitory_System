@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>Dormitory System</title>
-    <link rel="stylesheet" type="text/css" href="./css/home.css">
+    <link rel="stylesheet" type="text/css" href="../css/home.css">
 </head>
 <body>
     <nav id="main-nav" class="navbar navbar-expand-sm navbar-dark fixed-top" >
