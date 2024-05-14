@@ -42,7 +42,7 @@
 </body>
 <footer>
     <div class="footer">
-        <p>© 2024 Dormitory System</p>
+        <p class="foot">© 2024 Dormitory System</p>
     </div>
 </footer>
 </html>
