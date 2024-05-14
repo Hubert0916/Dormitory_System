@@ -9,3 +9,12 @@
     margin: auto;
     overflow: hidden;
 }
+.footer{
+    background-color: #576F72;
+    color: #F0EBE3;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
