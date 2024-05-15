@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dormitory System</title>
     <link rel="stylesheet" type="text/css" href="../css/home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <nav id="main-nav" class="navbar navbar-expand-sm navbar-dark fixed-top" >
-    <nav class="nav navbar-default">
+<nav id="main-nav" class="navbar navbar-expand-sm navbar-dark fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#Navbarshow">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navshow">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span> 
             </button>
-            <a class="navbar-brand" href="#">Brand</a>
+            <a class="navbar-brand" href="#">Dormitory</a>
         </div>
-        <div class="collapse navbar-collapse" id="Navbarshow"> 
-            <ul class="nav navbar-nav">
-                <li><a data-toggle="tab" href="#home">HOME</a></li>
-                <li><a data-toggle="tab" href="#menu1">SERVICES</a></li>
-                <li><a data-toggle="tab" href="#menu2">PROFILE</a></li>
+        <div class="collapse navbar-collapse" id="navshow"> 
+            <ul class="nav navbar-nav justify-content-center">
+                <li><a data-toggle="tab" href="#home">Home</a></li>
+                <li><a data-toggle="tab" href="#service">Services</a></li>
+                <li><a data-toggle="tab" href="#profile">Profile</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right justify-content-center">
                 <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
                 <li><a href="#">Log out</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Admin</a></li>
             </ul>
         </div>
     </div>
-    </nav> 
+</nav>
     <div class="container">
         <div class="header">
             <h1>Dormitory System</h1>

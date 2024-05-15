@@ -18,26 +18,20 @@
     bottom: 0;
     width: 100%;
 }
-.navbar {
-    background-color: #333;
-    color: #fff;
-    border-radius: 0;
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.navbar-brand {
+.navbar-nav li a {
     color: #fff;
-    font-size: 20px;
+    padding: 10px 15px;
 }
 
-.navbar-nav > li > a {
-    color: #fff;
-    font-size: 16px;
-    padding: 15px 20px;
-}
-
-.navbar-nav > .active > a,
-.navbar-nav > .active > a:hover,
-.navbar-nav > .active > a:focus {
+.navbar-nav .active > a,
+.navbar-nav .active > a:hover,
+.navbar-nav .active > a:focus {
     background-color: #555;
 }
 
@@ -45,34 +39,8 @@
     background-color: #fff;
 }
 
-.navbar-nav.navbar-right > li > a {
-    padding: 15px 20px;
-    font-size: 16px;
-}
-
-.navbar-nav .dropdown-menu {
-    background-color: #333;
-}
-
-.navbar-nav .dropdown-menu > li > a {
+.navbar-nav.navbar-right li a {
     color: #fff;
+    padding: 10px 15px;
 }
 
-.navbar-nav .dropdown-menu > li > a:hover,
-.navbar-nav .dropdown-menu > li > a:focus {
-    background-color: #555;
-}
-
-.navbar-nav .dropdown-menu > .active > a,
-.navbar-nav .dropdown-menu > .active > a:hover,
-.navbar-nav .dropdown-menu > .active > a:focus {
-    background-color: #555;
-}
-
-.navbar-nav .dropdown-menu > .dropdown-toggle::after {
-    color: #fff;
-}
-
-.navbar-nav.navbar-right > li > a span {
-    margin-right: 5px;
-}
