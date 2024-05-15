@@ -10,7 +10,6 @@
 	<link href="images/favicon-96x96.png" rel="icon" type="image/png" sizes="96x96">
 	<link href="images/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
 	<link href="../css/home.css" rel="stylesheet" type="text/css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Smooth Scrolling (Script) -->
 	<script>
 	$(document).ready(function(){
@@ -42,7 +41,7 @@
 		</div>
 	</div>
 	<!-- PHP-Overlay-Navigation -->
-		<div class="overlay" id="overlay">
+	<div class="overlay" id="overlay">
 		<ul>
 			<li><a href="#home">Home</a></li>
 			<li><a href="#service">Services</a></li>
@@ -75,34 +74,65 @@
             </ul>
 		</nav>
 		<!-- Navigation (End) -->
-
-    <div class="content">
-        <div class="tab-content">
-            <div id="home" class="tab-pane fade in active">
+        <!-- Home -->
+        <div class="home animated fadeInUpShort" id="home">
+            <div class="home-content">
                 <h1>Welcome to Dormitory System</h1>
-            </div>
-            <div id="service" class="tab-pane fade">
-                <h1>Our Services</h1>
-                <p>Our services include:</p>
-                <ul>
-                    <li>Find the best dormitory for you</li>
-                    <li>Provide you with the most comfortable living environment</li>
-                    <li>Help you with any problems you may have</li>
-                </ul>
-            </div>
-            <div id="profile" class="tab-pane fade">
-                <h1>Your Profile</h1>
-                <p>Here is your profile:</p>
-                <ul>
-                    <li>Name: </li>
-                    <li>Age: </li>
-                </ul>
+                <p>Manage your dormitory with ease</p>
             </div>
         </div>
-    </div>   
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <!-- Home (End) -->
+        <!-- Services -->
+        <div class="services animated fadeInUpShort" id="service">
+            <h2>Services</h2>
+            <div class="services-content">
+                <div class="services-box">
+                    <img src="../pic/bed.png" alt="">
+                    <h3>Room Management</h3>
+                    <p>Manage your room with ease</p>
+                </div>
+                <div class="services-box">
+                    <img src="../pic/tenant.png" alt="">
+                    <h3>Tenant Management</h3>
+                    <p>Manage your tenant with ease</p>
+                </div>
+                <div class="services-box">
+                    <img src="../pic/payment.png" alt="">
+                    <h3>Payment Management</h3>
+                    <p>Manage your payment with ease</p>
+                </div>
+            </div>
+        </div>
+        <!-- Services (End) -->
+        <!-- Profile -->
+        <div class="profile animated fadeInUpShort" id="profile">
+            <h2>Profile</h2>
+            <div class="profile-content">
+                <div class="profile-box">
+                    <img src="../pic/bed.png" alt="">
+                    <h3>Room Management</h3>
+                    <p>Manage your room with ease</p>
+                </div>
+                <div class="profile-box">
+                    <img src="../pic/tenant.png" alt="">
+                    <h3>Tenant Management</h3>
+                    <p>Manage your tenant with ease</p>
+                </div>
+                <div class="profile-box">
+                    <img src="../pic/payment.png" alt="">
+                    <h3>Payment Management</h3>
+                    <p>Manage your payment with ease</p>
+                </div>
+            </div>
+        </div>
+        <!-- Profile (End) -->
+    </div>
+    <!-- Container (End) -->
+</main>
+<!-- Animations (Script) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/animations/css3-animate-it.js"></script>
+<script src="../js/demo.js"></script>
 </body>
 <footer>
     <div class="footer">
