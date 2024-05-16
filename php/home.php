@@ -109,18 +109,18 @@
             <h2>Profile</h2>
             <div class="profile-content">
                 <div class="profile-box">
-                    <img src="../pic/bed.png" alt="">
-                    <h3>Room Management</h3>
+                    <img src="../pic/room.png" alt="">
+                    <h3>Room</h3>
                     <p>Manage your room with ease</p>
                 </div>
                 <div class="profile-box">
                     <img src="../pic/tenant.png" alt="">
-                    <h3>Tenant Management</h3>
+                    <h3>Tenant</h3>
                     <p>Manage your tenant with ease</p>
                 </div>
                 <div class="profile-box">
                     <img src="../pic/payment.png" alt="">
-                    <h3>Payment Management</h3>
+                    <h3>Payment</h3>
                     <p>Manage your payment with ease</p>
                 </div>
             </div>
@@ -132,7 +132,7 @@
 <!-- Animations (Script) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/animations/css3-animate-it.js"></script>
-<script src="../js/demo.js"></script>
+<script src="../js/overlay.js"></script>
 </body>
 <footer>
     <div class="footer">
