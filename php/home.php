@@ -10,6 +10,7 @@
 	<link href="images/favicon-96x96.png" rel="icon" type="image/png" sizes="96x96">
 	<link href="images/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
 	<link href="../css/home.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<!-- Smooth Scrolling (Script) -->
 	<script>
 	$(document).ready(function(){
@@ -28,37 +29,11 @@
 	</script>
 
 </head>
-
 <body>
 <main>
-	<!-- Overlay Navigation -->
-	<div class="burger-background nav-overlay"></div>
-	<div class="navbar-header nav-overlay">
-		<div class="toggle-button toogle-background" id="toggle">
-			<span class="bar top"></span>
-			<span class="bar middle"></span>
-			<span class="bar bottom"></span>
-		</div>
-	</div>
-	<!-- PHP-Overlay-Navigation -->
-	<div class="overlay" id="overlay">
-		<ul>
-			<li><a href="#home">Home</a></li>
-			<li><a href="#service">Services</a></li>
-			<li><a href="#profile">Profile</a></li>
-			<li><a href="#">Sign Up</a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">HI</a></li>
-		</ul>
-	</div>
-    <!-- Function Bar -->
-	<div class="function-bar">
-		Dormitory System
-	</div>	
-	<div class="function-bar-arrow">
-		<a href="#top"><img src="../pic/arrow.png" alt=""></a>
-	</div>
-	<!-- Function Bar (End) -->
+    <?php
+    require_once dirname(__FILE__) . "/overlay_nav.php";
+    ?>
     <!-- Container -->
 	<div class="container animatedParent animateOnce clearfix">
 		<!-- PHP-Navigation -->
@@ -77,8 +52,10 @@
         <!-- Home -->
         <div class="home animated fadeInUpShort" id="home">
             <div class="home-content">
-                <h1>Welcome to Dormitory System</h1>
+                <h1>Dormitory System</h1>
                 <p>Manage your dormitory with ease</p>
+                <img src="../pic/cutehome.gif" alt="">
+                <a href="#service">Learn More</a>
             </div>
         </div>
         <!-- Home (End) -->
@@ -104,39 +81,17 @@
             </div>
         </div>
         <!-- Services (End) -->
-        <!-- Profile -->
-        <div class="profile animated fadeInUpShort" id="profile">
-            <h2>Profile</h2>
-            <div class="profile-content">
-                <div class="profile-box">
-                    <img src="../pic/room.png" alt="">
-                    <h3>Room</h3>
-                    <p>Manage your room with ease</p>
-                </div>
-                <div class="profile-box">
-                    <img src="../pic/tenant.png" alt="">
-                    <h3>Tenant</h3>
-                    <p>Manage your tenant with ease</p>
-                </div>
-                <div class="profile-box">
-                    <img src="../pic/payment.png" alt="">
-                    <h3>Payment</h3>
-                    <p>Manage your payment with ease</p>
-                </div>
-            </div>
-        </div>
-        <!-- Profile (End) -->
     </div>
     <!-- Container (End) -->
 </main>
-<!-- Animations (Script) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="js/animations/css3-animate-it.js"></script>
-<script src="../js/overlay.js"></script>
-</body>
 <footer>
     <div class="footer">
         <p class="foot">© 2024 Dormitory System</p>
     </div>
 </footer>
+<!-- Animations (Script) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/animations/css3-animate-it.js"></script>
+<script src="../js/overlay.js"></script>
+</body>
 </html>
