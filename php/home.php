@@ -4,11 +4,6 @@
 	<title>Dormitory System</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="UTF-8">
-	<!-- Favicon -->
-	<link href="images/favicon.ico" rel="icon" type="image/x-icon">
-	<link href="images/favicon-32x32.png" rel="icon" type="image/png" sizes="32x32">
-	<link href="images/favicon-96x96.png" rel="icon" type="image/png" sizes="96x96">
-	<link href="images/favicon-16x16.png" rel="icon" type="image/png" sizes="16x16">
 	<link href="../css/home.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 	<!-- Smooth Scrolling (Script) -->
@@ -40,22 +35,30 @@
 		<!-- Navigation -->
 		<nav class="navigation animated fadeInDownShort clearfix">
 			<ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#service">Services</a></li>
-                <li><a href="#profile">Profile</a></li>
-                <li><a href="#">Sign Up</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">HI</a></li>
+                <li><a href="#home">首頁</a></li>
+                <li class="dropdown">
+                    <a href="#service">服務</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#service1">協助搬遷</a></li>
+                        <li><a href="#service2">配對室友</a></li>
+                        <li><a href="#service3">設備報修</a></li>
+                        <li><a href="#service4">檢舉鄰居</a></li>
+                    </ul>
+                </li>
+                <li><a href="#profile">個人資訊</a></li>
+                <li><a href="#">註冊</a></li>
+                <li><a href="#">登入</a></li>
             </ul>
 		</nav>
 		<!-- Navigation (End) -->
         <!-- Home -->
         <div class="home animated fadeInUpShort" id="home">
             <div class="home-content">
-                <h1>Dormitory System</h1>
-                <p>Manage your dormitory with ease</p>
-                <img src="../pic/cutehome.gif" alt="">
-                <a href="#service">Learn More</a>
+                <div class="title">
+                    <h1>宿舍系統</h1>
+                    <button class="learn-more"><a href="#service">Learn More</a></button>
+                </div>  
+                <img src="../pic/home.gif" alt="">
             </div>
         </div>
         <!-- Home (End) -->
@@ -93,5 +96,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/animations/css3-animate-it.js"></script>
 <script src="../js/overlay.js"></script>
+<script src="../js/home.js"></script>
 </body>
 </html>

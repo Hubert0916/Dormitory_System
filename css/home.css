@@ -2,7 +2,7 @@ body{
     margin: 0;
     padding: 0;
 	height: 100%;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'EB Garamond', serif, sans-serif;
     background-color: #F0EBE3 !important;
 }
 .container{
@@ -26,12 +26,11 @@ footer{
     bottom: 0;
     width: 100%;
 }
-/* ---------------------------------------------------------------------
-	Navigation
------------------------------------------------------------------------- */
+
+/*Navigation*/
 
 .navigation {
-	margin: 115px 1.5% 50px 1.5%;
+	margin: 100px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
 	visibility: hidden;
 	height: 0px;
@@ -55,37 +54,106 @@ footer{
 
 .navigation li {
 	float: left;
-	margin: 0px 30px 0px 0px;
+	margin: 0px 100px 0px 0px;
 }
 
 .navigation a {
-	font-family: 'NeurialGrotesk-Bold';
-	font-weight: normal;
-	font-size: 25px; /*Fallback*/
-	font-size: 2.5rem;
+	font-family: 'EB Garamond', serif, sans-serif;
+	font-weight: 500;
+	font-size: 20px; /*Fallback*/
+	font-size: 2rem;
 	line-height: 1.0;
 	color: #576F72;
 	text-decoration: none;
 }
 
 .navigation a:hover {
-	font-family: 'NeurialGrotesk-Bold';
-	font-weight: normal;
-	font-size: 25px; /*Fallback*/
-	font-size: 2.5rem;
+	font-family: 'EB Garamond', serif, sans-serif;
+	font-weight: 500;
+	font-size: 20px; /*Fallback*/
+	font-size: 2rem;
 	line-height: 1.0;
 	color: rgba(35,35,35,1);
 	text-decoration: none;
 }
 
 .navigation a span {
-	font-family: 'NeurialGrotesk-Bold';
-	font-weight: normal;
-	font-size: 25px; /*Fallback*/
-	font-size: 2.5rem;
+	font-family: 'EB Garamond', serif, sans-serif;
+	font-weight: 500;
+	font-size: 20px; /*Fallback*/
+	font-size: 2rem;
 	line-height: 1.0;
 	color: rgba(35,35,35,1);
 	text-decoration: none;
 	border-bottom: 3px solid rgba(35,35,35,1);
 	padding: 0px 0px 2px 0px;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #F0EBE3;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.dropdown-menu a {
+	color: #ADC2A9;
+	text-decoration: none;
+	display: flex;
+	font-size: 1rem;
+	padding: 10px 20px;
+}
+.dropdown-menu a:hover {
+	font-size: 1rem;
+	color: #99A799;
+}
+.dropdown:hover .dropdown-menu {
+	display: flex;
+}
+
+/* home design */
+.home-content {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	height: 70vh;
+	padding: 10px;
+	color: #576F72;
+	gap: 100px;
+}
+.home-content h1 {
+	font-size: 4.5rem;
+	font-weight: 700;
+	font-family: 'EB Garamond', serif, sans-serif;
+}
+.home-content a{
+	text-decoration: none;
+	color: #F0EBE3;
+}
+.home-content a:hover{
+	color: #576F72;
+}
+.home-content button {
+	font-size: 1.5rem;
+	font-weight: 500;
+	font-family: 'Roboto', sans-serif;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 25px;
+	background-color: #576F72;
+	cursor: pointer;
+}
+.home-content button:hover {
+	background-color: #E4DCCF;
+}
+.title {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	gap: 30px;
 }

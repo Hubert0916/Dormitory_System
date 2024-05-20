@@ -11,12 +11,11 @@
 	<!-- PHP-Overlay-Navigation -->
 	<div class="overlay" id="overlay">
 		<ul>
-			<li><a href="#home">Home</a></li>
-			<li><a href="#service">Services</a></li>
-			<li><a href="#profile">Profile</a></li>
-			<li><a href="#">Sign Up</a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">HI</a></li>
+			<li><a href="#home">首頁</a></li>
+			<li><a href="#service">服務</a></li>
+			<li><a href="#profile">個人資訊</a></li>
+			<li><a href="#">註冊</a></li>
+            <li><a href="#">登入</a></li>
 		</ul>
 	</div>
     <!-- Function Bar -->

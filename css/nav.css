@@ -2,7 +2,7 @@
 	Function Bar
 ------------------------------------------------------------------------ */
 .function-bar {
-	font-family: 'NeurialGrotesk-Medium';
+	font-family: 'EB Garamond', serif, sans-serif;
 	font-weight: normal;
 	font-size: 11px; /*Fallback*/
 	font-size: 1.1rem;
@@ -258,7 +258,7 @@
     position: relative;
     top: 120px;
     left: 0;
-    font-family: 'NeurialGrotesk-Bold';
+    font-family: 'EB Garamond', serif, sans-serif;
     font-size: 6vw;
     text-align: left;
     list-style: none;
@@ -291,7 +291,7 @@
 .overlay-mini {
     display: block;
     position: relative;
-    font-family: 'NeurialGrotesk-Bold';
+    font-family: 'EB Garamond', serif, sans-serif;
     font-size: 2vw;
     text-align: left;
     list-style: none;
