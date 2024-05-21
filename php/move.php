@@ -70,11 +70,11 @@
     <div class="container">
         <div class="box">
             <img src="../pic/vehicle.png" alt="Vehicle">
-            <a href="move_you.php">幫你搬</a>
+            <a href="moveforyou.php">幫你搬</a>
         </div>
         <div class="box">
             <img src="../pic/boxes.png" alt="Boxes">
-            <a href="move_me.php">幫我搬</a>
+            <a href="moveforme.php">幫我搬</a>
         </div>
     </div>
 </body>
