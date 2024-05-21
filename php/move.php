@@ -21,7 +21,8 @@
             max-width: 1000px;
         }
         .box {
-            width: 45%;
+            width: 30%; /* 減小寬度 */
+            height: 60%; /* 增加高度 */
             background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
@@ -29,6 +30,9 @@
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .box:hover {
             transform: translateY(-10px);
@@ -36,10 +40,11 @@
         }
         .box img {
             width: 100%;
-            max-width: 200px; /* 固定图片宽度 */
+            max-width: 200px; /* 固定圖片寬度 */
             height: auto;
             border-radius: 10px;
-            object-fit: cover; /* 确保图片被裁剪以适应容器 */
+            object-fit: cover; /* 確保圖片被裁剪以適應容器 */
+            margin-bottom: 20px;
         }
         .box a {
             display: inline-block;
@@ -55,7 +60,7 @@
         }
         .box a:hover {
             background-color: #343a40;
-            transform: translateY(-2px);
+            transform: translateY(-2px;
         }
     </style>
 </head>
@@ -63,11 +68,11 @@
     <div class="container">
         <div class="box">
             <img src="../pic/vehicle.png" alt="Vehicle">
-            <a href="moveforyou.php">幫你搬</a>
+            <a href="move_you.php">幫你搬</a>
         </div>
         <div class="box">
             <img src="../pic/boxes.png" alt="Boxes">
-            <a href="moveforme.php">幫我搬</a>
+            <a href="move_me.php">幫我搬</a>
         </div>
     </div>
 </body>
