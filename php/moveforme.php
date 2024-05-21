@@ -28,6 +28,24 @@
         .selected {
             background-color: lightblue;
         }
+        .service-options {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .service-option {
+            border: 1px solid blue;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .service-option img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        .service-option.selected {
+            background-color: lightblue;
+        }
     </style>
 </head>
 <body>
@@ -80,8 +98,22 @@
             <button type="button" onclick="nextQuestion(1)">繼續</button>
         </div>
         <div class="question" id="question2">
-            <label for="location">提供的地點：</label>
-            <input type="text" id="location" name="location" required>
+            <label for="services">搬家資訊 (可複選)：</label>
+            <div class="service-options">
+                <div class="service-option" data-service="雜物">
+                    <img src="path/to/misc.png" alt="雜物">
+                    <p>雜物</p>
+                </div>
+                <div class="service-option" data-service="衣服">
+                    <img src="path/to/clothes.png" alt="衣服">
+                    <p>衣服</p>
+                </div>
+                <div class="service-option" data-service="大型物件">
+                    <img src="path/to/furniture.png" alt="大型物件">
+                    <p>大型物件</p>
+                </div>
+            </div>
+            <input type="hidden" id="services" name="services" value="">
             <button type="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
@@ -109,6 +141,21 @@
                     selectedTimes = selectedTimes.filter(time => time !== timeValue);
                 }
                 document.getElementById('time').value = selectedTimes.join(',');
+            });
+        });
+
+        let selectedServices = [];
+
+        document.querySelectorAll('.service-option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                const serviceValue = this.getAttribute('data-service');
+                if (this.classList.contains('selected')) {
+                    selectedServices.push(serviceValue);
+                } else {
+                    selectedServices = selectedServices.filter(service => service !== serviceValue);
+                }
+                document.getElementById('services').value = selectedServices.join(',');
             });
         });
 
