@@ -68,7 +68,7 @@
         </div>
         <div class="box">
             <img src="../pic/boxes.png" alt="Boxes">
-            <a href="move_me.php">幫我搬</a>
+            <a href="move_me.php">幫我搬家</a>
         </div>
     </div>
 </body>
