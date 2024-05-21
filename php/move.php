@@ -22,8 +22,8 @@
             max-width: 1000px;
         }
         .box {
-            width: 30%; /* 減小寬度 */
-            height: 60%; /* 增加高度 */
+            width: 40%; /* 減小寬度 */
+            height: 75%; /* 增加高度 */
             background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
