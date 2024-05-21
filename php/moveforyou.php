@@ -68,7 +68,7 @@
 <body>
     <div class="container">
         <div class="box">
-            <img src="../pic/misc.png" alt="Miscellaneous">
+            <img src="../pic/grocery.png" alt="Miscellaneous">
             <p>雜物</p>
         </div>
         <div class="box">
