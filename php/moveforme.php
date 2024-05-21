@@ -158,7 +158,7 @@
             <label for="services">搬家資訊 (可複選)：</label>
             <div class="service-options">
                 <div class="box service-option" data-service="雜物">
-                    <img src="path/to/misc.png" alt="雜物">
+                    <img src="../pic/grocery.png" alt="雜物">
                     <p>雜物</p>
                 </div>
                 <div class="box service-option" data-service="衣服">
