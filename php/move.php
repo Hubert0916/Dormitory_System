@@ -53,7 +53,7 @@
             <button>帮你搬</button>
         </div>
         <div class="box">
-            <img src="path_to_boxes_photo.jpg" alt="Boxes">
+            <img src="../pic/boxes.png" alt="Boxes">
             <button>幫我搬</button>
         </div>
     </div>
