@@ -9,21 +9,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
     <link href="../css/home.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Smooth Scrolling (Script) -->
 	<script>
-	$(document).ready(function(){
-	  $("a").on('click', function(event) {
-		if (this.hash !== "") {
-		  event.preventDefault();
-		  var hash = this.hash;
-		  $('html, body').animate({
-			scrollTop: $(hash).offset().top
-		  }, 800, function(){
-			window.location.hash = hash;
-		  });
-		}
-	  });
-	});
+        $(document).ready(function(){
+        $("a").on('click', function(event) {
+            if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 800, function(){
+                window.location.hash = hash;
+            });
+            }
+        });
+        });
 	</script>
 
 </head>
@@ -45,7 +46,7 @@
                         <li><a href="move.php">協助搬遷</a></li>
                         <li><a href="#service2">配對室友</a></li>
                         <li><a href="#service3">設備報修</a></li>
-                        <li><a href="report.php">一起來檢舉</a></li>
+                        <li><a href="../php/report.php">檢舉鄰居</a></li>
                         <li><a href="#service5">吧啦吧啦</a></li>
                     </ul>
                 </li>
@@ -96,9 +97,6 @@
         <p class="foot">© 2024 Dormitory System</p>
     </div>
 </footer>
-<!-- Animations (Script) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="js/animations/css3-animate-it.js"></script>
 <script src="../js/home.js"></script>
 </body>
 </html>

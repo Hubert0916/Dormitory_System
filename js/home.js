@@ -12,4 +12,5 @@ document.addEventListener("DOMContentLoaded", function() {
 			dropdownMenu.classList.remove('show');
 		}
 	});
+
 });

@@ -78,7 +78,6 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
           <button type="submit">提交</button>
       </form>
     </div>
-    <script src="../js/overlay.js"></script>
   </body>
 </html>
 

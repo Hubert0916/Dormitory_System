@@ -113,7 +113,7 @@ footer{
 }
 .dropdown:hover .dropdown-menu {
 	display: block;
-	min-width: 20px;
+	min-width: 10px;
 }
 
 /* home design */
