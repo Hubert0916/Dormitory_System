@@ -24,7 +24,7 @@
         }
         .box {
             width: 30%; /* 保持寬度不變 */
-            height: 100%; /* 設置高度為 100% 以使用容器的高度 */
+            height: 80%; /* 設置高度為 100% 以使用容器的高度 */
             background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
