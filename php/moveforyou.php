@@ -78,7 +78,7 @@
         </div>
         <div class="box">
             <img src="../pic/largeitems.png" alt="Large Items">
-            <p>大型</p>
+            <p>大</p>
         </div>
     </div>
 </body>
