@@ -35,10 +35,8 @@
         }
         .box img {
             width: 100%;
-            max-width: 200px; /* Ensures images have the same max width */
             height: auto;
             border-radius: 10px;
-            object-fit: cover; /* Ensures images are cropped to fit if necessary */
         }
         .box a {
             display: inline-block;
