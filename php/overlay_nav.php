@@ -1,4 +1,5 @@
 <link href="../css/nav.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 <!-- Overlay Navigation -->
 <div class="burger-background nav-overlay">
 	<div class="navbar-header nav-overlay">
@@ -27,3 +28,15 @@
 	</div>
 	<!-- Function Bar (End) -->
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/animations/css3-animate-it.js"></script>
+<script>
+    $('#toggle').click(function() {
+        $(this).toggleClass('toggle-active');
+        $('#overlay').toggleClass('nav-active');
+    });
+    $('#overlay a').click(function() {
+        $('#toggle').removeClass('toggle-active');
+        $('#overlay').removeClass('nav-active');
+    });
+</script>  
