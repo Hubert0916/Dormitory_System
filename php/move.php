@@ -7,7 +7,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-color: blue;
             font-family: 'Noto Sans TC', sans-serif;
             display: flex;
             justify-content: center;
