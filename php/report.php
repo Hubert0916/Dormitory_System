@@ -27,11 +27,14 @@
             <form name="form" action="login.php" method="POST">
                 <h2 class=text-center>Report System</h2>
                 <hr><br>
-                <label>Username/Email</label><br>
-                <input type="text" id="user" name="user" required>
+                <label>Dorm</label><br>
+                <input type="text" id="dorm" name="dorm" required>
                 <br><br>
-                <label>Password</label><br>
-                <input type="password" id="pass" name="pass" required>
+                <label>Room Number</label><br>
+                <input type="text" id="room" name="room" required>
+                <br><br>
+                <label>Reason</label><br>
+                <input type="text" id="reason" name="reason" required>
                 <br><br>
                 <?php
                     if(isset($_POST['submit']))
@@ -41,7 +44,7 @@
                     }
                 ?>
                 <br>
-                <input type="submit" id="btn" value="Login" name="submit">
+                <input type="submit" id="btn" value="Submit" name="submit">
             </form>
         </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

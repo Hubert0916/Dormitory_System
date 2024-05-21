@@ -9,7 +9,5 @@
 	{
 		die("Connection failed. $conn->connect_error");
 	}
-	else
-		echo "Hello, " . $username . "!";
 
 ?>
