@@ -59,7 +59,7 @@
     <div class="container">
         <div class="box">
             <img src="../pic/vehicle.png" alt="Vehicle">
-            <button>帮你搬</button>
+            <button>幫你搬</button>
         </div>
         <div class="box">
             <img src="../pic/boxes.png" alt="Boxes">
