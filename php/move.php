@@ -16,7 +16,8 @@
         }
         .container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* 改為 center 以便將方塊向中間靠攏 */
+            gap: 20px; /* 增加間距控制 */
             width: 80%;
             max-width: 1000px;
         }
@@ -33,6 +34,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center; /* 添加這一行以致中圖片 */
         }
         .box:hover {
             transform: translateY(-10px);
@@ -44,7 +46,6 @@
             height: auto;
             border-radius: 10px;
             object-fit: cover; /* 確保圖片被裁剪以適應容器 */
-            margin-bottom: 20px;
         }
         .box a {
             display: inline-block;
@@ -60,7 +61,7 @@
         }
         .box a:hover {
             background-color: #343a40;
-            transform: translateY(-2px;
+            transform: translateY(-2px);
         }
     </style>
 </head>
