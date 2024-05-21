@@ -45,7 +45,7 @@
                         <li><a href="move.php">協助搬遷</a></li>
                         <li><a href="#service2">配對室友</a></li>
                         <li><a href="#service3">設備報修</a></li>
-                        <li><a href="#service4">檢舉鄰居</a></li>
+                        <li><a href="report.php">一起來檢舉</a></li>
                         <li><a href="#service5">吧啦吧啦</a></li>
                     </ul>
                 </li>
