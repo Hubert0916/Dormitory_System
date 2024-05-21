@@ -43,7 +43,7 @@
                 <li class="dropdown">
                     <a href="#service">服務</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#service1">協助搬遷</a></li>
+                        <li><a href="move.php">協助搬遷</a></li>
                         <li><a href="#service2">配對室友</a></li>
                         <li><a href="#service3">設備報修</a></li>
                         <li><a href="#service4">檢舉鄰居</a></li>
@@ -99,7 +99,6 @@
 <!-- Animations (Script) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/animations/css3-animate-it.js"></script>
-<script src="../js/overlay.js"></script>
 <script src="../js/home.js"></script>
 </body>
 </html>

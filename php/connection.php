@@ -1,6 +1,6 @@
 <?php
 	$servername = "104.199.139.129";
-	$username = "rdu";
+	$username = "root";
 	$password = "1234";
 	$db_name = "mysql";
 	$conn = new mysqli($servername, $username, $password, $db_name);
@@ -9,7 +9,5 @@
 	{
 		die("Connection failed. $conn->connect_error");
 	}
-	else
-		echo "Hello, " . $username . "!";
 
 ?>
