@@ -1,5 +1,6 @@
 <?php
-require_once dirname(__FILE__)."connection.php";
+require_once dirname(__FILE__)."/connection.php";
+require_once dirname(__FILE__) . "/overlay_nav.php";
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +56,7 @@ require_once dirname(__FILE__)."connection.php";
                 </li>
             </ul>
         </div>
-
+        <script src="../js/overlay.js"></script>
     </section>
     
 
@@ -101,21 +102,14 @@ body {
 .upper-section img {
     width: 280px; 
     border-radius: 20%;
-    margin-left: 13%;
+    margin-right: 200px;
     height: auto;
-
 }
 
-
-.bar h1 {
-    margin: 5px 0;
-    color: #F0EBE3;
-    font-size:70px;
-    font-family: "cwTeXYen", sans-serif;
-}
 
 .bar h2 {
-    margin: 5px 0;
+    margin-top: -20px;
+    margin-left: 150px;
     color: #F0EBE3;
     font-size:75px;
     font-family: "Nanum Pen Script", cursive;
@@ -125,6 +119,8 @@ body {
     position: relative;
     flex-direction: column;
     align-items: center;
+    margin-left: 20px;
+
 }
 
 .icon ul li {
@@ -133,7 +129,6 @@ body {
     margin: 19px;
     width: 17px;
     height: 17px; 
-    margin-left: 200%;
     border-radius: 50%;
     box-shadow: 0 0 12px 3px hsl(35, 10%, 66%);
 }
@@ -202,3 +197,6 @@ body {
 }
 
 </style>
+
+
+

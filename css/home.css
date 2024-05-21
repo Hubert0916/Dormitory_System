@@ -2,7 +2,7 @@ body{
     margin: 0;
     padding: 0;
 	height: 100%;
-    font-family: 'EB Garamond', serif, sans-serif !important;
+    font-family: "Noto Serif TC", serif;
     background-color: #F0EBE3 !important;
 }
 .container{
@@ -59,7 +59,6 @@ footer{
 }
 
 .navigation a {
-	font-family: 'EB Garamond', serif, sans-serif;
 	font-weight: 500;
 	font-size: 20px; /*Fallback*/
 	font-size: 2rem;
@@ -69,7 +68,6 @@ footer{
 }
 
 .navigation a:hover {
-	font-family: 'EB Garamond', serif, sans-serif;
 	font-weight: 500;
 	font-size: 20px; /*Fallback*/
 	font-size: 2rem;
@@ -79,7 +77,6 @@ footer{
 }
 
 .navigation a span {
-	font-family: 'EB Garamond', serif, sans-serif;
 	font-weight: 500;
 	font-size: 20px; /*Fallback*/
 	font-size: 2rem;
@@ -134,7 +131,6 @@ footer{
 .home-content h1 {
 	font-size: 4.5rem;
 	font-weight: 700;
-	font-family: 'EB Garamond', serif, sans-serif;
 }
 .home-content a{
 	text-decoration: none;
@@ -146,7 +142,6 @@ footer{
 .home-content button {
 	font-size: 1.5rem;
 	font-weight: 500;
-	font-family: 'EB Garamond', serif, sans-serif;
 	padding: 10px 20px;
 	border: none;
 	border-radius: 5px;
