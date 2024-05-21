@@ -1,6 +1,14 @@
-/* ---------------------------------------------------------------------
-	Function Bar
------------------------------------------------------------------------- */
+.nav-all {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 100%;
+    z-index: 1;
+    background-color: #E4DCCF;
+    transition: width .35s;
+}
+/* Function Bar */
 .function-bar {
 	font-family: "Noto Serif TC", serif;
 	font-weight: normal;
@@ -70,8 +78,8 @@
 	
 .burger-background {
     position: fixed;
-    top: 0px;
-    left: 0px;
+    top: 125px;
+    left: 10px;
     height: 35px;
     width: 40px;
     z-index: 3;

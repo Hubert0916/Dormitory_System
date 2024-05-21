@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
     <link href="../css/home.css" rel="stylesheet" type="text/css">
-
     <!-- Smooth Scrolling (Script) -->
 	<script>
 	$(document).ready(function(){
@@ -47,11 +46,12 @@
                         <li><a href="#service2">配對室友</a></li>
                         <li><a href="#service3">設備報修</a></li>
                         <li><a href="#service4">檢舉鄰居</a></li>
+                        <li><a href="#service5">吧啦吧啦</a></li>
                     </ul>
                 </li>
                 <li><a href="#profile">個人資訊</a></li>
-                <li><a href="#">註冊</a></li>
-                <li><a href="#">登入</a></li>
+                <li><a href="#register">註冊</a></li>
+                <li><a href="#login">登入</a></li>
             </ul>
 		</nav>
 		<!-- Navigation (End) -->
