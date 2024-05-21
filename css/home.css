@@ -2,7 +2,7 @@ body{
     margin: 0;
     padding: 0;
 	height: 100%;
-    font-family: 'EB Garamond', serif, sans-serif;
+    font-family: 'EB Garamond', serif, sans-serif !important;
     background-color: #F0EBE3 !important;
 }
 .container{
@@ -32,15 +32,15 @@ footer{
 .navigation {
 	margin: 100px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
-	visibility: hidden;
+	visibility: visible;
 	height: 0px;
- 	position: absolute;
+ 	position: relative;
 }
 
-	@media only screen and (min-width: 1024px) {	
+	@media screen and (max-width: 600px) {	
 
 	.navigation {
-		visibility: visible;
+		visibility: hidden;
 		position: inherit;
 		height: inherit;
 	}	
@@ -54,7 +54,8 @@ footer{
 
 .navigation li {
 	float: left;
-	margin: 0px 100px 0px 0px;
+	margin: 0px 20px 0px 20px;
+	padding: 0px 30px 0px 30px;
 }
 
 .navigation a {
@@ -88,28 +89,34 @@ footer{
 	border-bottom: 3px solid rgba(35,35,35,1);
 	padding: 0px 0px 2px 0px;
 }
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
 .dropdown-menu {
     display: none;
     position: absolute;
     background-color: #F0EBE3;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    border-radius: 10px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	text-align: center;
+	min-width: 10px;
+	border-width: 0px;
 }
-
 .dropdown-menu a {
 	color: #ADC2A9;
 	text-decoration: none;
-	display: flex;
+	display: block;
 	font-size: 1rem;
-	padding: 10px 20px;
+	padding: 10px 0px;
+	white-space: nowrap;
 }
 .dropdown-menu a:hover {
 	font-size: 1rem;
 	color: #99A799;
 }
 .dropdown:hover .dropdown-menu {
-	display: flex;
+	display: block;
+	min-width: 20px;
 }
 
 /* home design */
@@ -139,10 +146,10 @@ footer{
 .home-content button {
 	font-size: 1.5rem;
 	font-weight: 500;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'EB Garamond', serif, sans-serif;
 	padding: 10px 20px;
 	border: none;
-	border-radius: 25px;
+	border-radius: 5px;
 	background-color: #576F72;
 	cursor: pointer;
 }
