@@ -55,7 +55,7 @@
         <div class="home animated fadeInUpShort" id="home">
             <div class="home-content">
                 <div class="title">
-                    <h1>宿舍系統</h1>
+                    <h1>宿 舍 系 統</h1>
                     <button class="learn-more"><a href="#service">Learn More</a></button>
                 </div>  
                 <img src="../pic/home.gif" alt="">
