@@ -10,23 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
     <link href="../css/home.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <!-- Smooth Scrolling (Script) -->
-	<script>
-        $(document).ready(function(){
-        $("a").on('click', function(event) {
-            if (this.hash !== "") {
-            event.preventDefault();
-            var hash = this.hash;
-            $('html, body').animate({
-                scrollTop: $(hash).offset().top
-            }, 800, function(){
-                window.location.hash = hash;
-            });
-            }
-        });
-        });
-	</script>
-
 </head>
 <body>
 <main>
