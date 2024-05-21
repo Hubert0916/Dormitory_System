@@ -59,8 +59,7 @@
             const boxes = document.querySelectorAll('.box');
             boxes.forEach(box => {
                 box.addEventListener('click', function () {
-                    boxes.forEach(b => b.classList.remove('selected'));
-                    box.classList.add('selected'); 
+                    box.classList.toggle('selected');
                 });
             });
         });
@@ -69,7 +68,7 @@
 <body>
     <div class="container">
         <div class="box">
-            <img src="../pic/grocery.png" alt="Miscellaneous">
+            <img src="../pic/misc.png" alt="Miscellaneous">
             <p>雜物</p>
         </div>
         <div class="box">
@@ -78,7 +77,7 @@
         </div>
         <div class="box">
             <img src="../pic/largeitems.png" alt="Large Items">
-            <p>大</p>
+            <p>大型物件</p>
         </div>
     </div>
 </body>
