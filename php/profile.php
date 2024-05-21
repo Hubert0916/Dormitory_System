@@ -13,6 +13,7 @@ require_once dirname(__FILE__)."connection.php";
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+
 </head>
 
 
@@ -55,7 +56,6 @@ require_once dirname(__FILE__)."connection.php";
                 </li>
             </ul>
         </div>
-
     </section>
     
 
