@@ -35,13 +35,17 @@
         }
         .box img {
             width: 100%;
+            max-width: 200px; /* Ensures images have the same max width */
             height: auto;
             border-radius: 10px;
+            object-fit: cover; /* Ensures images are cropped to fit if necessary */
         }
-        .box button {
+        .box a {
+            display: inline-block;
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 16px;
+            text-decoration: none;
             border: none;
             border-radius: 5px;
             background-color: #007bff;
@@ -49,7 +53,7 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
-        .box button:hover {
+        .box a:hover {
             background-color: #0056b3;
             transform: translateY(-2px);
         }
@@ -59,11 +63,11 @@
     <div class="container">
         <div class="box">
             <img src="../pic/vehicle.png" alt="Vehicle">
-            <button>幫你搬</button>
+            <a href="move_you.php">幫你搬</a>
         </div>
         <div class="box">
             <img src="../pic/boxes.png" alt="Boxes">
-            <button>幫我搬</button>
+            <a href="move_me.php">幫我搬</a>
         </div>
     </div>
 </body>
