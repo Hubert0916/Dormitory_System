@@ -20,10 +20,11 @@
             gap: 20px; /* 增加間距控制 */
             width: 80%;
             max-width: 1000px;
+            height: 90%; /* 確保容器有足夠高度 */
         }
         .box {
-            width: 30%; /* 減小寬度 */
-            height: 100%; /* 增加高度 */
+            width: 30%; /* 保持寬度不變 */
+            height: 100%; /* 設置高度為 100% 以使用容器的高度 */
             background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
@@ -69,11 +70,11 @@
     <div class="container">
         <div class="box">
             <img src="../pic/vehicle.png" alt="Vehicle">
-            <a href="moveforyou.php">幫你搬</a>
+            <a href="move_you.php">幫你搬</a>
         </div>
         <div class="box">
             <img src="../pic/boxes.png" alt="Boxes">
-            <a href="moveforme.php">幫我搬</a>
+            <a href="move_me.php">幫我搬</a>
         </div>
     </div>
 </body>
