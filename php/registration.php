@@ -63,10 +63,11 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
             </div>
             <div class="second-column">
               <div class="input-group Intro">
-                  <label for="Intro">短簡介 ...</label>
+                  <label for="Intro">關於你的短簡介 ...</label>
                   <input type="text" id="Intro" name="Intro">
               </div>
               <div class="input-group Photo">
+
                 <label for="Photo">上傳大頭照</label>
                 <br>
                 <input type="file" id="Photo" name="Photo">
@@ -77,6 +78,7 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
           <button type="submit">提交</button>
       </form>
     </div>
+    <script src="../js/overlay.js"></script>
   </body>
 </html>
 
@@ -105,6 +107,7 @@ body
     border: 2px solid #576F72; 
     border-radius: 10px;
     margin:10px;
+    margin-top: -35px;
     background-color: #F0EBE3 !important; 
     flex-direction: row;
     justify-content: center; 
@@ -142,44 +145,46 @@ body
     border: 1px solid #bebbbb73;;
     color: #576F72;
     background-color: #f2f2f2;
-    font-family: "cwTeXYen" ,"Verdana";
 }
 
 .input-group.Name input {
-    margin-left: 80px;
+    margin-left: 70px;
 }
 .input-group.EngName input {
-    margin-left: 42px;
+    margin-left: 32px;
 }
 .input-group.Sex input {
-    margin-left: 80px;
+    margin-left: 70px;
 }
 .input-group.Email input {
-    margin-left: 80px;
+    margin-left: 70px;
 }
 .input-group.Password input {
-    margin-left: 80px;
+    margin-left: 70px;
 }
 .input-group.Department input {
-    margin-left: 80px;
+    margin-left: 70px;
 }
 .input-group.Grade input {
-    margin-left: 80px;
+    margin-left: 70px;
 }
 .input-group.Phone input {
-    margin-left: 80px;
+    margin-left: 70px;
 }
 .input-group.FB input {
-    margin-left: 43px;
+    margin-left: 33px;
 }
 .input-group.IG input {
-    margin-left: 60px;
+    margin-left: 50px;
 }
 .input-group.Intro input {
-    width: 280px; 
-    height: 300px;
+    width: 250px; 
+    height: 310px;
     align-items: center;
-    margin-left: 10px;
+    margin-left: -10px;
+}
+.input-group.Photo {
+    margin-top: 4px;
 }
 .input-group.Photo input {
     background-color: #F0EBE3;
@@ -198,7 +203,7 @@ button {
     align-items: center;
     margin: 0 auto; 
     display: block; 
-    margin-top: -30px;
+    margin-top: -45px;
     margin-bottom: 20px;
 }
 .first-column {
@@ -231,22 +236,20 @@ p a
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if (isset($_FILES["Photo"]) && $_FILES["Photo"]["error"] == UPLOAD_ERR_OK) {
-    if (is_writable("uploads")) {
-    } else {
-        echo "Please make sure the directory is writable.";
-    }
-    $targetDir = "uploads/";
+
+    $targetDir = "upload/";
     $targetFile = $targetDir . basename($_FILES["Photo"]["name"]);
 
 
     if (move_uploaded_file($_FILES["Photo"]["tmp_name"], $targetFile)) {
 
         $photoData = file_get_contents($targetFile);
-
-    } else {
+    } 
+    else {
         echo "Error moving file: " . $_FILES["Photo"]["error"];
     }
-} else {
+} 
+else {
     echo "Please upload your photo。";
 }
 
@@ -261,20 +264,10 @@ $IG = htmlspecialchars($_POST["IG"]);
 $Intro = htmlspecialchars($_POST["Intro"]);
 $Password = htmlspecialchars($_POST["Password"]);
 
-
-$query = "INSERT INTO Profile (Photo, Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-if($conn->connect_error)
-{
-    die("Connection failed. $conn->connect_error");
-    echo "no";
-}
-echo "yes";
-insertData($Name, $Sex, $Department, $Grade, $Phone, $Email, $FB, $IG, $Intro, $Password, $photoData, $conn);
-
 function insertData($Name, $Sex, $Department, $Grade, $Phone, $Email, $FB, $IG, $Intro, $Password, $photoData, $conn) {
 
-    $Email_sql = "SELECT * FROM Profile WHERE Email = '$Email'";
-    $Name_sql = "SELECT * FROM Profile WHERE Name = '$Name'";
+    $Email_sql = "SELECT * FROM Dorm.Profile WHERE Email = '$Email'";
+    $Name_sql = "SELECT * FROM Dorm.Profile WHERE Name = '$Name'";
 
     $Email_result = mysqli_query($conn, $Email_sql);
     $Name_result = mysqli_query($conn, $Name_sql);
@@ -286,20 +279,24 @@ function insertData($Name, $Sex, $Department, $Grade, $Phone, $Email, $FB, $IG, 
         header("Location: registration.php?Name_repeat=true");
     }
     else if(mysqli_num_rows($Email_result) === 0 && mysqli_num_rows($Name_result) === 0) {
-        $sql = "INSERT INTO Profile(Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password, Photo )
+
+        $sql = "INSERT INTO Dorm.Profile(Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password, Photo )
         VALUES ('$Name', '$Sex', '$Department', '$Grade', '$Phone', '$Email', '$FB', '$IG', '$Intro', '$Password', '$photoData')";
+
     }
     if (mysqli_query($conn, $sql)) {
+
+        echo "New record created successfully";
         header("Location: login.php?registration_success=true");
         exit;
       } 
     else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
-    }
-    echo "hihi";
+}
+insertData($Name, $Sex, $Department, $Grade, $Phone, $Email, $FB, $IG, $Intro, $Password, $photoData, $conn);
 
-  }
+}
 
 $conn->close();
 ?>
