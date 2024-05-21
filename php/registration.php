@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__FILE__)."/connection.php";
-hihi
+
 ?>
 
 <!DOCTYPE html>
