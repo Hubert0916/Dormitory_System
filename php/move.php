@@ -5,13 +5,14 @@
     <title>Move Page</title>
     <style>
         body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            font-family: 'Noto Sans TC', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #e9ecef;
-            font-family: Arial, sans-serif;
         }
         .container {
             display: flex;
@@ -35,8 +36,10 @@
         }
         .box img {
             width: 100%;
+            max-width: 200px; /* 固定图片宽度 */
             height: auto;
             border-radius: 10px;
+            object-fit: cover; /* 确保图片被裁剪以适应容器 */
         }
         .box a {
             display: inline-block;
