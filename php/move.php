@@ -10,7 +10,8 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #e9ecef;
+            font-family: Arial, sans-serif;
         }
         .container {
             display: flex;
@@ -20,11 +21,17 @@
         }
         .box {
             width: 45%;
-            background-color: #fff;
-            border: 2px solid #ccc;
+            background-color: #ffffff;
+            border: 2px solid #dee2e6;
             border-radius: 10px;
             padding: 20px;
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
         .box img {
             width: 100%;
@@ -40,9 +47,11 @@
             background-color: #007bff;
             color: white;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
         }
         .box button:hover {
             background-color: #0056b3;
+            transform: translateY(-2px);
         }
     </style>
 </head>
