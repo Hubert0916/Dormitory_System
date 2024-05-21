@@ -59,8 +59,7 @@
             const boxes = document.querySelectorAll('.box');
             boxes.forEach(box => {
                 box.addEventListener('click', function () {
-                    boxes.forEach(b => b.classList.remove('selected'));
-                    box.classList.add('selected'); 
+                    box.classList.toggle('selected');
                 });
             });
         });
@@ -78,7 +77,7 @@
         </div>
         <div class="box">
             <img src="../pic/largeitems.png" alt="Large Items">
-            <p>大</p>
+            <p>大型物件</p>
         </div>
     </div>
 </body>
