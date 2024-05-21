@@ -7,7 +7,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: blue;
+            background-color: #f8f9fa;
             font-family: 'Noto Sans TC', sans-serif;
             display: flex;
             justify-content: center;
@@ -47,15 +47,14 @@
             padding: 10px 20px;
             font-size: 16px;
             text-decoration: none;
-            border: none;
             border-radius: 5px;
-            background-color: #007bff;
+            background-color: #495057;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
         .box a:hover {
-            background-color: #0056b3;
+            background-color: #343a40;
             transform: translateY(-2px);
         }
     </style>
@@ -68,7 +67,7 @@
         </div>
         <div class="box">
             <img src="../pic/boxes.png" alt="Boxes">
-            <a href="move_me.php">幫我搬家</a>
+            <a href="move_me.php">幫我搬</a>
         </div>
     </div>
 </body>
