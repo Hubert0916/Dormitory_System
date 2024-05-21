@@ -23,7 +23,7 @@
         }
         .box {
             width: 30%; /* 減小寬度 */
-            height: 80%; /* 增加高度 */
+            height: 100%; /* 增加高度 */
             background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
