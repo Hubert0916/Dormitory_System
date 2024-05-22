@@ -89,6 +89,7 @@ body {
 
 .upper-section {
     padding: 40px;
+    height: 330px;
     background-color: #576F72;
     display: flex;
     justify-content: center; 
@@ -100,9 +101,9 @@ body {
 }
 
 .upper-section img {
-    width: 280px; 
+    width: 300px; 
     border-radius: 20%;
-    margin-right: 200px;
+    margin-right: 40px;
     height: auto;
 }
 
@@ -119,18 +120,15 @@ body {
     position: relative;
     flex-direction: column;
     align-items: center;
-    margin-left: 20px;
-
+    margin-right: 200px;
 }
 
 .icon ul li {
-    position: relative;
     list-style: none;
     margin: 19px;
     width: 17px;
     height: 17px; 
     border-radius: 50%;
-    box-shadow: 0 0 12px 3px hsl(35, 10%, 66%);
 }
 
 .icon ul li a {
@@ -154,7 +152,8 @@ body {
     left: 5px; 
 }
 .left-side .box1{
-    margin-left: 13%;
+    padding: 20px;
+    margin-left: 25%;
     justify-content: center; 
     align-items: center;
 }
@@ -169,7 +168,7 @@ body {
     margin: 15px; 
     color: #576F72;
     font-size:30px;
-    font-family: "cwTeXYen", sans-serif;
+    font-family: "Noto Serif TC", serif;
 }
 
 .right-side .box2 {
@@ -178,6 +177,7 @@ body {
     margin: 20px; 
     border-radius: 20%; 
     box-shadow:0 0 12px 5px hsl(35, 10%, 66%);
+    font-family: "Noto Serif TC", serif;
 
 }
 
@@ -193,7 +193,7 @@ body {
     margin-top: 10px;
     color: #576F72;
     font-size:25px;
-    font-family: "cwTeXYen", sans-serif;
+    font-family: "Noto Serif TC", serif;
 }
 
 </style>
