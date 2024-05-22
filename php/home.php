@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
     <link href="../css/home.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../js/home.js"></script>
 </head>
 <body>
 <main>
@@ -26,7 +27,7 @@
                 <li class="dropdown">
                     <a href="#service">服務</a>
                     <ul class="dropdown-menu">
-                        <li><a href="move.php">協助搬遷</a></li>
+                        <li><a href="../php/move.php" onclick="console.log('協助搬遷 clicked')">協助搬遷</a></li>
                         <li><a href="#service2">配對室友</a></li>
                         <li><a href="#service3">設備報修</a></li>
                         <li><a href="../php/report.php">檢舉鄰居</a></li>
@@ -80,6 +81,5 @@
         <p class="foot">© 2024 Dormitory System</p>
     </div>
 </footer>
-<script src="../js/home.js"></script>
 </body>
 </html>
