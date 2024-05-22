@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	const dropdownMenu = document.querySelector('.dropdown-menu');
 
 	dropdown.addEventListener('click', function(event) {
-		event.preventDefault();
 		dropdownMenu.classList.toggle('show');
 	});
 
