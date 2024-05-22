@@ -22,7 +22,7 @@
         <div class="box">
             <h1>登入</h1>
             <br>
-            <form action="model/login_check.php" method="get">
+            <form action="model/login_check.php" method="post">
                 <div class="write">
                     <div class="id">學號 :<input type="text" id="id" name="id" ></div>
                     <div class="Password">密碼 :<input type="password" id="Password" name="Password" ></div>
@@ -30,8 +30,9 @@
                 <br>
                 <button name="submit" type="submit">提交</button>
                 <br>
+                <p><a href="changepwd.php">修改密碼</a></p>
             </form>
-            </div>
+        </div>
     </body>
     <script src="../js/overlay.js"></script>
 </html>
@@ -56,7 +57,7 @@ body
 
 h1
 {
-    font-size: 50px;
+    font-size: 40px;
     text-align: center;
     color: #576F72;
     margin-top: -15px;
@@ -92,8 +93,8 @@ h1
 }
 button
 {
-    font-size: 20px;
-    padding: 9px 22px;
+    font-size: 19px;
+    padding: 7px 16px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -110,16 +111,28 @@ p
 {
     font-size: 15px; 
     text-align: center;
+    margin-top: 30px;
+
 }
 p a
 {
     color: #576F72;
+
 }
 
 </style>
 <script>
    
    window.onload = function() {
+        if ('<?= $_POST['changepwd_success'] ?>' === 'true') {
+            Swal.fire({
+                icon : 'success',
+                title: 'Already Change Password',
+                text : 'Log in now !!',
+                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
+                   
+            });
+        }
         if ('<?= $_POST['registration_success'] ?>' === 'true') {
             Swal.fire({
                 icon : 'success',

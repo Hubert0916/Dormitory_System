@@ -9,18 +9,21 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>profile</title>
-    <link rel="stylesheet" href="profile.css">
-    <link href="https://fonts.googleapis.com/earlyaccess/cwtexyen.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">   
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
 </head>
 
 
 <body> 
     <section class="upper-section">
         <div class="bar">
-            <h2>Hi ~ I am <?php echo $row['EngName']; ?></h2>
+            <h2>Hi ! I am <?php echo $row['EngName']; ?></h2>
 
         </div>
         <img src="profile_images/<?php echo $row['Photo']; ?>" alt="User Photo">
@@ -65,14 +68,14 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
             <div class="box1">
                 <h2><span class="english">Name : </span><span class="chinese"> <?php echo $row['Name']; ?></span></h2>
                 <h2><span class="english">Sex : </span><span class="chinese"> <?php echo $row['Sex']; ?></span></h2>
-                <h2><span class="english">Department : </span><span class="chinese"> <?php echo $row['Department']; ?></span></h2>
+                <h2><span class="english">Depart. : </span><span class="chinese"> <?php echo $row['Department']; ?></span></h2>
                 <h2><span class="english">Grade : </span><span class="chinese"> <?php echo $selectedUserData['grade']; ?></span></h2>
             </div>
         </div>
         <div class="right-side">
             <div class="box2">
                 <h2>About me ...</h2>
-                <h1> <?php echo $selectedUserData['intro']; ?></h1>
+                <?php echo $selectedUserData['intro']; ?>
             </div>
         </div>
     </section>
@@ -85,6 +88,8 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
 body {
     margin: 0;
     background-color: #F0EBE3 !important;
+    font-family: "Noto Serif TC", serif;
+
 }
 
 .upper-section {
@@ -112,8 +117,7 @@ body {
     margin-top: -20px;
     margin-left: 150px;
     color: #F0EBE3;
-    font-size:75px;
-    font-family: "Nanum Pen Script", cursive;
+    font-size:56px;
 }
 
 .icon ul {
@@ -150,6 +154,8 @@ body {
     justify-content: center; 
     align-items: center;
     left: 5px; 
+    font-size:30px;
+
 }
 .left-side .box1{
     padding: 20px;
@@ -158,42 +164,27 @@ body {
     align-items: center;
 }
 
-.left-side h2 .english{
+.left-side h2 {
     color: #576F72;
-    font-size:50px;
-    font-family: "Nanum Pen Script", cursive;
-}
+    margin-bottom: 20PX;
 
-.left-side h2 .chinese{
-    margin: 15px; 
-    color: #576F72;
-    font-size:30px;
-    font-family: "Noto Serif TC", serif;
 }
 
 .right-side .box2 {
-    border: 2.5px solid #576F72; 
     padding: 30px; 
     margin: 20px; 
-    border-radius: 20%; 
-    box-shadow:0 0 12px 5px hsl(35, 10%, 66%);
-    font-family: "Noto Serif TC", serif;
 
 }
 
 .right-side .box2 h2 {
     margin-left: 20px;     
     color: #576F72;
-    font-size:50px;
-    font-family: "Nanum Pen Script", cursive;
 }
 
 .right-side .box2 h1 {
     margin-left: 20px; 
     margin-top: 10px;
     color: #576F72;
-    font-size:25px;
-    font-family: "Noto Serif TC", serif;
 }
 
 </style>
