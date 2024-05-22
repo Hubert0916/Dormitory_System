@@ -5,6 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>問答表單</title>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            font-family: 'Noto Sans TC', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 80%;
+            max-width: 1000px;
+            height: 80%;
+        }
+        .box {
+            width: 30%;
+            height: 80%;
+            background-color: #ffffff;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .box img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .box.selected {
+            border-color: #007bff;
+        }
+        .box p {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
         .question {
             display: none;
         }
@@ -27,6 +80,28 @@
         }
         .selected {
             background-color: lightblue;
+        }
+        .service-options, .budget-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            background-color: #495057;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .button:hover {
+            background-color: #343a40;
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -77,22 +152,49 @@
                 </tr>
             </table>
             <input type="hidden" id="time" name="time" value="">
-            <button type="button" onclick="nextQuestion(1)">繼續</button>
+            <button type="button" class="button" onclick="nextQuestion(1)">繼續</button>
         </div>
         <div class="question" id="question2">
-            <label for="location">提供的地點：</label>
-            <input type="text" id="location" name="location" required>
-            <button type="button" onclick="nextQuestion(2)">下一題</button>
+            <label for="services">搬家資訊 (可複選)：</label>
+            <div class="service-options">
+                <div class="box service-option" data-service="雜物">
+                    <img src="../pic/grocery.png" alt="雜物">
+                    <p>雜物</p>
+                </div>
+                <div class="box service-option" data-service="衣服">
+                    <img src="../pic/clothes.png" alt="衣服">
+                    <p>衣服</p>
+                </div>
+                <div class="box service-option" data-service="大型物件">
+                    <img src="../pic/furniture.png" alt="大型物件">
+                    <p>大型物件</p>
+                </div>
+            </div>
+            <input type="hidden" id="services" name="services" value="">
+            <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
-            <label for="transport">交通工具：</label>
-            <input type="text" id="transport" name="transport" required>
-            <button type="button" onclick="nextQuestion(3)">下一題</button>
-        </div>
-        <div class="question" id="question4">
-            <label for="salary">薪水：</label>
-            <input type="text" id="salary" name="salary" required>
-            <button type="submit">提交</button>
+            <label for="budget">預算：</label>
+            <div class="budget-options">
+                <div class="box budget-option" data-budget="1-200">
+                    <img src="../pic/money1.png" alt="$1-200">
+                    <p>$1~200</p>
+                </div>
+                <div class="box budget-option" data-budget="200-500">
+                    <img src="../pic/money2.png" alt="$200-500">
+                    <p>$200~500</p>
+                </div>
+                <div class="box budget-option" data-budget="500-1000">
+                    <img src="../pic/money3.png"  alt="$500-1000">
+                    <p>$500~1000</p>
+                </div>
+                <div class="box budget-option" data-budget="1000-up">
+                    <img src="../pic/money4.png" alt="$1000-up">
+                    <p>$1000↑</p>
+                </div>
+            </div>
+            <input type="hidden" id="budget" name="budget" value="">
+            <button type="submit" class="button">開始尋找</button>
         </div>
     </form>
 
@@ -109,6 +211,32 @@
                     selectedTimes = selectedTimes.filter(time => time !== timeValue);
                 }
                 document.getElementById('time').value = selectedTimes.join(',');
+            });
+        });
+
+        let selectedServices = [];
+
+        document.querySelectorAll('.service-option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                const serviceValue = this.getAttribute('data-service');
+                if (this.classList.contains('selected')) {
+                    selectedServices.push(serviceValue);
+                } else {
+                    selectedServices = selectedServices.filter(service => service !== serviceValue);
+                }
+                document.getElementById('services').value = selectedServices.join(',');
+            });
+        });
+
+        let selectedBudget = '';
+
+        document.querySelectorAll('.budget-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.budget-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedBudget = this.getAttribute('data-budget');
+                document.getElementById('budget').value = selectedBudget;
             });
         });
 
