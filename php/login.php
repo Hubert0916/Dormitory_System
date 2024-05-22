@@ -24,12 +24,8 @@
             <br>
             <form action="model/login_check.php" method="get">
                 <div class="write">
-                <div class="id">學號 :<input type="text" id="id" name="id" ></div>
-                    </div>
-                    <div>
-                        <label for="Password">密碼 : </label>
-                        <input type="password" id="Password" name="Password" required>
-                    </div>
+                    <div class="id">學號 :<input type="text" id="id" name="id" ></div>
+                    <div class="Password">密碼 :<input type="password" id="Password" name="Password" ></div>
                 </div>
                 <br>
                 <button name="submit" type="submit">提交</button>
@@ -63,6 +59,7 @@ h1
     font-size: 50px;
     text-align: center;
     color: #576F72;
+    margin-top: -15px;
 }
 
 .box 
@@ -89,6 +86,10 @@ h1
     color: #576F72;
 }
 
+.Name {
+    margin-top: 10px;
+
+}
 button
 {
     font-size: 20px;
@@ -101,6 +102,7 @@ button
     background-color: #576f72d8;
     color: #F0EBE3;
     font-family: "Noto Serif TC", serif;
+    margin-bottom: -30px;
 
 }
 
