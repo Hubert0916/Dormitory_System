@@ -23,14 +23,14 @@
 
             <input type="text" id="room" name="room" required>
             <label for="room">
-                <span class="label-text">room</span>
+                <span class="label-text">Room</span>
                 <span class="nav-dot"></span>
                 <div class="submit-button-trigger">Submit</div>
             </label>
 
             <input type="text" id="reason" name="reason" required>
             <label for="reason">
-                <span class="label-text">reason</span>
+                <span class="label-text">Reason</span>
                 <span class="nav-dot"></span>
                 <div class="submit-button-trigger">Submit</div>
             </label>
