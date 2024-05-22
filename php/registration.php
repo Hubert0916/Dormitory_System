@@ -31,26 +31,25 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
                 <div class="Phone">電話 :<input type="text" id="Phone" name='Phone' ></div>
                 <div class="FB">臉書連結 :<input type="text" id="FB" name="FB"></div>
                 <div class="IG">IG連結 :<input type="text" id="IG" name="IG"></div>
+
+
+            </div>
+
+            <div class="second-column">
                 <div class="Password">密碼 :<input type="password" id="Password" name="Password" ></div>
                 <div class="Password1">確認密碼 :<input type="password" id="Password1" name="Password1" ></div>
-
-
-            </div>
-            <div class="second-column">
-                <div class="Intro">關於你的短簡介 ...<input type="text" id="Intro" name="Intro"></div>
-                <br>
-                <div class="Photo">
-                    <label for="Photo">上傳大頭照</label>
-                    <br>
-                    <input type="file" id="Photo" name="Photo">
-                    <span id="fileName"></span>
+                <div class="Photo">上傳大頭照 :<input type="file" id="Photo" name="Photo">
+                <span id="fileName"></span>
                 </div>
+                <div class="Intro">關於你的短簡介 :<br><textarea input id="Intro" name="Intro" ></textarea>
+                </div>                
             </div>
-          </div>
-          <button type="submit">提交</button>
+        </div>
+        <button type="submit">提交</button>
       </form>
     </div>
   </body>
+  <script src="../js/overlay.js"></script>
 </html>
 
 
@@ -198,7 +197,7 @@ body
 
 .box 
 {
-    padding: 1%;
+    padding: 2.5%;
     border: 2px solid #576F72; 
     border-radius: 10px;
     margin:10px;
@@ -211,9 +210,9 @@ body
 
 .box h1
 {
-    font-size: 70px;
+    font-size: 50px;
     text-align: center;
-    margin-top:0px;
+    margin-top:15px;
     margin-bottom: 30px;
     color:#3d4f51;
 }
@@ -229,11 +228,9 @@ body
     justify-content: space-between;
 }
 
-
 .write input {
     font-size: 15px; 
-    margin-top: 3%;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     width: 150px;
     height: 25px;
     border-radius: 5px;
@@ -258,6 +255,9 @@ body
 .Password input {
     margin-left: 70px;
 }
+.Password1 input {
+    margin-left: 32px;
+}
 .Department input {
     margin-left: 70px;
 }
@@ -273,24 +273,36 @@ body
 .IG input {
     margin-left: 47px;
 }
-.Intro input {
-    width: 270px; 
-    height: 310px;
-    align-items: center;
-    margin-left: -10px;
-}
+
 .ID input {
     margin-left: 70px;
 }
-.Photo {
-    margin-top: 4px;
-}
+
 .Photo input {
+    margin-left: 13px;
     background-color: #F0EBE3;
 }
-.Password1 input {
-    margin-left: 33px;
+
+.Intro{
+    margin-left: -119px;
 }
+textarea {
+    padding: 10px;
+    resize: none;
+    overflow-y: auto; 
+    width: 265px; 
+    height: 270px;
+    align-items: center;
+    border: #F0EBE3;
+    font-size: 15px; 
+    border-radius: 5px;
+    border: 1px solid #bebbbb73;;
+    color: #576F72;
+    background-color: #f2f2f2;
+    margin-left: 117px;
+    margin-top: 26px;
+}
+
 
 button {
     font-size: 24px;
@@ -322,7 +334,8 @@ button {
     flex: 1;
     display: flex;
     flex-direction: column;
-    margin-left: -10px;
+    margin-left: 50px;
+    margin-right: 10px;
 }
 
 p {
