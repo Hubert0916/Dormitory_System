@@ -27,16 +27,16 @@
                 <li class="dropdown">
                     <a href="#service">服務</a>
                     <ul class="dropdown-menu">
-                        <li><a href="../php/move.php" onclick="console.log('協助搬遷 clicked')">協助搬遷</a></li>
+                        <li><a href="../php/move.php">協助搬遷</a></li>
                         <li><a href="#service2">配對室友</a></li>
                         <li><a href="#service3">設備報修</a></li>
                         <li><a href="../php/report.php">檢舉鄰居</a></li>
                         <li><a href="#service5">吧啦吧啦</a></li>
                     </ul>
                 </li>
-                <li><a href="#profile">個人資訊</a></li>
-                <li><a href="#register">註冊</a></li>
-                <li><a href="#login">登入</a></li>
+                <li><a href="../php/profile.php">個人資訊</a></li>
+                <li><a href="../php/registration.php">註冊</a></li>
+                <li><a href="../php/login.php">登入</a></li>
             </ul>
 		</nav>
 		<!-- Navigation (End) -->
