@@ -19,7 +19,7 @@
 			<ul>
 				<li><a href="../php/home.php">首頁</a></li>
 				<li><a href="#service">服務</a></li>
-				<li><a href="#profile">個人資訊</a></li>
+				<li><a href="../php/profile.php">個人資訊</a></li>
 				<li><a href="../php/registratio.php">註冊</a></li>
 				<li><a href="../php/login.php">登入</a></li>
 			</ul>
