@@ -24,9 +24,7 @@
             <br>
             <form action="model/login_check.php" method="get">
                 <div class="write">
-                    <div class="input-group Name">
-                        <label for="Name">姓名 :</label>
-                        <input type="text" id="Name" name="Name" required>
+                <div class="id">學號 :<input type="text" id="id" name="id" ></div>
                     </div>
                     <div>
                         <label for="Password">密碼 : </label>
@@ -120,7 +118,7 @@ p a
 <script>
    
    window.onload = function() {
-        if ('<?= $_GET['registration_success'] ?>' === 'true') {
+        if ('<?= $_POST['registration_success'] ?>' === 'true') {
             Swal.fire({
                 icon : 'success',
                 title: 'Already Registration ',
@@ -129,7 +127,7 @@ p a
                    
             });
         }
-        if ('<?= $_GET['wrong_login'] ?>' === 'true') {
+        if ('<?= $_POST['wrong_login'] ?>' === 'true') {
             Swal.fire({
                 icon : 'error',
                 title: 'wrong username or password',
