@@ -37,14 +37,14 @@ footer{
  	position: relative;
 }
 
-	@media screen and (max-width: 600px) {	
+	@media screen and (max-width: 800px) {	
 
 	.navigation {
 		visibility: hidden;
 		position: inherit;
 		height: inherit;
 	}	
-	} /* Media Query Ende */
+	} 
 
 .navigation ul {
 	margin: 0px 0px 0px 0px;
@@ -94,10 +94,9 @@ footer{
     display: none;
     position: absolute;
     background-color: #F0EBE3;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	text-align: center;
-	min-width: 10px;
-	border-width: 0px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
 }
 .dropdown-menu a {
 	color: #ADC2A9;
@@ -113,7 +112,6 @@ footer{
 }
 .dropdown:hover .dropdown-menu {
 	display: block;
-	min-width: 10px;
 }
 
 /* home design */

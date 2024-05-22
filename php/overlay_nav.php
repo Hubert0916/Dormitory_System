@@ -17,11 +17,11 @@
 		<!-- PHP-Overlay-Navigation -->
 		<div class="overlay" id="overlay">
 			<ul>
-				<li><a href="#home">首頁</a></li>
+				<li><a href="../php/home.php">首頁</a></li>
 				<li><a href="#service">服務</a></li>
 				<li><a href="#profile">個人資訊</a></li>
-				<li><a href="#register">註冊</a></li>
-				<li><a href="#login">登入</a></li>
+				<li><a href="../php/registratio.php">註冊</a></li>
+				<li><a href="../php/login.php">登入</a></li>
 			</ul>
 		</div>
 		<!-- Function Bar -->
