@@ -81,7 +81,7 @@
         .selected {
             background-color: lightblue;
         }
-        .service-options {
+        .service-options, .budget-options {
             display: flex;
             justify-content: center;
             gap: 20px;
@@ -162,11 +162,11 @@
                     <p>雜物</p>
                 </div>
                 <div class="box service-option" data-service="衣服">
-                    <img src="path/to/clothes.png" alt="衣服">
+                    <img src="../pic/clothes.png" alt="衣服">
                     <p>衣服</p>
                 </div>
                 <div class="box service-option" data-service="大型物件">
-                    <img src="path/to/furniture.png" alt="大型物件">
+                    <img src="../pic/furniture.png" alt="大型物件">
                     <p>大型物件</p>
                 </div>
             </div>
@@ -174,14 +174,27 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
-            <label for="transport">交通工具：</label>
-            <input type="text" id="transport" name="transport" required>
-            <button type="button" class="button" onclick="nextQuestion(3)">下一題</button>
-        </div>
-        <div class="question" id="question4">
-            <label for="salary">薪水：</label>
-            <input type="text" id="salary" name="salary" required>
-            <button type="submit" class="button">提交</button>
+            <label for="budget">預算：</label>
+            <div class="budget-options">
+                <div class="box budget-option" data-budget="1-200">
+                    <img src="../pic/money1.png" alt="$1-200">
+                    <p>$1~200</p>
+                </div>
+                <div class="box budget-option" data-budget="200-500">
+                    <img src="../pic/money2.png" alt="$200-500">
+                    <p>$200~500</p>
+                </div>
+                <div class="box budget-option" data-budget="500-1000">
+                    <img src="../pic/money3.png"  alt="$500-1000">
+                    <p>$500~1000</p>
+                </div>
+                <div class="box budget-option" data-budget="1000-up">
+                    <img src="../pic/money4.png" alt="$1000-up">
+                    <p>$1000↑</p>
+                </div>
+            </div>
+            <input type="hidden" id="budget" name="budget" value="">
+            <button type="submit" class="button">開始尋找</button>
         </div>
     </form>
 
@@ -213,6 +226,17 @@
                     selectedServices = selectedServices.filter(service => service !== serviceValue);
                 }
                 document.getElementById('services').value = selectedServices.join(',');
+            });
+        });
+
+        let selectedBudget = '';
+
+        document.querySelectorAll('.budget-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.budget-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedBudget = this.getAttribute('data-budget');
+                document.getElementById('budget').value = selectedBudget;
             });
         });
 
