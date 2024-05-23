@@ -108,7 +108,7 @@ footer{
 }
 .dropdown-menu a:hover {
 	font-size: 1rem;
-	color: #99A799;
+	color: #576F72;
 }
 .dropdown:hover .dropdown-menu {
 	display: block;
@@ -138,17 +138,42 @@ footer{
 .home-content a:hover{
 	color: #576F72;
 }
-.home-content button {
-	font-size: 1.5rem;
-	font-weight: 500;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 5px;
-	background-color: #576F72;
-	cursor: pointer;
+.home-content a.learn-more {
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    color: #99A799;
+    border: none;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(90deg, #99A799, #576F72);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: background-size 0.5s, -webkit-text-fill-color 0.5s;
+    -webkit-text-fill-color: #99A799;
 }
-.home-content button:hover {
-	background-color: #E4DCCF;
+
+.home-content a.learn-more:hover {
+    background-size: 200% 200%;
+    background-position: 100% 0;
+    -webkit-text-fill-color: #F0EBE3;
+}
+/*停留時逐漸產生learn-line*/
+.home-content a.learn-more::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 100%;
+	background: linear-gradient(90deg, #99A799, #576F72);
+	transition: width 0.5s;
+	z-index: -1;
+}
+.home-content a.learn-more:hover::before {
+	width: 100%;
 }
 .title {
 	display: flex;

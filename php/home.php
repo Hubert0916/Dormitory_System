@@ -44,35 +44,83 @@
         <div class="home animated fadeInUpShort" id="home">
             <div class="home-content">
                 <div class="title">
-                    <h1>宿 舍 系 統</h1>
-                    <button class="learn-more"><a href="#service">Learn More</a></button>
+                    <div class="content-name">
+                        <h1>宿 舍 系 統</h1>
+                    </div>
+                    <div class="learn">
+                        <a href="#service" class="learn-more">Learn More</a>
+                        <line class="learn-line"></line>
+                    </div>
                 </div>  
                 <img src="../pic/greenhome.gif" alt="">
             </div>
         </div>
         <!-- Home (End) -->
-        <!-- Services -->
-        <div class="services animated fadeInUpShort" id="service">
-            <h2>Services</h2>
-            <div class="services-content">
-                <div class="services-box">
-                    <img src="../pic/bed.png" alt="">
-                    <h3>Room Management</h3>
-                    <p>Manage your room with ease</p>
+        <!-- 介紹 Services 有哪些，跟一些服務的詳細資訊-->
+        <div class="service animated fadeInUpShort" id="service">
+            <div class="service-content">
+                <div class="service-title">
+                    <h1>服務</h1>
                 </div>
-                <div class="services-box">
-                    <img src="../pic/tenant.png" alt="">
-                    <h3>Tenant Management</h3>
-                    <p>Manage your tenant with ease</p>
-                </div>
-                <div class="services-box">
-                    <img src="../pic/payment.png" alt="">
-                    <h3>Payment Management</h3>
-                    <p>Manage your payment with ease</p>
+                <div class="service-box">
+                    <div class="service-box-content">
+                        <div class="service-box-title">
+                            <h2>協助搬遷</h2>
+                        </div>
+                        <div class="service-box-text">
+                            <p>我們提供搬遷服務，讓您可以輕鬆搬遷到新的宿舍。</p>
+                        </div>
+                        <div class="service-box-link">
+                            <a href="../php/move.php">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="service-box-content">
+                        <div class="service-box-title">
+                            <h2>配對室友</h2>
+                        </div>
+                        <div class="service-box-text">
+                            <p>我們提供室友配對服務，讓您可以找到適合的室友。</p>
+                        </div>
+                        <div class="service-box-link">
+                            <a href="#service2">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="service-box-content">
+                        <div class="service-box-title">
+                            <h2>設備報修</h2>
+                        </div>
+                        <div class="service-box-text">
+                            <p>我們提供設備報修服務，讓您可以輕鬆報修。</p>
+                        </div>
+                        <div class="service-box-link">
+                            <a href="#service3">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="service-box-content">
+                        <div class="service-box-title">
+                            <h2>檢舉鄰居</h2>
+                        </div>
+                        <div class="service-box-text">
+                            <p>我們提供檢舉鄰居服務，讓您可以舉報不良鄰居。</p>
+                        </div>
+                        <div class="service-box-link">
+                            <a href="../php/report.php">Learn More</a>
+                        </div>
+                    </div>
+                    <div class="service-box-content">
+                        <div class="service-box-title">
+                            <h2>吧啦吧啦</h2>
+                        </div>
+                        <div class="service-box-text">
+                            <p>我們提供吧啦吧啦服務，讓您可以與其他宿舍生互動。</p>
+                        </div>
+                        <div class="service-box-link">
+                            <a href="#service5">Learn More</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Services (End) -->
     </div>
     <!-- Container (End) -->
 </main>
