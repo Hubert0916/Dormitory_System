@@ -122,9 +122,10 @@ footer{
 	align-items: center;
 	text-align: center;
 	height: 70vh;
-	padding: 10px;
+	padding: 5px;
 	color: #576F72;
-	gap: 100px;
+	gap: 120px;
+	margin-left: 70px;
 }
 .home-content h1 {
 	font-size: 4.5rem;

@@ -47,7 +47,7 @@
                     <h1>宿 舍 系 統</h1>
                     <button class="learn-more"><a href="#service">Learn More</a></button>
                 </div>  
-                <img src="../pic/dorm.gif" alt="">
+                <img src="../pic/greenhome.gif" alt="">
             </div>
         </div>
         <!-- Home (End) -->
