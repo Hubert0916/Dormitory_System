@@ -257,11 +257,12 @@
 .dropdown-container  a{
     font-size: 1.1rem;
 }
-.fa-long-arrow-down{
-    margin-left: 20px;
-}
 .service-link i {
     font-size: 15px; 
     margin-left: 20px;
-    transition: transform 0.5s ease; /* 添加過渡效果 */
+    transition: transform 0.5s ease; /* 添加过渡效果 */
+}
+
+.rotate {
+    transform: rotate(180deg); /* 添加旋转效果 */
 }

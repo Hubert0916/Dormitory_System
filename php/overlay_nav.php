@@ -6,8 +6,8 @@
 <link href="../css/nav.css" rel="stylesheet" type="text/css">
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/3a02e24f5d.js" crossorigin="anonymous"></script>
 <!-- Overlay Navigation -->
 <div class="nav-all">
 	<div class="burger-background nav-overlay">
@@ -25,7 +25,7 @@
 					<a class="nav-link active" aria-current="page" href="../php/home.php">首頁</a>
 				</li>
 				<li class="nav-item services-dropdown">
-					<a class="nav-link service-link" href="#">服務<i class="fa fa-long-arrow-down" aria-hidden="true"></i></a>
+					<a class="nav-link service-link" href="#">服務<i class="fa-solid fa-chevron-down"></i></a>
 				</li>
 				<div class="dropdown-container">
 					<li class="nav-item">
@@ -72,46 +72,52 @@
 <!-- Custom JavaScript -->
 <script>
 	$('#toggle').click(function() {
-		$(this).toggleClass('toggle-active');
-		$('#overlay').toggleClass('nav-active');
-		if (!$('#overlay').hasClass('nav-active')) {
-            $('.dropdown-container').slideUp();
-            $('.service-link i').removeClass('fa-long-arrow-up').addClass('fa-long-arrow-down');
-        }
-	});
-	$('#overlay').click(function(event) {
+    $(this).toggleClass('toggle-active');
+    $('#overlay').toggleClass('nav-active');
+    if (!$('#overlay').hasClass('nav-active')) {
+        $('.dropdown-container').slideUp();
+        // Reset the arrow direction when overlay is closed
+        $('.service-link i').removeClass('rotate');
+    }
+});
+
+$('#overlay').click(function(event) {
     // Check if the clicked element or its parent has the class 'services-dropdown' or 'dropdown-container'
     if ($(event.target).closest('.services-dropdown').length === 0 &&
         $(event.target).closest('.dropdown-container').length === 0) {
         $('#toggle').removeClass('toggle-active');
         $('#overlay').removeClass('nav-active');
-		$('.dropdown-container').slideUp();
-        $('.service-link i').removeClass('fa-long-arrow-up').addClass('fa-long-arrow-down');
+        $('.dropdown-container').slideUp();
+        // Reset the arrow direction when overlay is closed
+        $('.service-link i').removeClass('rotate');
     }
 });
-	document.addEventListener('DOMContentLoaded', function () {
-		//click on the service-link, get the dropdown-container show
-		//click on the service-link again, get the dropdown-container hide
-		//一開始先將dropdown-container隱藏
-		$('.dropdown-container').hide();
-		$('.service-link').click(function () {
-			$('.dropdown-container').slideToggle();
-			//change the arrow direction
-			$('.service-link i').toggleClass('fa-long-arrow-down fa-long-arrow-up');
-		});
-		var backToTopButton = $('#back-to-top');
 
-        $(window).scroll(function() {
-            if ($(window).scrollTop() > 100) {
-                backToTopButton.fadeIn();
-            } else {
-                backToTopButton.fadeOut();
-            }
-        });
+document.addEventListener('DOMContentLoaded', function () {
+    //click on the service-link, get the dropdown-container show
+    //click on the service-link again, get the dropdown-container hide
+    //一開始先將dropdown-container隱藏
+    $('.dropdown-container').hide();
+    $('.service-link').click(function () {
+        $('.dropdown-container').slideToggle();
+        //change the arrow direction
+        $(this).find('i').toggleClass('rotate');
+    });
 
-        backToTopButton.click(function() {
-            $('html, body').animate({scrollTop: 0}, 'slow');
-            return false;
-        });
-	});	
+    var backToTopButton = $('#back-to-top');
+
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 100) {
+            backToTopButton.fadeIn();
+        } else {
+            backToTopButton.fadeOut();
+        }
+    });
+
+    backToTopButton.click(function() {
+        $('html, body').animate({scrollTop: 0}, 'slow');
+        return false;
+    });
+});
+	
 </script>
