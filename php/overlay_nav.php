@@ -25,7 +25,7 @@
 					<a class="nav-link active" aria-current="page" href="../php/home.php">首頁</a>
 				</li>
 				<li class="nav-item services-dropdown">
-					<a class="nav-link service-link" href="#">服務 <i class="fa fa-long-arrow-down" aria-hidden="true"></i></a>
+					<a class="nav-link service-link" href="#">服務<i class="fa fa-long-arrow-down" aria-hidden="true"></i></a>
 				</li>
 				<div class="dropdown-container">
 					<li class="nav-item">
@@ -74,6 +74,10 @@
 	$('#toggle').click(function() {
 		$(this).toggleClass('toggle-active');
 		$('#overlay').toggleClass('nav-active');
+		if (!$('#overlay').hasClass('nav-active')) {
+            $('.dropdown-container').slideUp();
+            $('.service-link i').removeClass('fa-long-arrow-up').addClass('fa-long-arrow-down');
+        }
 	});
 	$('#overlay').click(function(event) {
     // Check if the clicked element or its parent has the class 'services-dropdown' or 'dropdown-container'
@@ -81,6 +85,8 @@
         $(event.target).closest('.dropdown-container').length === 0) {
         $('#toggle').removeClass('toggle-active');
         $('#overlay').removeClass('nav-active');
+		$('.dropdown-container').slideUp();
+        $('.service-link i').removeClass('fa-long-arrow-up').addClass('fa-long-arrow-down');
     }
 });
 	document.addEventListener('DOMContentLoaded', function () {
@@ -93,6 +99,5 @@
 			//change the arrow direction
 			$('.service-link i').toggleClass('fa-long-arrow-down fa-long-arrow-up');
 		});
-	});
-	
+	});	
 </script>

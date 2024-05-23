@@ -50,7 +50,7 @@
 
 @media screen and (max-width: 768px) { 
     .function-bar-arrow {
-        display: block;
+        display: none;
     }
 } 
 @media screen and (max-width: 480px) { 
@@ -183,6 +183,7 @@
         border-top: 5px solid #E4DCCF;
         border-right: 5px solid #E4DCCF;
         border-bottom: 5px solid #E4DCCF;
+        width: 30%;
     }
 }
 
@@ -193,6 +194,7 @@
         border-right: 0px solid #E4DCCF;
         border-bottom: 2px solid #E4DCCF;
         display: block;
+        width: 25%;
     }
 }
 
@@ -242,6 +244,9 @@
     color: #E4DCCF;
     text-decoration: none;
 }
+
+.nav-link:active,
+.nav-link:focus,
 .service-link:focus,
 .service-link:active {
     outline: none; 
@@ -250,4 +255,12 @@
 }
 .dropdown-container  a{
     font-size: 1.1rem;
+}
+.fa-long-arrow-down{
+    margin-left: 20px;
+}
+.service-link i {
+    font-size: 15px; 
+    margin-left: 20px;
+    transition: transform 0.5s ease; /* 添加過渡效果 */
 }
