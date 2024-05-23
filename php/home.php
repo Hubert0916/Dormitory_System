@@ -44,8 +44,13 @@
         <div class="home animated fadeInUpShort" id="home">
             <div class="home-content">
                 <div class="title">
-                    <h1>宿 舍 系 統</h1>
-                    <button class="learn-more"><a href="#service">Learn More</a></button>
+                    <div class="content-name">
+                        <h1>宿 舍 系 統</h1>
+                    </div>
+                    <div class="learn">
+                        <a href="#service" class="learn-more">Learn More</a>
+                        <line class="learn-line"></line>
+                    </div>
                 </div>  
                 <img src="../pic/greenhome.gif" alt="">
             </div>
