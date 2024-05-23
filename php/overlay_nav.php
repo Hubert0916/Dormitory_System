@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //一開始先將dropdown-container隱藏
     $('.dropdown-container').hide();
     $('.service-link').click(function () {
+		event.preventDefault();
         $('.dropdown-container').slideToggle();
         //change the arrow direction
         $(this).find('i').toggleClass('rotate');
@@ -115,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     backToTopButton.click(function() {
-        $('html, body').animate({scrollTop: 0}, 'slow');
+        $('html, body').animate({scrollTop: 0}, 'fast');
         return false;
     });
 });
