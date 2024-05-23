@@ -59,8 +59,8 @@
 		<div class="function-bar">
 			Dormitory System
 		</div>	
-		<div class="function-bar-arrow">
-			<a href="#top"><img src="../pic/arrow.png" alt=""></a>
+		<div class="function-bar-arrow" id="back-to-top">
+			<img src="../pic/arrow.png" alt="top">
 		</div>
 		<!-- Function Bar (End) -->
 	</div>
@@ -99,5 +99,19 @@
 			//change the arrow direction
 			$('.service-link i').toggleClass('fa-long-arrow-down fa-long-arrow-up');
 		});
+		var backToTopButton = $('#back-to-top');
+
+        $(window).scroll(function() {
+            if ($(window).scrollTop() > 100) {
+                backToTopButton.fadeIn();
+            } else {
+                backToTopButton.fadeOut();
+            }
+        });
+
+        backToTopButton.click(function() {
+            $('html, body').animate({scrollTop: 0}, 'slow');
+            return false;
+        });
 	});	
 </script>
