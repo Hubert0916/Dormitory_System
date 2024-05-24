@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../css/report.css">
 </head>
 
@@ -117,29 +118,30 @@
 
                     <div class="step d-none" id="step2">
                         <div class="text-center">
-                            <div class="text-center">
-                                <h2>你要檢舉的對象...<h2>
-                            </div>
+                            <h2>你要檢舉的對象...<h2>
                         </div>
                         <hr>
                         <div class="container-fluid p-5">
                             <div class="row ms-5">
                                 <div class="col-md-4 text-center block-container">
                                     <input type="hidden" name="blockChoice" value="1">
-                                    <div class="rect-block" onclick="submitStep2('1')">
-                                        block
+                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('1')">
+                                        <i class="bi bi-person-x-fill icon fa-9x"></i>
+                                        <p>不知道</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-center block-container">
                                     <input type="hidden" name="blockChoice" value="2">
-                                    <div class="rect-block" onclick="submitStep2('2')">
-                                        block
+                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('2')">
+                                        <i class="bi bi-door-closed icon fa-9x"></i>
+                                        <p>房號</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-center block-container">
                                     <input type="hidden" name="blockChoice" value="3">
-                                    <div class="rect-block" onclick="submitStep2('3')">
-                                        block
+                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('3')">
+                                        <i class="bi bi-person-raised-hand icon fa-9x"></i>
+                                        <p>室友</p>
                                     </div>
                                 </div>
                             </div>
@@ -148,32 +150,17 @@
 
                     <div class="step d-none" id="step3">
                         <div class="text-center">
-                            <div class="text-center">
-                                <h2>緣由...<h2>
-                            </div>
+                            <h2>緣由...<h2>
                         </div>
                         <hr>
-                        <div class="container-fluid p-5">
-                            <div class="row ms-5">
-                                <div class="col-md-4 text-center block-container">
-                                    <input type="hidden" name="blockChoice" value="1">
-                                    <div class="rect-block" onclick="submitStep2('1')">
-                                        block
-                                    </div>
-                                </div>
-                                <div class="col-md-4 text-center block-container">
-                                    <input type="hidden" name="blockChoice" value="2">
-                                    <div class="rect-block" onclick="submitStep2('2')">
-                                        block
-                                    </div>
-                                </div>
-                                <div class="col-md-4 text-center block-container">
-                                    <input type="hidden" name="blockChoice" value="3">
-                                    <div class="rect-block" onclick="submitStep2('3')">
-                                        block
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="container-fluid d-flex flex-column p-5">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <input class="text mt-5" placeholder="其他">
                         </div>
                     </div>
 
