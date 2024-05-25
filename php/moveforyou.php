@@ -84,11 +84,12 @@
         .selected {
             background-color: lightblue;
         }
-        .service-options, .budget-options, .transport-options {
+        .service-options, .budget-options, .transport-options, .location-options {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin: 20px 0;
+            flex-wrap: wrap;
         }
         .button {
             display: inline-block;
@@ -180,7 +181,7 @@
             <label for="transport">交通工具：</label>
             <div class="transport-options">
                 <div class="box transport-option" data-transport="汽車">
-                    <img src="../pic/vehicle.png" alt="汽車">
+                    <img src="../pic/car.png" alt="汽車">
                     <p>汽車</p>
                 </div>
                 <div class="box transport-option" data-transport="徒手">
@@ -197,7 +198,57 @@
         </div>
         <div class="question" id="question4">
             <label for="location">開始的地點：</label>
-            <input type="text" id="location" name="location" placeholder="輸入開始的地點">
+            <div class="location-options">
+                <div class="box location-option" data-location="地點1">
+                    <img src="../pic/8.png" alt="地點1">
+                    <p>8舍</p>
+                </div>
+                <div class="box location-option" data-location="地點2">
+                    <img src="../pic/9.png" alt="地點2">
+                    <p>9舍</p>
+                </div>
+                <div class="box location-option" data-location="地點3">
+                    <img src="../pic/10.png" alt="地點3">
+                    <p>10舍</p>
+                </div>
+                <div class="box location-option" data-location="地點4">
+                    <img src="../pic/11.png" alt="地點4">
+                    <p>11舍</p>
+                </div>
+                <div class="box location-option" data-location="地點5">
+                    <img src="../pic/12.png" alt="地點5">
+                    <p>12舍</p>
+                </div>
+                <div class="box location-option" data-location="地點6">
+                    <img src="../pic/13.png" alt="地點6">
+                    <p>13舍</p>
+                </div>
+                <div class="box location-option" data-location="地點7">
+                    <img src="../pic/7.png" alt="地點7">
+                    <p>7舍</p>
+                </div>
+                <div class="box location-option" data-location="地點8">
+                    <img src="../pic/girl2.png" alt="地點8">
+                    <p>女二舍</p>
+                </div>
+                <div class="box location-option" data-location="地點9">
+                    <img src="../pic/xuan.png" alt="地點9">
+                    <p>竹軒</p>
+                </div>
+                <div class="box location-option" data-location="地點10">
+                    <img src="../pic/1+.png" alt="地點10">
+                    <p>研一舍</p>
+                </div>
+                <div class="box location-option" data-location="地點11">
+                    <img src="../pic/2+.png" alt="地點11">
+                    <p>研二舍</p>
+                </div>
+                <div class="box location-option" data-location="地點12">
+                    <img src="../pic/3+.png" alt="地點12">
+                    <p>研三舍</p>
+                </div>
+            </div>
+            <input type="hidden" id="location" name="location" value="">
             <button type="button" class="button" onclick="nextQuestion(4)">下一題</button>
         </div>
         <div class="question" id="question5">
@@ -264,6 +315,21 @@
                 this.classList.add('selected');
                 selectedTransport = this.getAttribute('data-transport');
                 document.getElementById('transport').value = selectedTransport;
+            });
+        });
+
+        let selectedLocations = [];
+
+        document.querySelectorAll('.location-option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                const locationValue = this.getAttribute('data-location');
+                if (this.classList.contains('selected')) {
+                    selectedLocations.push(locationValue);
+                } else {
+                    selectedLocations = selectedLocations.filter(location => location !== locationValue);
+                }
+                document.getElementById('location').value = selectedLocations.join(',');
             });
         });
 
