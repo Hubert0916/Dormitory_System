@@ -20,7 +20,7 @@
                 <div class="first-column">
                     <div class="Name">姓名 :<input type="text" id="Name" name="Name"></div>
                     <div class="EngName">英文暱稱 :<input type="text" id="EngName" name="EngName"></div>
-                    <div class="id">學號 :<input type="text" id="id" name="id"></div>
+                    <div class="ID">學號 :<input type="text" id="ID" name="ID"></div>
                     <div class="Email">信箱 :<input type="text" id="Email" name="Email"></div>
                     <div class="Department">系所 :<input type="text" id="Department" name="Department"></div>
                     <div class="Grade">年級 :<input type="text" id="Grade" name="Grade"></div>
@@ -35,8 +35,7 @@
                 <div class="second-column">
                     <div class="Password">密碼 :<input type="password" id="Password" name="Password"></div>
                     <div class="Password1">確認密碼 :<input type="password" id="Password1" name="Password1"></div>
-                    <div class="Photo">上傳大頭照 :
-                        <input type="file" name="photo" id="photo" accept="image/*">
+                    <div class="Photo">上傳大頭照 :<input type="file" name="photo" accept="image/*">
                         <span id="fileName"></span>
                     </div>
                     <div class="Intro">關於你的短簡介 :<br><textarea input id="Intro" name="Intro"></textarea>
@@ -76,28 +75,12 @@
             document.getElementById('registration').submit();
         }
     }
-
-    window.onload = function() {
-        if ('<?= $_POST['id_repeat'] ?>' === 'true') {
-            Swal.fire({
-                icon: 'error',
-                title: 'ooooops....This username already registered!',
-                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
-            })
-        } else if ('<?= $_POST['Email_repeat'] ?>' === 'true') {
-            Swal.fire({
-                icon: 'error',
-                title: 'ooooops....This student_id already registered!',
-                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
-            })
-        }
-    }
 </script>
 
 <?php
 
 include "connection.php";
-include "overlay_nav.php";
+// include "overlay_nav.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["photo"]["error"] == UPLOAD_ERR_OK) {
 
@@ -111,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
     $IG = htmlspecialchars($_POST["IG"]);
     $Intro = htmlspecialchars($_POST["Intro"]);
     $Password = htmlspecialchars($_POST["Password"]);
-    $ID = htmlspecialchars($_POST["id"]);
+    $ID = htmlspecialchars($_POST["ID"]);
     $fileTmpPath = $_FILES["photo"]["tmp_name"];
     $fileName = $_FILES["photo"]["name"];
     $fileSize = $_FILES["photo"]["size"];
@@ -120,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
     $fileContent = file_get_contents($fileTmpPath);
 
     $Email_sql = "SELECT * FROM Dorm.Profile WHERE Email = '$Email'";
-    $id_sql = "SELECT * FROM Dorm.Profile WHERE Name = '$id'";
+    $id_sql = "SELECT * FROM Dorm.Profile WHERE ID = '$ID'";
 
     $Email_result = mysqli_query($conn, $Email_sql);
     $id_result = mysqli_query($conn, $id_sql);
@@ -131,10 +114,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         header("Location: registration.php");
     } else if (mysqli_num_rows($Email_result) === 0 && mysqli_num_rows($id_result) === 0) {
 
-
         $stmt1 = $conn->prepare("INSERT INTO Dorm.Profile(ID, Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password)
-        VALUES (?, ?, ?, ?, ?, ?, ? ,? ,? ,?)");
-        $stmt1->bind_param("isssssssss", $ID, $Name, $Sex, $Department, $Grade, $Photo, $Email, $FB, $IG, $Intro, $Password);
+        VALUES (?, ?, ?, ?, ?, ?, ? ,? ,? ,?, ?)");
+        $stmt1->bind_param("issssssssss", $ID, $Name, $Sex, $Department, $Grade, $Phone, $Email, $FB, $IG, $Intro, $Password);
         if ($stmt1->execute()) {
             echo "Profile Created successfully.";
         } else {
@@ -142,8 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         }
         $stmt1->close();
 
-        $stmt2 = $conn->prepare("INSERT INTO photo (id, photo_name, photo_type, photo_size, photo_content) VALUES (?, ?, ?, ?, ?)");
-        $stmt2->bind_param("ssib", $ID, $fileName, $fileType, $fileSize, $null);
+        $stmt2 = $conn->prepare("INSERT INTO photo (ID, photo_name, photo_type, photo_size, photo_content) VALUES (?, ?, ?, ?, ?)");
+        $stmt2->bind_param("issib", $ID, $fileName, $fileType, $fileSize, $null);
         $stmt2->send_long_data(4, $fileContent);
         if ($stmt2->execute()) {
             echo "File uploaded successfully.";
@@ -154,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
 
         $conn->close();
     }
-}
+} 
 ?>
 
 <style>
