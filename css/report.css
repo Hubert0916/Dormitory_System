@@ -3,23 +3,46 @@ body
     background-color: #F0EBE3 !important;
 }
 
-
-.image-container {
-    position: relative;
-    overflow: hidden;
-}
-
-.image-container img {
-    transition: transform 0.3s ease;
-}
-
-.image-container:hover img {
-    transform: scale(1.1);
-}
-
-img
+.image-container img 
 {
-    width: 200px; /* 調整圖片的寬度 */
-            height: 200px; /* 調整圖片的高度 */
-            object-fit: cover; /* 確保圖片不變形，並填滿整個容器 */
+    transition: transform 0.5s ease;
+}
+
+.image-container:hover img
+{
+    transform: scale(1.1);
+    cursor: pointer;
+    transition: transform 0.5s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.rect-block 
+{
+    width: 80%;
+    height: 500px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease;
+}
+
+.rect-block:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cir
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-check-input:checked + .form-check-label 
+{
+    font-weight: bold;
+    color: #007bff;
 }

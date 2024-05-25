@@ -11,6 +11,7 @@
     <link href="../css/home.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="../js/home.js"></script>
+    <script src="https://kit.fontawesome.com/3a02e24f5d.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <main>
@@ -23,20 +24,20 @@
 		<!-- Navigation -->
 		<nav class="navigation animated fadeInDownShort clearfix">
 			<ul>
-                <li><a href="#home">首頁</a></li>
+                <li><a href="#home">首 頁</a></li>
                 <li class="dropdown">
-                    <a href="#service">服務</a>
+                    <a href="#service">服 務</a><i class="fa-solid fa-chevron-down"></i>
                     <ul class="dropdown-menu">
-                        <li><a href="../php/move.php">協助搬遷</a></li>
-                        <li><a href="#service2">配對室友</a></li>
-                        <li><a href="#service3">設備報修</a></li>
-                        <li><a href="../php/report.php">檢舉鄰居</a></li>
-                        <li><a href="#service5">吧啦吧啦</a></li>
+                        <li><a href="../php/move.php">協 助 搬 遷</a></li>
+                        <li><a href="#service2">配 對 室 友</a></li>
+                        <li><a href="#service3">設 備 報 修</a></li>
+                        <li><a href="../php/report.php">檢 舉 鄰 居</a></li>
+                        <li><a href="#service5">吧 啦 吧 啦</a></li>
                     </ul>
                 </li>
-                <li><a href="../php/profile.php">個人資訊</a></li>
-                <li><a href="../php/registration.php">註冊</a></li>
-                <li><a href="../php/login.php">登入</a></li>
+                <li><a href="../php/profile.php">個 人 資 訊</a></li>
+                <li><a href="../php/registration.php">註 冊</a></li>
+                <li><a href="../php/login.php">登 入</a></li>
             </ul>
 		</nav>
 		<!-- Navigation (End) -->
