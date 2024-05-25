@@ -79,7 +79,7 @@
             <p>衣服</p>
         </div>
         <div class="box">
-            <img src="../pic/largeitems.png" alt="Large Items">
+            <img src="../pic/furniture.png" alt="Large Items">
             <p>大型物件</p>
         </div>
     </div>
