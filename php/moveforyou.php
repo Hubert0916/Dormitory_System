@@ -2,10 +2,11 @@
     require_once dirname(__FILE__) . "/overlay_nav.php";
 ?>
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>Move Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>問答表單</title>
     <style>
         body {
             margin: 0;
@@ -19,26 +20,26 @@
         }
         .container {
             display: flex;
-            justify-content: center; /* 改為 center 以便將方塊向中間靠攏 */
-            gap: 20px; /* 增加間距控制 */
+            justify-content: center;
+            gap: 20px;
             width: 80%;
             max-width: 1000px;
-            height: 80%; /* 確保容器有足夠高度 */
+            height: 80%;
         }
         .box {
-            width: 30%; /* 保持寬度不變 */
-            height: 80%; /* 設置高度為 80% 以使用容器的高度 */
+            width: 30%;
+            height: 80%;
             background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
             padding: 20px;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center; /* 添加這一行以致中圖片 */
+            align-items: center;
             cursor: pointer;
         }
         .box:hover {
@@ -47,41 +48,240 @@
         }
         .box img {
             width: 100%;
-            max-width: 200px; /* 固定圖片寬度 */
+            max-width: 200px;
             height: auto;
             border-radius: 10px;
-            object-fit: cover; /* 確保圖片被裁剪以適應容器 */
+            object-fit: cover;
+        }
+        .box.selected {
+            border-color: #007bff;
+        }
+        .box p {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #495057;
+        }
+        .question {
+            display: none;
+        }
+        .question.active {
+            display: block;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid blue;
+        }
+        th, td {
+            text-align: center;
+            padding: 10px;
+        }
+        .selectable {
+            cursor: pointer;
         }
         .selected {
-            background-color: #007bff;
+            background-color: lightblue;
+        }
+        .service-options, .budget-options, .transport-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            background-color: #495057;
             color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .button:hover {
+            background-color: #343a40;
+            transform: translateY(-2px);
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const boxes = document.querySelectorAll('.box');
-            boxes.forEach(box => {
-                box.addEventListener('click', function () {
-                    box.classList.toggle('selected');
-                });
-            });
-        });
-    </script>
 </head>
 <body>
-    <div class="container">
-        <div class="box">
-            <img src="../pic/grocery.png" alt="Miscellaneous">
-            <p>雜物</p>
+    <form id="questionForm" action="submit.php" method="POST">
+        <div class="question active" id="question1">
+            <label for="time">你有空的時間：</label>
+            <table>
+                <tr>
+                    <th>時間</th>
+                    <th>一</th>
+                    <th>二</th>
+                    <th>三</th>
+                    <th>四</th>
+                    <th>五</th>
+                    <th>六</th>
+                    <th>日</th>
+                </tr>
+                <tr>
+                    <td>早</td>
+                    <td class="selectable" data-time="mon_morning"></td>
+                    <td class="selectable" data-time="tue_morning"></td>
+                    <td class="selectable" data-time="wed_morning"></td>
+                    <td class="selectable" data-time="thu_morning"></td>
+                    <td class="selectable" data-time="fri_morning"></td>
+                    <td class="selectable" data-time="sat_morning"></td>
+                    <td class="selectable" data-time="sun_morning"></td>
+                </tr>
+                <tr>
+                    <td>中</td>
+                    <td class="selectable" data-time="mon_afternoon"></td>
+                    <td class="selectable" data-time="tue_afternoon"></td>
+                    <td class="selectable" data-time="wed_afternoon"></td>
+                    <td class="selectable" data-time="thu_afternoon"></td>
+                    <td class="selectable" data-time="fri_afternoon"></td>
+                    <td class="selectable" data-time="sat_afternoon"></td>
+                    <td class="selectable" data-time="sun_afternoon"></td>
+                </tr>
+                <tr>
+                    <td>晚</td>
+                    <td class="selectable" data-time="mon_evening"></td>
+                    <td class="selectable" data-time="tue_evening"></td>
+                    <td class="selectable" data-time="wed_evening"></td>
+                    <td class="selectable" data-time="thu_evening"></td>
+                    <td class="selectable" data-time="fri_evening"></td>
+                    <td class="selectable" data-time="sat_evening"></td>
+                    <td class="selectable" data-time="sun_evening"></td>
+                </tr>
+            </table>
+            <input type="hidden" id="time" name="time" value="">
+            <button type="button" class="button" onclick="nextQuestion(1)">繼續</button>
         </div>
-        <div class="box">
-            <img src="../pic/clothes.png" alt="Clothes">
-            <p>衣服</p>
+        <div class="question" id="question2">
+            <label for="services">搬家資訊 (可複選)：</label>
+            <div class="service-options">
+                <div class="box service-option" data-service="雜物">
+                    <img src="../pic/grocery.png" alt="雜物">
+                    <p>雜物</p>
+                </div>
+                <div class="box service-option" data-service="衣服">
+                    <img src="../pic/clothes.png" alt="衣服">
+                    <p>衣服</p>
+                </div>
+                <div class="box service-option" data-service="大型物件">
+                    <img src="../pic/furniture.png" alt="大型物件">
+                    <p>大型物件</p>
+                </div>
+            </div>
+            <input type="hidden" id="services" name="services" value="">
+            <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
-        <div class="box">
-            <img src="../pic/furniture.png" alt="Large Items">
-            <p>大型物件</p>
+        <div class="question" id="question3">
+            <label for="transport">交通工具：</label>
+            <div class="transport-options">
+                <div class="box transport-option" data-transport="汽車">
+                    <img src="../pic/vehicle.png" alt="汽車">
+                    <p>汽車</p>
+                </div>
+                <div class="box transport-option" data-transport="徒手">
+                    <img src="../pic/walking.png" alt="徒手">
+                    <p>徒手</p>
+                </div>
+                <div class="box transport-option" data-transport="拖車">
+                    <img src="../pic/trailer.png" alt="拖車">
+                    <p>拖車</p>
+                </div>
+            </div>
+            <input type="hidden" id="transport" name="transport" value="">
+            <button type="button" class="button" onclick="nextQuestion(3)">下一題</button>
         </div>
-    </div>
+        <div class="question" id="question4">
+            <label for="location">開始的地點：</label>
+            <input type="text" id="location" name="location" placeholder="輸入開始的地點">
+            <button type="button" class="button" onclick="nextQuestion(4)">下一題</button>
+        </div>
+        <div class="question" id="question5">
+            <label for="budget">預算：</label>
+            <div class="budget-options">
+                <div class="box budget-option" data-budget="1-200">
+                    <img src="../pic/money1.png" alt="$1-200">
+                    <p>$1~200</p>
+                </div>
+                <div class="box budget-option" data-budget="200-500">
+                    <img src="../pic/money2.png" alt="$200-500">
+                    <p>$200~500</p>
+                </div>
+                <div class="box budget-option" data-budget="500-1000">
+                    <img src="../pic/money3.png"  alt="$500-1000">
+                    <p>$500~1000</p>
+                </div>
+                <div class="box budget-option" data-budget="1000-up">
+                    <img src="../pic/money4.png" alt="$1000-up">
+                    <p>$1000↑</p>
+                </div>
+            </div>
+            <input type="hidden" id="budget" name="budget" value="">
+            <button type="submit" class="button">開始尋找</button>
+        </div>
+    </form>
+
+    <script>
+        let selectedTimes = [];
+
+        document.querySelectorAll('.selectable').forEach(cell => {
+            cell.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                const timeValue = this.getAttribute('data-time');
+                if (this.classList.contains('selected')) {
+                    selectedTimes.push(timeValue);
+                } else {
+                    selectedTimes = selectedTimes.filter(time => time !== timeValue);
+                }
+                document.getElementById('time').value = selectedTimes.join(',');
+            });
+        });
+
+        let selectedServices = [];
+
+        document.querySelectorAll('.service-option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                const serviceValue = this.getAttribute('data-service');
+                if (this.classList.contains('selected')) {
+                    selectedServices.push(serviceValue);
+                } else {
+                    selectedServices = selectedServices.filter(service => service !== serviceValue);
+                }
+                document.getElementById('services').value = selectedServices.join(',');
+            });
+        });
+
+        let selectedTransport = '';
+
+        document.querySelectorAll('.transport-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.transport-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedTransport = this.getAttribute('data-transport');
+                document.getElementById('transport').value = selectedTransport;
+            });
+        });
+
+        let selectedBudget = '';
+
+        document.querySelectorAll('.budget-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.budget-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedBudget = this.getAttribute('data-budget');
+                document.getElementById('budget').value = selectedBudget;
+            });
+        });
+
+        function nextQuestion(currentQuestion) {
+            document.getElementById('question' + currentQuestion).classList.remove('active');
+            document.getElementById('question' + (currentQuestion + 1)).classList.add('active');
+        }
+    </script>
 </body>
 </html>
