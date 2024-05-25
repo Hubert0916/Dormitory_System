@@ -80,7 +80,7 @@
 <?php
 
 include "connection.php";
-// include "overlay_nav.php";
+include "overlay_nav.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["photo"]["error"] == UPLOAD_ERR_OK) {
 
