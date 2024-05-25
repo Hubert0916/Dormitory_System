@@ -84,12 +84,19 @@
         .selected {
             background-color: lightblue;
         }
-        .service-options, .budget-options, .transport-options, .location-options {
+        .options-row {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin: 20px 0;
+        }
+        .location-options {
+            display: flex;
             flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            max-width: 1000px;
         }
         .button {
             display: inline-block;
@@ -160,7 +167,7 @@
         </div>
         <div class="question" id="question2">
             <label for="services">搬家資訊 (可複選)：</label>
-            <div class="service-options">
+            <div class="options-row">
                 <div class="box service-option" data-service="雜物">
                     <img src="../pic/grocery.png" alt="雜物">
                     <p>雜物</p>
@@ -179,7 +186,7 @@
         </div>
         <div class="question" id="question3">
             <label for="transport">交通工具：</label>
-            <div class="transport-options">
+            <div class="options-row">
                 <div class="box transport-option" data-transport="汽車">
                     <img src="../pic/car.png" alt="汽車">
                     <p>汽車</p>
@@ -200,47 +207,47 @@
             <label for="location">開始的地點：</label>
             <div class="location-options">
                 <div class="box location-option" data-location="地點1">
-                    <img src="../pic/8.png" alt="地點1">
+                    <img src="../pic/8.jpg" alt="地點1">
                     <p>8舍</p>
                 </div>
                 <div class="box location-option" data-location="地點2">
-                    <img src="../pic/9.png" alt="地點2">
+                    <img src="../pic/9.jpg" alt="地點2">
                     <p>9舍</p>
                 </div>
                 <div class="box location-option" data-location="地點3">
-                    <img src="../pic/10.png" alt="地點3">
+                    <img src="../pic/10.jpg" alt="地點3">
                     <p>10舍</p>
                 </div>
                 <div class="box location-option" data-location="地點4">
-                    <img src="../pic/11.png" alt="地點4">
+                    <img src="../pic/11.jpg" alt="地點4">
                     <p>11舍</p>
                 </div>
                 <div class="box location-option" data-location="地點5">
-                    <img src="../pic/12.png" alt="地點5">
+                    <img src="../pic/12.jpg" alt="地點5">
                     <p>12舍</p>
                 </div>
                 <div class="box location-option" data-location="地點6">
-                    <img src="../pic/13.png" alt="地點6">
+                    <img src="../pic/13.jpg" alt="地點6">
                     <p>13舍</p>
                 </div>
                 <div class="box location-option" data-location="地點7">
-                    <img src="../pic/7.png" alt="地點7">
+                    <img src="../pic/7.jpg" alt="地點7">
                     <p>7舍</p>
                 </div>
                 <div class="box location-option" data-location="地點8">
-                    <img src="../pic/girl2.png" alt="地點8">
+                    <img src="../pic/girl2.jpg" alt="地點8">
                     <p>女二舍</p>
                 </div>
                 <div class="box location-option" data-location="地點9">
-                    <img src="../pic/xuan.png" alt="地點9">
+                    <img src="../pic/xuan.jpg" alt="地點9">
                     <p>竹軒</p>
                 </div>
                 <div class="box location-option" data-location="地點10">
-                    <img src="../pic/1+.png" alt="地點10">
+                    <img src="../pic/1+.jpg" alt="地點10">
                     <p>研一舍</p>
                 </div>
                 <div class="box location-option" data-location="地點11">
-                    <img src="../pic/2+.png" alt="地點11">
+                    <img src="../pic/2+.jpg" alt="地點11">
                     <p>研二舍</p>
                 </div>
                 <div class="box location-option" data-location="地點12">
@@ -253,7 +260,7 @@
         </div>
         <div class="question" id="question5">
             <label for="budget">預算：</label>
-            <div class="budget-options">
+            <div class="options-row">
                 <div class="box budget-option" data-budget="1-200">
                     <img src="../pic/money1.png" alt="$1-200">
                     <p>$1~200</p>
