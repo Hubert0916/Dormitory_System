@@ -1,3 +1,36 @@
+<script>
+   
+   window.onload = function() {
+        if ('<?= $_POST['changepwd_success'] ?>' === 'true') {
+            Swal.fire({
+                icon : 'success',
+                title: 'Already Change Password',
+                text : 'Log in now !!',
+                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
+                   
+            });
+        }
+        if ('<?= $_POST['registration_success'] ?>' === 'true') {
+            Swal.fire({
+                icon : 'success',
+                title: 'Already Registration ',
+                text : 'Log in now !!',
+                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
+                   
+            });
+        }
+        if ('<?= $_POST['wrong_login'] ?>' === 'true') {
+            Swal.fire({
+                icon : 'error',
+                title: 'wrong username or password',
+                text : 'Try again',
+                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
+            
+            });
+        }
+    };
+</script>
+
 <?php
     require_once dirname(__FILE__)."/connection.php";
     require_once dirname(__FILE__) . "/overlay_nav.php";
@@ -121,36 +154,4 @@ p a
 }
 
 </style>
-<script>
-   
-   window.onload = function() {
-        if ('<?= $_POST['changepwd_success'] ?>' === 'true') {
-            Swal.fire({
-                icon : 'success',
-                title: 'Already Change Password',
-                text : 'Log in now !!',
-                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
-                   
-            });
-        }
-        if ('<?= $_POST['registration_success'] ?>' === 'true') {
-            Swal.fire({
-                icon : 'success',
-                title: 'Already Registration ',
-                text : 'Log in now !!',
-                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
-                   
-            });
-        }
-        if ('<?= $_POST['wrong_login'] ?>' === 'true') {
-            Swal.fire({
-                icon : 'error',
-                title: 'wrong username or password',
-                text : 'Try again',
-                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
-            
-            });
-        }
-    };
-</script>
 
