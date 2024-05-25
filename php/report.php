@@ -4,18 +4,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bootstrap demo</title>
+    <title>Report System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../css/report.css">
 </head>
 
-<body data-bs-theme="light">
+<body>
     <?php include "overlay_nav.php"; ?>
-    <!-- <div class="form-check form-switch mx-4">
-        <input class="form-check-input p-2" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked onclick="myFunction()" />
-    </div> -->
-    <div class="container-fluid">
+
+    <div class="container-fluid ms-3">
         <div class="row">
             <div class="col-md-12">
                 <div class="container-fluid p-5 align-items-center">
@@ -23,21 +21,17 @@
                         <div class="bg-success text-white rounded-pill cir" id="cir1" style="width: 2rem; height: 2rem">
                             1
                         </div>
-                        <span class="bg-secondary w-25 rounded mt-auto mb-auto me-1 ms-1" id="line1" style="height: 0.2rem">
+                        <span class="bg-secondary w-25 rounded mt-auto mb-auto" id="line1" style="height: 0.2rem">
                         </span>
                         <div class="bg-secondary text-white rounded-pill cir" id="cir2" style="width: 2rem; height: 2rem">
                             2
                         </div>
-                        <span class="bg-secondary w-25 rounded mt-auto mb-auto me-1 ms-1" id="line2" style="height: 0.2rem">
+                        <span class="bg-secondary w-25 rounded mt-auto mb-auto" id="line2" style="height: 0.2rem">
                         </span>
                         <div class="bg-secondary text-white rounded-pill cir" id="cir3" style="width: 2rem; height: 2rem">
                             3
                         </div>
-                        <span class="bg-secondary w-25 rounded mt-auto mb-auto me-1 ms-1" id="line3" style="height: 0.2rem">
-                        </span>
-                        <div class="bg-secondary text-white rounded-pill cir" id="cir4" style="width: 2rem; height: 2rem">
-                            4
-                        </div>
+
                     </div>
                 </div>
 
@@ -132,7 +126,7 @@
                                 </div>
                                 <div class="col-md-4 text-center block-container">
                                     <input type="hidden" name="blockChoice" value="2">
-                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('2')">
+                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('2'); inputRoom();">
                                         <i class="bi bi-door-closed icon fa-9x"></i>
                                         <p>房號</p>
                                     </div>
@@ -148,45 +142,97 @@
                         </div>
                     </div>
 
+                    <div class="step d-none" id="step2+">
+                        <div class="text-center">
+                            <h2>房號...<h2>
+                        </div>
+                        <hr>
+
+                        <div class="d-flex justify-content-center">
+                            <input class="w-100 mb-5 mx-5" type="text" name="room" id="room" placeholder="房號" disabled>
+                        </div>           
+                    </div>
+
                     <div class="step d-none" id="step3">
                         <div class="text-center">
                             <h2>緣由...<h2>
                         </div>
                         <hr>
-                        <div class="container-fluid d-flex flex-column p-5">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                            <input class="text mt-5" placeholder="其他">
+                        <div class="container-fluid px-5">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption1" value="option1">
+                                    <label class="form-check-label" for="radioOption1">
+                                        未保持宿舍安寧影響他人者
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption2" value="option2">
+                                    <label class="form-check-label" for="radioOption2">
+                                        未能保持宿舍內外清潔
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption3" value="option3">
+                                    <label class="form-check-label" for="radioOption3">
+                                        宿舍內外十公尺內吸菸
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption4" value="option4">
+                                    <label class="form-check-label" for="radioOption4">
+                                        公共區域堆放私人物品者 
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption5" value="option5">
+                                    <label class="form-check-label" for="radioOption5">
+                                        寢室內使用或置放有安全堪慮電器用品(電磁爐、電熨斗、微波爐等)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption6" value="option6">
+                                    <label class="form-check-label" for="radioOption6">
+                                        故意毀損宿舍
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption7" value="option7">
+                                    <label class="form-check-label" for="radioOption7">
+                                        宿舍內從事未經許可之銷售行為
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption8" value="option8">
+                                    <label class="form-check-label" for="radioOption8">
+                                        宿舍內賭博等類似型態行為
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption9" value="option9">
+                                    <label class="form-check-label" for="radioOption9">
+                                        刊登買賣床位及住宿權頂讓訊息
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption10" value="option10">
+                                    <label class="form-check-label" for="radioOption10">
+                                        其他
+                                    </label>
+                                    <input type="text" class="form-control mt-1" id="otherInput" placeholder="請輸入其他選項" disabled>
+                                </div>
+                            </div>
+                            <button type="submit " class="btn btn-primary mt-5 w-100">提交</button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
 
-
-        <script>
-            // function myFunction() {
-            //     var element = document.body;
-            //     element.dataset.bsTheme =
-            //         element.dataset.bsTheme == "light" ? "dark" : "light";
-            // }
-
-            // function stepFunction(event) {
-            //     debugger;
-            //     var element = document.getElementsByClassName("collapse");
-            //     for (var i = 0; i < element.length; i++) {
-            //         if (element[i] !== event.target.ariaControls) {
-            //             element[i].classList.remove("show");
-            //         }
-            //     }
-            // }
-        </script>
-        <script src="../js/clickImgSubmit.js"></script>
+        <script src="../js/report.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
