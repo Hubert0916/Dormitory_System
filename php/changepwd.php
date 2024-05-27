@@ -23,7 +23,6 @@ require_once dirname(__FILE__)."/overlay_nav.php";
                 </div>
             </form>
         </div>
-    <script src="../js/overlay.js"></script>
     </body>
     <body>
         <script>
