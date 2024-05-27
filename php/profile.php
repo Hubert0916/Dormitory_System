@@ -1,6 +1,30 @@
 <?php
 require_once dirname(__FILE__)."/connection.php";
 require_once dirname(__FILE__) . "/overlay_nav.php";
+
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+
+    $stmt = $conn->prepare("SELECT photo_name, photo_type, photo_size, photo_content FROM photo WHERE ID = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->store_result();
+    
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($photo_name, $photo_type, $photo_size, $photo_content);
+        $stmt->fetch();
+
+        header("Content-Type: " . $photo_type);
+        header("Content-Length: " . $photo_size);
+        
+        echo $photo_content;
+    } else {
+        echo "No image found with the specified ID.";
+    }
+    
+    $stmt->close();
+} 
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -188,6 +212,3 @@ body {
 }
 
 </style>
-
-
-
