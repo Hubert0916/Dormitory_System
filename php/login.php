@@ -1,40 +1,3 @@
-<script>
-   
-   window.onload = function() {
-        if ('<?= $_POST['changepwd_success'] ?>' === 'true') {
-            Swal.fire({
-                icon : 'success',
-                title: 'Already Change Password',
-                text : 'Log in now !!',
-                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
-                   
-            });
-        }
-        if ('<?= $_POST['registration_success'] ?>' === 'true') {
-            Swal.fire({
-                icon : 'success',
-                title: 'Already Registration ',
-                text : 'Log in now !!',
-                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
-                   
-            });
-        }
-        if ('<?= $_POST['wrong_login'] ?>' === 'true') {
-            Swal.fire({
-                icon : 'error',
-                title: 'wrong username or password',
-                text : 'Try again',
-                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
-            
-            });
-        }
-    };
-</script>
-
-<?php
-    require_once dirname(__FILE__)."/connection.php";
-    require_once dirname(__FILE__) . "/overlay_nav.php";
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -55,9 +18,9 @@
         <div class="box">
             <h1>登入</h1>
             <br>
-            <form action="model/login_check.php" method="post">
+            <form action="login_check.php" method="post">
                 <div class="write">
-                    <div class="id">學號 :<input type="text" id="id" name="id" ></div>
+                    <div class="ID">學號 :<input type="text" id="ID" name="ID" ></div>
                     <div class="Password">密碼 :<input type="password" id="Password" name="Password" ></div>
                 </div>
                 <br>
@@ -69,6 +32,35 @@
     </body>
     <script src="../js/overlay.js"></script>
 </html>
+
+
+<?php
+require_once dirname(__FILE__)."/connection.php";
+require_once dirname(__FILE__) . "/overlay_nav.php";
+?>
+
+<script>
+   window.onload = function() {
+        if ('<?= $_GET['wrong_login'] ?>' === 'true') {
+            Swal.fire({
+                icon : 'error',
+                title: 'Login Failed',
+                text : 'Please check your ID and Password again.',
+                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
+            
+            });
+        }
+        if ('<?= $_GET['changepwd_success'] ?>' === 'true') {
+            Swal.fire({
+                icon : 'success',
+                title: 'Password Changed',
+                text : 'Please login again.',
+                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
+            });
+        }
+    };
+
+</script>
 
 <style>
 *
