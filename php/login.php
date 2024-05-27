@@ -1,5 +1,6 @@
 <?php
-  require_once dirname(__FILE__) . "/head.php";
+    require_once dirname(__FILE__) . "/head.php";
+    require_once dirname(__FILE__) . "/session.php";
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +31,7 @@
 <?php
 require_once dirname(__FILE__)."/connection.php";
 require_once dirname(__FILE__) . "/overlay_nav.php";
+require_once dirname(__FILE__) . "/session.php";
 ?>
 
 <script>
@@ -43,7 +45,7 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
             
             });
         }
-        
+
         if ('<?= $_GET['changepwd_success'] ?>' === 'true') {
             Swal.fire({
                 icon : 'success',

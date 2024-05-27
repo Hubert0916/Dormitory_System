@@ -1,5 +1,7 @@
 <?php
+session_start();
 require_once dirname(__FILE__)."/connection.php";
+
 
 $query = [
   'ID' => htmlspecialchars($_POST["ID"]),
@@ -15,12 +17,15 @@ function checkData($ID, $Password, $conn) {
     exit;
   } 
   else {
-    $row = mysqli_fetch_assoc($result);
+    mysqli_fetch_assoc($result);
     echo "登入成功";
     $_SESSION['login'] = true;
-    $_SESSION['ID'] = $row['ID'];
+    $_SESSION['ID'] = $ID;
     $_SESSION['LAST_ACTIVITY'] = time();
+    $result = mysqli_query($conn, $sql);
+
     header("Location: home.php?login_successful=true");   
+
   }
 }
 $conn->close();

@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    require_once dirname(__FILE__) . "/session.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head id="top">
