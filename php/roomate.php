@@ -120,6 +120,68 @@
             <input type="hidden" id="dorm_volume" name="dorm_volume" value="">
             <button type="submit" class="button">提交</button>
         </div>
+        <div class="question" id="question3">
+            <label for="location">住哪：</label>
+            <div class="location-options">
+                <div class="box location-option" data-location="地點1">
+                    <img src="../pic/8.jpg" alt="地點1">
+                    <p>8舍</p>
+                </div>
+                <div class="box location-option" data-location="地點2">
+                    <img src="../pic/9.jpg" alt="地點2">
+                    <p>9舍</p>
+                </div>
+                <div class="box location-option" data-location="地點3">
+                    <img src="../pic/10.jpg" alt="地點3">
+                    <p>10舍</p>
+                </div>
+                <div class="box location-option" data-location="地點4">
+                    <img src="../pic/11.jpg" alt="地點4">
+                    <p>11舍</p>
+                </div>
+                <div class="box location-option" data-location="地點5">
+                    <img src="../pic/12.jpg" alt="地點5">
+                    <p>12舍</p>
+                </div>
+                <div class="box location-option" data-location="地點6">
+                    <img src="../pic/13.jpg" alt="地點6">
+                    <p>13舍</p>
+                </div>
+                <div class="box location-option" data-location="地點7">
+                    <img src="../pic/7.jpg" alt="地點7">
+                    <p>7舍</p>
+                </div>
+                <div class="box location-option" data-location="地點8">
+                    <img src="../pic/girl2.jpg" alt="地點8">
+                    <p>女二舍</p>
+                </div>
+                <div class="box location-option" data-location="地點9">
+                    <img src="../pic/xuan.jpg" alt="地點9">
+                    <p>竹軒</p>
+                </div>
+                <div class="box location-option" data-location="地點10">
+                    <img src="../pic/1+.jpg" alt="地點10">
+                    <p>研一舍</p>
+                </div>
+                <div class="box location-option" data-location="地點11">
+                    <img src="../pic/2+.jpg" alt="地點11">
+                    <p>研二舍</p>
+                </div>
+                <div class="box location-option" data-location="地點12">
+                    <img src="../pic/3+.png" alt="地點12">
+                    <p>研三舍</p>
+                </div>
+            </div>
+            <input type="hidden" id="location" name="location" value="">
+            <button type="button" class="button" onclick="nextQuestion(4)">下一題</button>
+        </div>
+        <div class="question" id="question4">
+            <label for="notes">其他特殊備註：</label>
+            <div class="textarea-container">
+                <textarea id="notes" name="notes" placeholder="請在此輸入其他特殊備註..."></textarea>
+            </div>
+            <button type="submit" class="button">提交</button>
+        </div>
     </form>
 
     <script>
