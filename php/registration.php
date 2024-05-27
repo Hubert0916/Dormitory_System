@@ -1,6 +1,6 @@
 <?php
     require_once dirname(__FILE__)."/connection.php";
-    require_once dirname(__FILE__) . "/overlay_nav.php";
+    require_once dirname(__FILE__)."/overlay_nav.php";
 ?>
 
 <!DOCTYPE html>
