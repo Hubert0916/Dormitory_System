@@ -6,7 +6,7 @@ $query = [
   'Password' => htmlspecialchars($_POST["Password"])
 ];
 
-checkData($query['ID'], $query['Password'], $conn);
+checkData($query['ID'], md5($query['Password'], false), $conn);
 function checkData($ID, $Password, $conn) {
   $sql = "SELECT ID FROM Dorm.Profile WHERE ID = '$ID' AND Password = '$Password'";
   $result = mysqli_query($conn, $sql);

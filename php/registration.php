@@ -1,17 +1,11 @@
+<?php
+  require_once dirname(__FILE__) . "/head.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>Register</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
-
 </head>
-
 <body>
     <div class="box">
         <h1>註冊</h1>
@@ -64,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
     $FB = htmlspecialchars($_POST["FB"]);
     $IG = htmlspecialchars($_POST["IG"]);
     $Intro = htmlspecialchars($_POST["Intro"]);
-    $Password = htmlspecialchars($_POST["Password"]);
+    $Password = md5(htmlspecialchars($_POST["Password"]));
     $ID = htmlspecialchars($_POST["ID"]);
     $fileTmpPath = $_FILES["photo"]["tmp_name"];
     $fileName = $_FILES["photo"]["name"];
