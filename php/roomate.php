@@ -26,11 +26,14 @@
             max-width: 1000px;
         }
         .question {
-            display: flex;
-            justify-content: center;
+            display: none;
+            flex-direction: column;
             align-items: center;
             width: 100%;
-            margin-bottom: 20px;
+            text-align: center;
+        }
+        .question.active {
+            display: flex;
         }
         .box {
             width: 20%;
@@ -42,18 +45,11 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
-            margin: 0 10px;
+            margin: 20px 10px;
         }
         .box:hover {
             transform: translateY(-10px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        .box img {
-            width: 100%;
-            max-width: 200px;
-            height: auto;
-            border-radius: 10px;
-            object-fit: cover;
         }
         .box.selected {
             border-color: #007bff;
@@ -78,12 +74,6 @@
         .button:hover {
             background-color: #343a40;
             transform: translateY(-2px);
-        }
-        .note {
-            margin-top: 10px;
-            font-size: 14px;
-            color: #6c757d;
-            text-align: center;
         }
     </style>
 </head>
