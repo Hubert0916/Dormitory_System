@@ -84,11 +84,19 @@
         .selected {
             background-color: lightblue;
         }
-        .service-options, .budget-options {
+        .options-row {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin: 20px 0;
+        }
+        .location-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            max-width: 1000px;
         }
         .button {
             display: inline-block;
@@ -105,6 +113,27 @@
         .button:hover {
             background-color: #343a40;
             transform: translateY(-2px);
+        }
+        .note {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
+        .textarea-container {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .textarea-container textarea {
+            width: 80%;
+            height: 100px;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 16px;
+            resize: none;
         }
     </style>
 </head>
@@ -159,7 +188,7 @@
         </div>
         <div class="question" id="question2">
             <label for="services">搬家資訊 (可複選)：</label>
-            <div class="service-options">
+            <div class="options-row">
                 <div class="box service-option" data-service="雜物">
                     <img src="../pic/grocery.png" alt="雜物">
                     <p>雜物</p>
@@ -177,7 +206,7 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
-            <label for="transport">交通工具：</label>
+            <label for="transport">你想用什麼交通工具？</label>
             <div class="options-row">
                 <div class="box transport-option" data-transport="汽車">
                     <img src="../pic/vehicle.png" alt="汽車">
@@ -196,7 +225,7 @@
                 徒手一趟$50，拖車一趟$250，汽車一趟$500
             </div>
             <input type="hidden" id="transport" name="transport" value="">
-            <button type="button" class="button" onclick="nextQuestion(3)">下一題</button>
+            <button type="submit" class="button">開始尋找</button>
         </div>
     </form>
 
@@ -230,17 +259,17 @@
                 document.getElementById('services').value = selectedServices.join(',');
             });
         });
+
         let selectedTransport = '';
 
         document.querySelectorAll('.transport-option').forEach(option => {
-        option.addEventListener('click', function() {
-        document.querySelectorAll('.transport-option').forEach(opt => opt.classList.remove('selected'));
-        this.classList.add('selected');
-        selectedTransport = this.getAttribute('data-transport');
-        document.getElementById('transport').value = selectedTransport;
-    });
-});
-        
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.transport-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedTransport = this.getAttribute('data-transport');
+                document.getElementById('transport').value = selectedTransport;
+            });
+        });
 
         function nextQuestion(currentQuestion) {
             document.getElementById('question' + currentQuestion).classList.remove('active');
