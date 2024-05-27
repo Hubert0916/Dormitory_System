@@ -1,22 +1,11 @@
 <?php
-    require_once dirname(__FILE__)."/connection.php";
-    require_once dirname(__FILE__)."/overlay_nav.php";
+  require_once dirname(__FILE__) . "/head.php";
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>Register</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
-
 </head>
-
 <body>
     <div class="box">
         <h1>註冊</h1>
@@ -55,9 +44,11 @@
 </html>
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["photo"]["error"] == UPLOAD_ERR_OK) {
-    echo "test";
 
+include "connection.php";
+include "overlay_nav.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["photo"]["error"] == UPLOAD_ERR_OK) {
     $Name = htmlspecialchars($_POST["Name"]);
     $Sex = htmlspecialchars($_POST["Sex"]);
     $Department = htmlspecialchars($_POST["Department"]);
@@ -77,11 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
     $fileContent = file_get_contents($fileTmpPath);
 
     $id_sql = "SELECT * FROM Dorm.Profile WHERE ID = '$ID'";
+    $email_sql = "SELECT * FROM Dorm.Profile WHERE Email = '$Email'";
     $id_result = mysqli_query($conn, $id_sql);
+    $email_result = mysqli_query($conn, $email_sql);
 
     if (mysqli_num_rows($id_result) > 0) {
         header("Location: registration.php?");
-    } else if (mysqli_num_rows($Email_result) === 0 && mysqli_num_rows($id_result) === 0) {
+    } else if (mysqli_num_rows($email_result) === 0 && mysqli_num_rows($id_result) === 0) {
 
         $stmt1 = $conn->prepare("INSERT INTO Dorm.Profile(ID, Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password)
         VALUES (?, ?, ?, ?, ?, ?, ? ,? ,? ,?, ?)");

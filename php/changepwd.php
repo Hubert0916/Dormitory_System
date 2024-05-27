@@ -6,16 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">   
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
-        
+        <title>Change Password</title>   
     </head>
     <body>
         <div class="box">
@@ -32,7 +23,6 @@
                 </div>
             </form>
         </div>
-    <script src="../js/overlay.js"></script>
     </body>
     <body>
         <script>
@@ -70,7 +60,7 @@
                 document.getElementById('changepwdForm').submit();
             }
             }
-            
+
             window.onload = function() {
                 if ('<?= $_GET['wrong_pwd'] ?>' === 'true') {
                     Swal.fire({
