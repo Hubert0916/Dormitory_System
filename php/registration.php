@@ -157,8 +157,6 @@ function insertData($Name, $Sex, $Department, $Grade, $Phone, $Email, $FB, $IG, 
 
     }
     if (mysqli_query($conn, $sql)) {
-
-        echo "New record created successfully";
         header("Location: login.php?registration_success=true");
         exit;
       } 
