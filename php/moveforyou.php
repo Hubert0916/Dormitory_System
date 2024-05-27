@@ -120,6 +120,21 @@
             color: #6c757d;
             text-align: center;
         }
+        .textarea-container {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .textarea-container textarea {
+            width: 80%;
+            height: 100px;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 16px;
+            resize: none;
+        }
     </style>
 </head>
 <body>
@@ -268,27 +283,11 @@
             <button type="button" class="button" onclick="nextQuestion(4)">下一題</button>
         </div>
         <div class="question" id="question5">
-            <label for="budget">預算：</label>
-            <div class="options-row">
-                <div class="box budget-option" data-budget="1-200">
-                    <img src="../pic/money1.png" alt="$1-200">
-                    <p>$1~200</p>
-                </div>
-                <div class="box budget-option" data-budget="200-500">
-                    <img src="../pic/money2.png" alt="$200-500">
-                    <p>$200~500</p>
-                </div>
-                <div class="box budget-option" data-budget="500-1000">
-                    <img src="../pic/money3.png"  alt="$500-1000">
-                    <p>$500~1000</p>
-                </div>
-                <div class="box budget-option" data-budget="1000-up">
-                    <img src="../pic/money4.png" alt="$1000-up">
-                    <p>$1000↑</p>
-                </div>
+            <label for="notes">其他特殊需求：</label>
+            <div class="textarea-container">
+                <textarea id="notes" name="notes" placeholder="請在此輸入其他特殊需求..."></textarea>
             </div>
-            <input type="hidden" id="budget" name="budget" value="">
-            <button type="submit" class="button">開始尋找</button>
+            <button type="submit" class="button">提交</button>
         </div>
     </form>
 
@@ -346,17 +345,6 @@
                     selectedLocations = selectedLocations.filter(location => location !== locationValue);
                 }
                 document.getElementById('location').value = selectedLocations.join(',');
-            });
-        });
-
-        let selectedBudget = '';
-
-        document.querySelectorAll('.budget-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.budget-option').forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-                selectedBudget = this.getAttribute('data-budget');
-                document.getElementById('budget').value = selectedBudget;
             });
         });
 
