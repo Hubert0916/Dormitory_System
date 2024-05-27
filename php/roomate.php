@@ -81,6 +81,14 @@
             gap: 20px;
             margin: 20px 0;
         }
+        .location-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            max-width: 1000px;
+        }
     </style>
 </head>
 <body>
