@@ -20,15 +20,20 @@
         }
         .container {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            flex-direction: column;
+            align-items: center;
             width: 80%;
             max-width: 1000px;
-            height: 80%;
+        }
+        .question {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
         }
         .box {
-            width: 30%;
-            height: 80%;
+            width: 20%;
             background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
@@ -36,11 +41,8 @@
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             cursor: pointer;
+            margin: 0 10px;
         }
         .box:hover {
             transform: translateY(-10px);
@@ -60,12 +62,6 @@
             margin-top: 20px;
             font-size: 18px;
             color: #495057;
-        }
-        .question {
-            display: none;
-        }
-        .question.active {
-            display: block;
         }
         .button {
             display: inline-block;
@@ -92,38 +88,34 @@
     </style>
 </head>
 <body>
-    <form id="questionForm" action="submit.php" method="POST">
+    <form id="questionForm" action="submit.php" method="POST" class="container">
         <div class="question active" id="question1">
             <label for="sleep_habit">睡眠習慣：</label>
-            <div class="options-row">
-                <div class="box sleep-option" data-sleep="10點~12點">
-                    <p>10點~12點</p>
-                </div>
-                <div class="box sleep-option" data-sleep="12點~2點">
-                    <p>12點~2點</p>
-                </div>
-                <div class="box sleep-option" data-sleep="2點~4點">
-                    <p>2點~4點</p>
-                </div>
-                <div class="box sleep-option" data-sleep="4點~6點">
-                    <p>4點~6點</p>
-                </div>
+            <div class="box sleep-option" data-sleep="10點~12點">
+                <p>10點~12點</p>
+            </div>
+            <div class="box sleep-option" data-sleep="12點~2點">
+                <p>12點~2點</p>
+            </div>
+            <div class="box sleep-option" data-sleep="2點~4點">
+                <p>2點~4點</p>
+            </div>
+            <div class="box sleep-option" data-sleep="4點~6點">
+                <p>4點~6點</p>
             </div>
             <input type="hidden" id="sleep_habit" name="sleep_habit" value="">
             <button type="button" class="button" onclick="nextQuestion(1)">下一題</button>
         </div>
         <div class="question" id="question2">
             <label for="dorm_volume">宿舍音量：</label>
-            <div class="options-row">
-                <div class="box volume-option" data-volume="完全無聲音">
-                    <p>完全無聲音</p>
-                </div>
-                <div class="box volume-option" data-volume="可接受交談聲">
-                    <p>可接受交談聲</p>
-                </div>
-                <div class="box volume-option" data-volume="可接受嘈雜聲">
-                    <p>可接受嘈雜聲</p>
-                </div>
+            <div class="box volume-option" data-volume="完全無聲音">
+                <p>完全無聲音</p>
+            </div>
+            <div class="box volume-option" data-volume="可接受交談聲">
+                <p>可接受交談聲</p>
+            </div>
+            <div class="box volume-option" data-volume="可接受嘈雜聲">
+                <p>可接受嘈雜聲</p>
             </div>
             <input type="hidden" id="dorm_volume" name="dorm_volume" value="">
             <button type="submit" class="button">提交</button>
