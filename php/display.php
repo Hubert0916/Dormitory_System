@@ -35,6 +35,6 @@
 </head>
 <body>
     <h2>Display Photo</h2>
-    <img src="display.php?id=1" alt="Photo">
+    <img src="display.php?id=4535" alt="Photo">
 </body>
 </html>

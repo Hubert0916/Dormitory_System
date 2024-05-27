@@ -1,3 +1,8 @@
+<?php
+    require_once dirname(__FILE__)."/connection.php";
+    require_once dirname(__FILE__) . "/overlay_nav.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +24,6 @@
             <div class="write">
                 <div class="first-column">
                     <div class="Name">姓名 :<input type="text" id="Name" name="Name"></div>
-                    <div class="EngName">英文暱稱 :<input type="text" id="EngName" name="EngName"></div>
                     <div class="ID">學號 :<input type="text" id="ID" name="ID"></div>
                     <div class="Email">信箱 :<input type="text" id="Email" name="Email"></div>
                     <div class="Department">系所 :<input type="text" id="Department" name="Department"></div>
@@ -75,12 +79,26 @@
             document.getElementById('registration').submit();
         }
     }
+    window.onload = function(){
+        if('<?= $_GET['id_repeat'] ?>' === 'true') {
+            Swal.fire({
+                icon: 'error',
+                title: 'ooooops....This Student_ID already registered!',
+                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
+            })
+        } 
+        }
+        if ('<?= $_GET['registration_success'] ?>' === 'true') {
+            Swal.fire({
+                icon : 'success',
+                title: 'Already registrastion ',
+                text : 'Log in now !!',
+                
+            });
+        }
 </script>
 
 <?php
-
-include "connection.php";
-// include "overlay_nav.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["photo"]["error"] == UPLOAD_ERR_OK) {
 
@@ -102,16 +120,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
 
     $fileContent = file_get_contents($fileTmpPath);
 
-    $Email_sql = "SELECT * FROM Dorm.Profile WHERE Email = '$Email'";
     $id_sql = "SELECT * FROM Dorm.Profile WHERE ID = '$ID'";
 
-    $Email_result = mysqli_query($conn, $Email_sql);
     $id_result = mysqli_query($conn, $id_sql);
 
-    if (mysqli_num_rows($Email_result) > 0) {
-        header("Location: registration.php");
-    } else if (mysqli_num_rows($id_result) > 0) {
-        header("Location: registration.php");
+    if (mysqli_num_rows($id_result) > 0) {
+        header("Location: registration.php?id_repeat=true");
     } else if (mysqli_num_rows($Email_result) === 0 && mysqli_num_rows($id_result) === 0) {
 
         $stmt1 = $conn->prepare("INSERT INTO Dorm.Profile(ID, Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password)
@@ -128,6 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         $stmt2->bind_param("issib", $ID, $fileName, $fileType, $fileSize, $null);
         $stmt2->send_long_data(4, $fileContent);
         if ($stmt2->execute()) {
+            header("Location: login.php");
             echo "File uploaded successfully.";
         } else {
             echo "Error: " . $stmt2->error;
@@ -262,13 +277,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         resize: none;
         overflow-y: auto;
         width: 265px;
-        height: 270px;
+        height: 225px;
         align-items: center;
         border: #F0EBE3;
         font-size: 15px;
         border-radius: 5px;
         border: 1px solid #bebbbb73;
-        ;
         color: #576F72;
         background-color: #f2f2f2;
         margin-left: 117px;
