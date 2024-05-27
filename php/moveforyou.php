@@ -114,6 +114,12 @@
             background-color: #343a40;
             transform: translateY(-2px);
         }
+        .note {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -199,6 +205,9 @@
                     <img src="../pic/cart.png" alt="拖車">
                     <p>拖車</p>
                 </div>
+            </div>
+            <div class="note">
+                徒手一趟$50，拖車一趟$250，汽車一趟$500
             </div>
             <input type="hidden" id="transport" name="transport" value="">
             <button type="button" class="button" onclick="nextQuestion(3)">下一題</button>
