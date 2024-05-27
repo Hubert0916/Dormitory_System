@@ -1,5 +1,10 @@
 <?php
     require_once dirname(__FILE__) . "/overlay_nav.php";
+    session_start();
+    if (!isset($_SESSION['ID'])) {
+        header('Location: login.php');
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="zh-Hant">
@@ -206,7 +211,7 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
-            <label for="transport">交通工具：</label>
+            <label for="transport">你想用什麼交通工具？</label>
             <div class="options-row">
                 <div class="box transport-option" data-transport="汽車">
                     <img src="../pic/vehicle.png" alt="汽車">
@@ -259,17 +264,17 @@
                 document.getElementById('services').value = selectedServices.join(',');
             });
         });
+
         let selectedTransport = '';
 
         document.querySelectorAll('.transport-option').forEach(option => {
-        option.addEventListener('click', function() {
-        document.querySelectorAll('.transport-option').forEach(opt => opt.classList.remove('selected'));
-        this.classList.add('selected');
-        selectedTransport = this.getAttribute('data-transport');
-        document.getElementById('transport').value = selectedTransport;
-    });
-});
-        
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.transport-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedTransport = this.getAttribute('data-transport');
+                document.getElementById('transport').value = selectedTransport;
+            });
+        });
 
         function nextQuestion(currentQuestion) {
             document.getElementById('question' + currentQuestion).classList.remove('active');
