@@ -84,7 +84,7 @@
         .selected {
             background-color: lightblue;
         }
-        .service-options, .budget-options {
+        .service-options, .budget-options, .transport-option {
             display: flex;
             justify-content: center;
             gap: 20px;
@@ -179,15 +179,15 @@
         <div class="question" id="question3">
             <label for="transport">交通工具：</label>
             <div class="options-row">
-                <div class="box transport-option" data-transport="汽車">
+                <div class="transport-option" data-transport="汽車">
                     <img src="../pic/vehicle.png" alt="汽車">
                     <p>汽車</p>
                 </div>
-                <div class="box transport-option" data-transport="徒手">
+                <div class="transport-option" data-transport="徒手">
                     <img src="../pic/hands.png" alt="徒手">
                     <p>徒手</p>
                 </div>
-                <div class="box transport-option" data-transport="拖車">
+                <div class="transport-option" data-transport="拖車">
                     <img src="../pic/cart.png" alt="拖車">
                     <p>拖車</p>
                 </div>
@@ -196,7 +196,7 @@
                 徒手一趟$50，拖車一趟$250，汽車一趟$500
             </div>
             <input type="hidden" id="transport" name="transport" value="">
-            <button type="button" class="button" onclick="nextQuestion(3)">下一題</button>
+            <button type="submit" class="button">開始尋找</button>
         </div>
     </form>
 
