@@ -74,14 +74,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
 
     if (mysqli_num_rows($id_result) > 0) {
         header("Location: registration.php?");
-    } else if (mysqli_num_rows($email_result) === 0 && mysqli_num_rows($id_result) === 0) {
+    } 
+    else if (mysqli_num_rows($email_result) === 0 && mysqli_num_rows($id_result) === 0) {
 
         $stmt1 = $conn->prepare("INSERT INTO Dorm.Profile(ID, Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password)
         VALUES (?, ?, ?, ?, ?, ?, ? ,? ,? ,?, ?)");
         $stmt1->bind_param("issssssssss", $ID, $Name, $Sex, $Department, $Grade, $Phone, $Email, $FB, $IG, $Intro, $Password);
-        if ($stmt1->execute()) {
-            echo "Profile Created successfully.";
-        } else {
+        if (!$stmt1->execute()) {
             echo "Error: " . $stmt1->error;
         }
         $stmt1->close();
@@ -90,10 +89,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         $stmt2->bind_param("issib", $ID, $fileName, $fileType, $fileSize, $null);
         $stmt2->send_long_data(4, $fileContent);
         if ($stmt2->execute()) {
-          echo "File uploaded successfully.";
-        } else {
+            echo '<script>';
+            echo 'window.onload = function() {';
+            echo 'Swal.fire({';
+            echo 'icon : "success",';
+            echo 'title: "Profile created successfully",';
+            echo 'text : "You can now login with your account",';
+            echo 'confirmButtonColor: "rgba(11, 29, 64, 0.747)"';
+            echo '});';
+            echo '}';
+            echo '</script>';
+        }
+        else {
             echo "Error: " . $stmt2->error;
         }
+
         $stmt2->close();
 
         $conn->close();

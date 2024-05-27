@@ -1,6 +1,6 @@
 <?php
-    require_once dirname(__FILE__) . "/head.php";
     require_once dirname(__FILE__) . "/session.php";
+    require_once dirname(__FILE__) . "/head.php";
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +50,15 @@ require_once dirname(__FILE__) . "/session.php";
             Swal.fire({
                 icon : 'success',
                 title: 'Password Changed',
+                text : 'Please login again.',
+                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
+            });
+        }
+
+        if ('<?= $_GET['register'] ?>' === 'true') {
+            Swal.fire({
+                icon : 'success',
+                title: 'Registration Success',
                 text : 'Please login again.',
                 confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
             });
