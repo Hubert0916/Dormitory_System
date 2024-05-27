@@ -84,17 +84,19 @@
         .selected {
             background-color: lightblue;
         }
-        .service-options, .budget-options {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
         .options-row {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin: 20px 0;
+        }
+        .location-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            max-width: 1000px;
         }
         .button {
             display: inline-block;
@@ -111,6 +113,27 @@
         .button:hover {
             background-color: #343a40;
             transform: translateY(-2px);
+        }
+        .note {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
+        .textarea-container {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .textarea-container textarea {
+            width: 80%;
+            height: 100px;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 16px;
+            resize: none;
         }
     </style>
 </head>
