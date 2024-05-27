@@ -177,27 +177,26 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
-            <label for="budget">預算：</label>
-            <div class="budget-options">
-                <div class="box budget-option" data-budget="1-200">
-                    <img src="../pic/money1.png" alt="$1-200">
-                    <p>$1~200</p>
+            <label for="transport">交通工具：</label>
+            <div class="options-row">
+                <div class="box transport-option" data-transport="汽車">
+                    <img src="../pic/vehicle.png" alt="汽車">
+                    <p>汽車</p>
                 </div>
-                <div class="box budget-option" data-budget="200-500">
-                    <img src="../pic/money2.png" alt="$200-500">
-                    <p>$200~500</p>
+                <div class="box transport-option" data-transport="徒手">
+                    <img src="../pic/hands.png" alt="徒手">
+                    <p>徒手</p>
                 </div>
-                <div class="box budget-option" data-budget="500-1000">
-                    <img src="../pic/money3.png"  alt="$500-1000">
-                    <p>$500~1000</p>
-                </div>
-                <div class="box budget-option" data-budget="1000-up">
-                    <img src="../pic/money4.png" alt="$1000-up">
-                    <p>$1000↑</p>
+                <div class="box transport-option" data-transport="拖車">
+                    <img src="../pic/cart.png" alt="拖車">
+                    <p>拖車</p>
                 </div>
             </div>
-            <input type="hidden" id="budget" name="budget" value="">
-            <button type="submit" class="button">開始尋找</button>
+            <div class="note">
+                徒手一趟$50，拖車一趟$250，汽車一趟$500
+            </div>
+            <input type="hidden" id="transport" name="transport" value="">
+            <button type="button" class="button" onclick="nextQuestion(3)">下一題</button>
         </div>
     </form>
 
@@ -231,17 +230,17 @@
                 document.getElementById('services').value = selectedServices.join(',');
             });
         });
+        let selectedTransport = '';
 
-        let selectedBudget = '';
-
-        document.querySelectorAll('.budget-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.budget-option').forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-                selectedBudget = this.getAttribute('data-budget');
-                document.getElementById('budget').value = selectedBudget;
-            });
-        });
+        document.querySelectorAll('.transport-option').forEach(option => {
+        option.addEventListener('click', function() {
+        document.querySelectorAll('.transport-option').forEach(opt => opt.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedTransport = this.getAttribute('data-transport');
+        document.getElementById('transport').value = selectedTransport;
+    });
+});
+        
 
         function nextQuestion(currentQuestion) {
             document.getElementById('question' + currentQuestion).classList.remove('active');
