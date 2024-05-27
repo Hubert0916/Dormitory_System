@@ -84,7 +84,13 @@
         .selected {
             background-color: lightblue;
         }
-        .service-options, .budget-options, .transport-option {
+        .service-options, .budget-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .options-row {
             display: flex;
             justify-content: center;
             gap: 20px;
