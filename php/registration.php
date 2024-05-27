@@ -1,8 +1,3 @@
-<?php
-    require_once dirname(__FILE__)."/connection.php";
-    require_once dirname(__FILE__)."/overlay_nav.php";
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,8 +55,6 @@ include "connection.php";
 include "overlay_nav.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["photo"]["error"] == UPLOAD_ERR_OK) {
-    echo "test";
-
     $Name = htmlspecialchars($_POST["Name"]);
     $Sex = htmlspecialchars($_POST["Sex"]);
     $Department = htmlspecialchars($_POST["Department"]);
@@ -81,11 +74,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
     $fileContent = file_get_contents($fileTmpPath);
 
     $id_sql = "SELECT * FROM Dorm.Profile WHERE ID = '$ID'";
+    $email_sql = "SELECT * FROM Dorm.Profile WHERE Email = '$Email'";
     $id_result = mysqli_query($conn, $id_sql);
+    $email_result = mysqli_query($conn, $email_sql);
 
     if (mysqli_num_rows($id_result) > 0) {
         header("Location: registration.php?");
-    } else if (mysqli_num_rows($Email_result) === 0 && mysqli_num_rows($id_result) === 0) {
+    } else if (mysqli_num_rows($email_result) === 0 && mysqli_num_rows($id_result) === 0) {
 
         $stmt1 = $conn->prepare("INSERT INTO Dorm.Profile(ID, Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password)
         VALUES (?, ?, ?, ?, ?, ?, ? ,? ,? ,?, ?)");
