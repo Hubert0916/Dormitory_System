@@ -17,9 +17,9 @@
             <h1>更改密碼</h1>
             <br>
             <br>
-            <form id="changepwdForm" action="model/changepwd_check.php" method="get"  onsubmit="return validateForm(event)">
+            <form id="changepwdForm" action="changepwd_check.php" method="get"  onsubmit="return validateForm(event)">
                 <div class="write">
-                    <div class="id">學號 : <input type="text" id="id" name="id" required></div>
+                    <div class="ID">學號 :<input type="text" id="ID" name="ID" ></div>
                     <div class="Password">舊密碼 : <input type="password" id="Password" name="Password" required></div>
                     <div class="Password1">新密碼 :<input type="password" id="Password1" name="Password1" required></div>
                     <div class="Password2">確認密碼 :<input type="password" id="Password2" name="Password2" required></div>
@@ -66,26 +66,29 @@
             }
         }
 
-
-        window.onload = function() {
-            if ('<?= $_POST['wrong_pwd'] ?>' === 'true') {
-            Swal.fire({
-                icon : 'wrong',
-                title: 'Wrong Student_ID or Password',
-                text : 'Please try again.',
-            });
-            }
-        };
-
-        if ('<?= $_POST['changepwd_success'] ?>' === 'false') {
-            Swal.fire({
-                icon : 'wrong',
-                title: 'Wrong Password!',
-            });
-        };
     </script>
     </body>
 </html>
+
+
+<script>
+    window.onload = function() {
+        if ('<?= $_GET['wrong_pwd'] ?>' === 'true') {
+        Swal.fire({
+            icon : 'error',
+            title: 'Wrong username or password',
+            text : 'Please try again.',
+        });
+        }
+    };
+
+    if ('<?= $_GET['changepwd_success'] ?>' === 'false') {
+        Swal.fire({
+            icon : 'wrong',
+            title: 'wrong password!',
+        });
+    };
+</script>
 
 <style>
 
@@ -141,7 +144,7 @@ h1
     color: #576F72;
 }
 
-.id input {
+.ID input {
     margin-left: 70px;
 }
 
@@ -174,56 +177,3 @@ h1
 }
 
 </style>
-
-<?php
-    require_once dirname(__FILE__)."/connection.php";
-    require_once dirname(__FILE__) . "/overlay_nav.php";
-
-$query = [
-'id' => htmlspecialchars($_POST["id"]),
-'password' => htmlspecialchars($_POST["password"]),
-'newpwd' => htmlspecialchars($_POST["newpwd"])
-];
-
-checkPwd($query['id'],($query['password']), ($query['newpwd']), $conn);
-
-function checkPwd($id,$password, $newpwd, $conn) {
-  $sql = "SELECT id, password FROM Dorm.Profile WHERE id = '$id'";
-  $result = mysqli_query($conn, $sql);
-  if(mysqli_num_rows($result) == 0) {
-    header("Location: ../changepwd.php? wrong_pwd=true");   
-  }
-  else {
-    $row = mysqli_fetch_assoc($result);
-    if($row['password'] == $password)         
-    {
-      $sql = "UPDATE Dorm.Profile
-            SET Password='$newpwd'
-            WHERE id='$id'";
-      if (mysqli_query($conn, $sql)) {
-        header("Location: ../login.php?changepwd_success=true");   
-      } 
-      else {
-        header("Location: ../changepwd.php?changepwd_success=false"); 
-      }
-    }
-  }
-}
-$conn->close();
-?>
-
-<script>
-   
-   window.onload = function() {
-        if ('<?= $_POST['changepwd_success'] ?>' === 'false') {
-            Swal.fire({
-                icon : 'wrong',
-                title: 'wrong Student_ID or Password!',
-                text : 'Please try again.',
-                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
-                   
-            });
-        }
-    };
-</script>
-

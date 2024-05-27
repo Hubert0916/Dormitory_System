@@ -54,53 +54,13 @@
 
 </html>
 
-
-<script>
-    function validateForm(event) {
-        var x = document.getElementById('Password').value;
-        var y = document.getElementById('Password1').value;
-
-        if (x.length < 6) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Too short',
-                text: 'Please enter a password of more than 6 characters',
-            })
-
-            event.preventDefault();
-        } else if (x != y) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Wrong password',
-                text: 'Confirm and Retype your password',
-            })
-            event.preventDefault();
-        } else {
-            document.getElementById('registration').submit();
-        }
-    }
-    window.onload = function(){
-        if('<?= $_GET['id_repeat'] ?>' === 'true') {
-            Swal.fire({
-                icon: 'error',
-                title: 'ooooops....This Student_ID already registered!',
-                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
-            })
-        } 
-        }
-        if ('<?= $_GET['registration_success'] ?>' === 'true') {
-            Swal.fire({
-                icon : 'success',
-                title: 'Already registrastion ',
-                text : 'Log in now !!',
-                
-            });
-        }
-</script>
-
 <?php
 
+include "connection.php";
+include "overlay_nav.php";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["photo"]["error"] == UPLOAD_ERR_OK) {
+    echo "test";
 
     $Name = htmlspecialchars($_POST["Name"]);
     $Sex = htmlspecialchars($_POST["Sex"]);
@@ -121,12 +81,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
     $fileContent = file_get_contents($fileTmpPath);
 
     $id_sql = "SELECT * FROM Dorm.Profile WHERE ID = '$ID'";
-    $Email_sql = "SELECT * FROM Dorm.Profile WHERE Email = '$Email'";
-
     $id_result = mysqli_query($conn, $id_sql);
 
-    if (mysqli_num_rows($id_result) > 0 && mysqli_num_rows($Email_result) > 0) {
-        header("Location: registration.php?id_repeat=true");
+    if (mysqli_num_rows($id_result) > 0) {
+        header("Location: registration.php?");
     } else if (mysqli_num_rows($Email_result) === 0 && mysqli_num_rows($id_result) === 0) {
 
         $stmt1 = $conn->prepare("INSERT INTO Dorm.Profile(ID, Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password)
@@ -143,8 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         $stmt2->bind_param("issib", $ID, $fileName, $fileType, $fileSize, $null);
         $stmt2->send_long_data(4, $fileContent);
         if ($stmt2->execute()) {
-            header("Location: login.php");
-            echo "File uploaded successfully.";
+          echo "File uploaded successfully.";
         } else {
             echo "Error: " . $stmt2->error;
         }

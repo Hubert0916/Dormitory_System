@@ -5,6 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nanum+Pen+Script&family=Noto+Serif+TC:wght@200..900&display=swap" rel="stylesheet">
@@ -132,3 +134,18 @@
 </footer>
 </body>
 </html>
+
+<script>
+   window.onload = function() {
+        if ('<?= $_GET['login_successful'] ?>' === 'true') {
+            Swal.fire({
+                icon : 'success',
+                title: 'Login Success',
+                text : 'Welcome to Dormitory Website',
+                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
+            
+            });
+        }
+
+    };
+</script>
