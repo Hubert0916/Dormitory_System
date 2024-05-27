@@ -50,6 +50,7 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
             
             });
         }
+        
         if ('<?= $_GET['changepwd_success'] ?>' === 'true') {
             Swal.fire({
                 icon : 'success',

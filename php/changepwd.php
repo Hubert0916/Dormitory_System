@@ -1,3 +1,8 @@
+<?php
+   require_once dirname(__FILE__) . "/overlay_nav.php";
+   require_once dirname(__FILE__) . "/connection.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -64,31 +69,28 @@
             else{
                 document.getElementById('changepwdForm').submit();
             }
-        }
+            }
+            
+            window.onload = function() {
+                if ('<?= $_GET['wrong_pwd'] ?>' === 'true') {
+                    Swal.fire({
+                        icon : 'error',
+                        title: 'Wrong username or password',
+                        text : 'Please try again.',
+                    });
+                }
+
+                else if ('<?= $_GET['changepwd_success'] ?>' === 'false') {
+                    Swal.fire({
+                        icon : 'wrong',
+                        title: 'wrong password!',
+                    });
+                };
+            }
 
     </script>
     </body>
 </html>
-
-
-<script>
-    window.onload = function() {
-        if ('<?= $_GET['wrong_pwd'] ?>' === 'true') {
-        Swal.fire({
-            icon : 'error',
-            title: 'Wrong username or password',
-            text : 'Please try again.',
-        });
-        }
-    };
-
-    if ('<?= $_GET['changepwd_success'] ?>' === 'false') {
-        Swal.fire({
-            icon : 'wrong',
-            title: 'wrong password!',
-        });
-    };
-</script>
 
 <style>
 

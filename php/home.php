@@ -146,6 +146,15 @@
             
             });
         }
+        if ('<?= $_GET['changepwd_success'] ?>' === 'true') {
+            Swal.fire({
+                icon : 'success',
+                title: 'Successfully Change Password',
+                text : 'Please remember your new password',
+                confirmButtonColor: 'rgba(11, 29, 64, 0.747)'
+            
+            });
+        }
 
     };
 </script>
