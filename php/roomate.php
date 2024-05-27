@@ -118,7 +118,7 @@
             </div>
             </div>
             <input type="hidden" id="dorm_volume" name="dorm_volume" value="">
-            <button type="button" class="button" onclick="nextQuestion(3)">下一題</button>
+            <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
             <label for="location">住哪：</label>
@@ -173,7 +173,7 @@
                 </div>
             </div>
             <input type="hidden" id="location" name="location" value="">
-            <button type="button" class="button" onclick="nextQuestion(4)">下一題</button>
+            <button type="button" class="button" onclick="nextQuestion(3)">下一題</button>
         </div>
         <div class="question" id="question4">
             <label for="notes">其他特殊備註：</label>
