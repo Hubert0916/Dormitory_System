@@ -118,7 +118,7 @@
             </div>
             </div>
             <input type="hidden" id="dorm_volume" name="dorm_volume" value="">
-            <button type="submit" class="button">提交</button>
+            <button type="button" class="button" onclick="nextQuestion(4)">下一題</button>
         </div>
         <div class="question" id="question3">
             <label for="location">住哪：</label>
