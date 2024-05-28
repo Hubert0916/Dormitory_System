@@ -1,20 +1,22 @@
 <?php
-require_once dirname(__FILE__) . "/session.php";
+session_start();
 
-$user_data = $_SESSION['user_data'];
-if (!isset($user_data['ID'])) {
+if (!isset($_SESSION['ID'])) {
     header('Location: login.php');
     exit();
 }
 
+// Get ID from session
+$user_data = $_SESSION['ID'];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $student_id = $user_data['ID'];
+    $student_id = $user_data;
     $available_time = $_POST['time'];
     $move_services = $_POST['services'];
     $transport_mode = $_POST['transport'];
-
-    // 引用connection.php
-    require_once 'connection.php';
+    
+    // Include connection.php
+    include 'connection.php';
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -22,21 +24,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Connected successfully.<br>";
     }
 
-    // 檢查 $conn 是否為有效的 mysqli 對象
-    if ($conn instanceof mysqli) {
-        $sql = "INSERT INTO move_requests (student_id, available_time, move_services, transport_mode)
-                VALUES ('$student_id', '$available_time', '$move_services', '$transport_mode')";
-
-        if ($conn->query($sql) === TRUE) {
-            echo "數據提交成功！";
-        } else {
-            echo "錯誤: " . $sql . "<br>" . $conn->error;
-        }
-
-        // 關閉連接
-        $conn->close();
+    $stmt = $conn->prepare("INSERT INTO Dorm.move_requests (student_id, available_time, move_services, transport_mode, reg_date) VALUES (?, ?, ?, ?, NOW())");
+    $stmt->bind_param("ssss", $student_id, $available_time, $move_services, $transport_mode);
+    
+    if ($stmt->execute()) {
+        echo "Success: Your move request has been submitted successfully";
     } else {
-        echo "無效的數據庫連接。";
+        echo "Error: " . $stmt->error;
     }
+    
+    $stmt->close();
+    $conn->close();
+    
+} else {
+    echo "Error: Please make sure your form is filled correctly";
 }
 ?>

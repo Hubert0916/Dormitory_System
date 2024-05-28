@@ -138,7 +138,7 @@
     </style>
 </head>
 <body>
-    <form id="questionForm" action="submit.php" method="POST">
+    <form id="questionForm" action="submit.php" method="post">
         <div class="question active" id="question1">
             <label for="time">你有空的時間：</label>
             <table>
@@ -222,7 +222,7 @@
                 </div>
             </div>
             <div class="note">
-                徒手一趟$50，拖車一趟$250，汽車一趟$500
+                徒手一趟$50，拖車一趟$150，汽車一趟$300
             </div>
             <input type="hidden" id="transport" name="transport" value="">
             <button type="submit" class="button">開始尋找</button>
