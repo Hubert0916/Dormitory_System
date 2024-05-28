@@ -30,7 +30,7 @@ footer{
 /*Navigation*/
 
 .navigation {
-	margin: 100px 0px 0px 0px;
+	margin: 130px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
 	visibility: visible;
 	height: 0px;
@@ -127,6 +127,7 @@ footer{
 	color: #576F72;
 	gap: 120px;
 	margin-left: 170px;
+	margin-top: 50px;
 }
 .home-content h1 {
 	font-size: 4.5rem;
