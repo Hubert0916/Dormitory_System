@@ -30,7 +30,7 @@
 			<ul>
                 <li><a href="#home">首 頁</a></li>
                 <li class="dropdown">
-                    <a href="#service">服 務</a><i class="fa-solid fa-chevron-down"></i>
+                    <a href="#service" class="service-link2">服 務<i class="fa-solid fa-chevron-down"></i></a>
                     <ul class="dropdown-menu">
                         <li><a href="../php/move.php">協 助 搬 遷</a></li>
                         <li><a href="../php/roomate.php">配 對 室 友</a></li>

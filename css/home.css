@@ -184,3 +184,23 @@ footer{
 	text-align: center;
 	gap: 30px;
 }
+
+/* service design */
+.service-link2:hover {
+	color: black !important;
+	background-color: transparent; 
+}
+
+.service-link2:hover i {
+	transform: rotate(180deg); 
+}
+.service-link2:focus {
+    outline: none; 
+    color: #576F72 !important;
+    background-color: transparent; 
+}
+.service-link2 i {
+    font-size: 15px; 
+    margin-left: 20px;
+    transition: transform 0.5s ease; 
+}
