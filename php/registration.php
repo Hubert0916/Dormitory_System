@@ -1,5 +1,7 @@
 <?php
   require_once dirname(__FILE__) . "/head.php";
+  require_once dirname(__FILE__) . "/overlay_nav.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +46,6 @@
 <?php
 
 include "connection.php";
-include "overlay_nav.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["photo"]["error"] == UPLOAD_ERR_OK) {
     $Name = htmlspecialchars($_POST["Name"]);
