@@ -26,13 +26,11 @@ if ($result->num_rows > 0) {
         $row_photo = $result_photo->fetch_assoc();
         $_SESSION['user_data']['photo'] = $row_photo;
     } else {
-        echo "未找到該用戶的照片資料。";
     }
     
     $stmt_photo->close();
     
 } else {
-    echo "未找到該用戶資料。";
 }
 
 $stmt->close();
