@@ -22,15 +22,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Connected successfully.<br>";
     }
 
-    $sql = "INSERT INTO move_requests (student_id, available_time, move_services, transport_mode)
-            VALUES ('$student_id', '$available_time', '$move_services', '$transport_mode')";
+    // 檢查 $conn 是否為有效的 mysqli 對象
+    if ($conn instanceof mysqli) {
+        $sql = "INSERT INTO move_requests (student_id, available_time, move_services, transport_mode)
+                VALUES ('$student_id', '$available_time', '$move_services', '$transport_mode')";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "數據提交成功！";
+        if ($conn->query($sql) === TRUE) {
+            echo "數據提交成功！";
+        } else {
+            echo "錯誤: " . $sql . "<br>" . $conn->error;
+        }
+
+        // 關閉連接
+        $conn->close();
     } else {
-        echo "錯誤: " . $sql . "<br>" . $conn->error;
+        echo "無效的數據庫連接。";
     }
-
-    $conn->close();
 }
 ?>
