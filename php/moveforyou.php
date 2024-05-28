@@ -230,52 +230,52 @@
         <div class="question" id="question4">
             <label for="location">開始的地點：</label>
             <div class="location-options">
-                <div class="box location-option" data-location="地點1">
-                    <img src="../pic/8.jpg" alt="地點1">
+                <div class="box location-option" data-location="8舍">
+                    <img src="../pic/8.jpg" alt="8舍">
                     <p>8舍</p>
                 </div>
-                <div class="box location-option" data-location="地點2">
-                    <img src="../pic/9.jpg" alt="地點2">
+                <div class="box location-option" data-location="9舍">
+                    <img src="../pic/9.jpg" alt="9舍">
                     <p>9舍</p>
                 </div>
-                <div class="box location-option" data-location="地點3">
-                    <img src="../pic/10.jpg" alt="地點3">
+                <div class="box location-option" data-location="10舍">
+                    <img src="../pic/10.jpg" alt="10舍">
                     <p>10舍</p>
                 </div>
-                <div class="box location-option" data-location="地點4">
-                    <img src="../pic/11.jpg" alt="地點4">
+                <div class="box location-option" data-location="11舍">
+                    <img src="../pic/11.jpg" alt="11舍">
                     <p>11舍</p>
                 </div>
-                <div class="box location-option" data-location="地點5">
-                    <img src="../pic/12.jpg" alt="地點5">
+                <div class="box location-option" data-location="12舍">
+                    <img src="../pic/12.jpg" alt="12舍">
                     <p>12舍</p>
                 </div>
-                <div class="box location-option" data-location="地點6">
-                    <img src="../pic/13.jpg" alt="地點6">
+                <div class="box location-option" data-location="13舍">
+                    <img src="../pic/13.jpg" alt="13舍">
                     <p>13舍</p>
                 </div>
-                <div class="box location-option" data-location="地點7">
-                    <img src="../pic/7.jpg" alt="地點7">
+                <div class="box location-option" data-location="7舍">
+                    <img src="../pic/7.jpg" alt="7舍">
                     <p>7舍</p>
                 </div>
-                <div class="box location-option" data-location="地點8">
-                    <img src="../pic/girl2.jpg" alt="地點8">
+                <div class="box location-option" data-location="女二舍">
+                    <img src="../pic/girl2.jpg" alt="女二舍">
                     <p>女二舍</p>
                 </div>
-                <div class="box location-option" data-location="地點9">
-                    <img src="../pic/xuan.jpg" alt="地點9">
+                <div class="box location-option" data-location="竹軒">
+                    <img src="../pic/xuan.jpg" alt="竹軒">
                     <p>竹軒</p>
                 </div>
-                <div class="box location-option" data-location="地點10">
-                    <img src="../pic/1+.jpg" alt="地點10">
+                <div class="box location-option" data-location="研一舍">
+                    <img src="../pic/1+.jpg" alt="研一舍">
                     <p>研一舍</p>
                 </div>
-                <div class="box location-option" data-location="地點11">
-                    <img src="../pic/2+.jpg" alt="地點11">
+                <div class="box location-option" data-location="研二舍">
+                    <img src="../pic/2+.jpg" alt="研二舍">
                     <p>研二舍</p>
                 </div>
-                <div class="box location-option" data-location="地點12">
-                    <img src="../pic/3+.png" alt="地點12">
+                <div class="box location-option" data-location="研三舍">
+                    <img src="../pic/3+.png" alt="研三舍">
                     <p>研三舍</p>
                 </div>
             </div>
