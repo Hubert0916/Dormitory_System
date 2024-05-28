@@ -138,7 +138,7 @@
     </style>
 </head>
 <body>
-    <form id="questionForm" action="submit.php" method="POST">
+    <form id="questionForm" action="offer.php" method="POST">
         <div class="question active" id="question1">
             <label for="time">你有空的時間：</label>
             <table>
