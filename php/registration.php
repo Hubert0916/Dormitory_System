@@ -39,8 +39,6 @@
         </form>
     </div>
 </body>
-<script src="../js/overlay.js"></script>
-
 </html>
 
 <?php
