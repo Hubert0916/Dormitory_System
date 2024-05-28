@@ -13,7 +13,7 @@
             <h1>更改密碼</h1>
             <br>
             <br>
-            <form id="changepwdForm" action="changepwd_check.php" method="get"  onsubmit="return validateForm(event)">
+            <form id="changepwdForm" action="changepwd_check.php" method="post"  onsubmit="return validateForm(event)">
                 <div class="write">
                     <div class="ID">學號 :<input type="text" id="ID" name="ID" ></div>
                     <div class="Password">舊密碼 : <input type="password" id="Password" name="Password" required></div>

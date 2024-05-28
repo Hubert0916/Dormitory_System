@@ -2,12 +2,12 @@
 require_once dirname(__FILE__)."/connection.php";
 
 $query = [
-'ID' => htmlspecialchars($_GET["ID"]),
-'Password' => htmlspecialchars($_GET["Password"]),
-'Password2' => htmlspecialchars($_GET["Password2"])
+'ID' => htmlspecialchars($_POST["ID"]),
+'Password' => htmlspecialchars($_POST["Password"]),
+'Password2' => htmlspecialchars($_POST["Password2"])
 ];
 
-checkPwd($query['ID'],$query['Password'], $query['Password2'], $conn);
+checkPwd($query['ID'],md5($query['Password'], false), md5($query['Password2'], false), $conn);
 
 function checkPwd($ID,$Password, $Password2, $conn) {
 

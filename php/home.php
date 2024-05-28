@@ -1,5 +1,6 @@
 <?php
     require_once dirname(__FILE__) . "/session.php";
+    require_once dirname(__FILE__) . "/overlay_nav.php";
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +22,6 @@
 </head>
 <body>
 <main>
-    <?php
-    require_once dirname(__FILE__) . "/overlay_nav.php";
-    ?>
     <!-- Container -->
 	<div class="container animatedParent animateOnce clearfix">
 		<!-- PHP-Navigation -->
@@ -41,9 +39,14 @@
                         <li><a href="#service5">吧 啦 吧 啦</a></li>
                     </ul>
                 </li>
-                <li><a href="../php/profile.php">個 人 資 訊</a></li>
-                <li><a href="../php/registration.php">註 冊</a></li>
-                <li><a href="../php/login.php">登 入</a></li>
+                <?php if (!$loggedIn): ?>
+                    <li><a href="../php/registration.php">註 冊</a></li>
+                    <li><a href="../php/login.php">登 入</a></li>
+                <?php else: ?>
+                    <li><a href="../php/profile.php">個 人 資 訊</a></li>
+                    <li><a href="../php/changepwd.php">更 改 密 碼</a></li>
+                    <li><a href="../php/logout.php">登 出</a></li>
+                <?php endif; ?>
             </ul>
 		</nav>
 		<!-- Navigation (End) -->

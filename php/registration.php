@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
     $FB = htmlspecialchars($_POST["FB"]);
     $IG = htmlspecialchars($_POST["IG"]);
     $Intro = htmlspecialchars($_POST["Intro"]);
-    $Password = htmlspecialchars($_POST["Password"]);
+    $Password = md5(htmlspecialchars($_POST["Password"]));
     $ID = htmlspecialchars($_POST["ID"]);
     $fileTmpPath = $_FILES["photo"]["tmp_name"];
     $fileName = $_FILES["photo"]["name"];

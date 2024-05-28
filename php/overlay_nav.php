@@ -44,15 +44,21 @@
 						<a class="nav-link" href="#">吧啦吧啦</a>
 					</li>
 				</div>
-				<li class="nav-item">
-					<a class="nav-link" href="../php/profile.php">個人資訊</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="../php/registration.php">註冊</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="../php/login.php">登入</a>
-				</li>
+				<?php if ($loggedIn): ?>
+					<li class="nav-item">
+						<a class="nav-link" href="../php/profile.php">個人資訊</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="../php/logout.php">登出</a>
+					</li>
+				<?php else: ?>
+					<li class="nav-item">
+						<a class="nav-link" href="../php/registration.php">註冊</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="../php/login.php">登入</a>
+					</li>
+                <?php endif; ?>
 			</ul>
 		</div>
 		<!-- Function Bar -->
