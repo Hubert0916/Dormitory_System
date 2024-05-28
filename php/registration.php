@@ -99,6 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
             echo '});';
             echo '}';
             echo '</script>';
+            header("Location: login.php");
         }
         else {
             echo "Error: " . $stmt2->error;

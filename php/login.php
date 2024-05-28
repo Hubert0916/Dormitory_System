@@ -20,7 +20,7 @@
                 <br>
                 <button name="submit" type="submit">提交</button>
                 <br>
-                <p><a href="changepwd.php">修改密碼</a></p>
+                <p><a href="changepwd.php" class="pass">修改密碼</a></p>
             </form>
         </div>
     </body>
@@ -147,7 +147,12 @@ p
 p a
 {
     color: #576F72;
-
+    text-decoration: none;
+}
+p a:hover
+{
+    color: #576F72;
+    text-decoration: none;
 }
 
 </style>
