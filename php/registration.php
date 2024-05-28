@@ -1,5 +1,6 @@
 <?php
   require_once dirname(__FILE__) . "/head.php";
+  require_once dirname(__FILE__) . "/overlay_nav.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +47,6 @@
 <?php
 
 include "connection.php";
-include "overlay_nav.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["photo"]["error"] == UPLOAD_ERR_OK) {
     $Name = htmlspecialchars($_POST["Name"]);
@@ -70,8 +70,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
     $id_sql = "SELECT * FROM Dorm.Profile WHERE ID = '$ID'";
     $email_sql = "SELECT * FROM Dorm.Profile WHERE Email = '$Email'";
     $id_result = mysqli_query($conn, $id_sql);
-    $email_result = mysqli_query($conn, $email_sql);
+    #echo var_dump($id_result);
+    #echo"hihihihihihihihihihii";
 
+    $email_result = mysqli_query($conn, $email_sql);
     if (mysqli_num_rows($id_result) > 0) {
         header("Location: registration.php?");
     } 
@@ -99,6 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
             echo '});';
             echo '}';
             echo '</script>';
+
             header("Location: login.php");
         }
         else {
