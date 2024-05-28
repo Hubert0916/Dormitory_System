@@ -16,9 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // 引用connection.php
     require_once 'connection.php';
 
-    // 確保 $conn 變量存在並且是有效的 mysqli 對象
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
+    } else {
+        echo "Connected successfully.<br>";
     }
 
     $sql = "INSERT INTO move_requests (student_id, available_time, move_services, transport_mode)
