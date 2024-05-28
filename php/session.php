@@ -5,7 +5,7 @@ $ID = $_SESSION['ID'];
 
 require_once 'connection.php';
 
-
+$loggedIn = isset($_SESSION['ID']);
 
 $stmt = $conn->prepare("SELECT * FROM Dorm.Profile WHERE ID = ?");
 $stmt->bind_param("s", $ID);
