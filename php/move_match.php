@@ -64,7 +64,7 @@ $matches = findMatches($data1, $data2);
 $matched_profiles = [];
 foreach ($matches as $match) {
     $student_id = $match['幫你搬']['student_id'];
-    $sql_profile = "SELECT Name FROM Profile WHERE ID = '$student_id'";
+    $sql_profile = "SELECT Name, FB, IG, Email FROM Profile WHERE ID = '$student_id'";
     $result_profile = $conn->query($sql_profile);
     if ($result_profile === false) {
         die("Error fetching profile data: " . $conn->error);
@@ -131,7 +131,6 @@ foreach ($matches as $match) {
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgb(0,0,0);
             background-color: rgba(0,0,0,0.4);
             backdrop-filter: blur(5px);
             padding-top: 60px;
@@ -188,7 +187,6 @@ foreach ($matches as $match) {
             <p id="modalName"></p>
             <p id="modalServices"></p>
             <p id="modalLocation"></p>
-            <p id="modalNote"></p>
             <div style="display: flex; gap: 10px;">
                 <a id="modalFB" href="" target="_blank"><img src="facebook_icon.png" alt="FB" style="width:30px; height:30px;"></a>
                 <a id="modalIG" href="" target="_blank"><img src="instagram_icon.png" alt="IG" style="width:30px; height:30px;"></a>
