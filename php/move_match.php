@@ -1,5 +1,5 @@
 <?php
-require_once 'connection.php';
+require_once dirname(__FILE__)."/connection.php";
 require_once dirname(__FILE__) . "/overlay_nav.php";
 // Fetch data from the "幫我搬" table
 $sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM move_requests";
