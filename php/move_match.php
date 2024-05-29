@@ -2,22 +2,30 @@
 require_once 'connection.php';
 require_once dirname(__FILE__) . "/overlay_nav.php";
 
-// Fetch data from the "幫我搬" table
-$sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM Dorm.move_requests";
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-$result1 = mysqli_query($conn, $sql1);
+// Fetch data from the "幫我搬" table
+$sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM move_requests";
+$result1 = $conn->query($sql1);
 $data1 = [];
-if ($result1->num_rows > 0) {
+if ($result1 === false) {
+    die("Error fetching move_requests: " . $conn->error);
+} else {
     while ($row = $result1->fetch_assoc()) {
         $data1[] = $row;
     }
 }
 
 // Fetch data from the "幫你搬" table
-$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM Dorm.move_service";
-$result2 = mysqli_query($conn, $sq2);
+$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM move_service";
+$result2 = $conn->query($sql2);
 $data2 = [];
-if ($result2->num_rows > 0) {
+if ($result2 === false) {
+    die("Error fetching move_service: " . $conn->error);
+} else {
     while ($row = $result2->fetch_assoc()) {
         $data2[] = $row;
     }
@@ -91,16 +99,16 @@ $matches = findMatches($data1, $data2);
             </tr>
             <?php foreach ($matches as $match): ?>
                 <tr>
-                    <td><?php echo $match['幫我搬']['student_id']; ?></td>
-                    <td><?php echo $match['幫我搬']['available_time']; ?></td>
-                    <td><?php echo $match['幫我搬']['move_services']; ?></td>
-                    <td><?php echo $match['幫我搬']['transport_mode']; ?></td>
-                    <td><?php echo $match['幫你搬']['student_id']; ?></td>
-                    <td><?php echo $match['幫你搬']['available_time']; ?></td>
-                    <td><?php echo $match['幫你搬']['move_services']; ?></td>
-                    <td><?php echo $match['幫你搬']['transport_mode']; ?></td>
-                    <td><?php echo $match['幫你搬']['start_location']; ?></td>
-                    <td><?php echo $match['幫你搬']['note']; ?></td>
+                    <td><?php echo htmlspecialchars($match['幫我搬']['student_id']); ?></td>
+                    <td><?php echo htmlspecialchars($match['幫我搬']['available_time']); ?></td>
+                    <td><?php echo htmlspecialchars($match['幫我搬']['move_services']); ?></td>
+                    <td><?php echo htmlspecialchars($match['幫我搬']['transport_mode']); ?></td>
+                    <td><?php echo htmlspecialchars($match['幫你搬']['student_id']); ?></td>
+                    <td><?php echo htmlspecialchars($match['幫你搬']['available_time']); ?></td>
+                    <td><?php echo htmlspecialchars($match['幫你搬']['move_services']); ?></td>
+                    <td><?php echo htmlspecialchars($match['幫你搬']['transport_mode']); ?></td>
+                    <td><?php echo htmlspecialchars($match['幫你搬']['start_location']); ?></td>
+                    <td><?php echo htmlspecialchars($match['幫你搬']['note']); ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
