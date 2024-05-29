@@ -211,7 +211,7 @@ foreach ($matches as $match) {
         function openModal(match) {
             console.log(match);  // Debugging: Check if the match data is correct
 
-            if (match.photo && match.photo.photo_content) {
+            if (match.photo.photo_content) {
                 document.getElementById('modalImg').src = "data:image/jpeg;base64," + match.photo.photo_content;
             } else {
                 document.getElementById('modalImg').src = ""; // Default or placeholder image
