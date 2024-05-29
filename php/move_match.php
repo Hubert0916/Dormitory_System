@@ -20,7 +20,7 @@ if ($result1 === false) {
 }
 
 // Fetch data from the "move_service" table
-$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM move_service";
+$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location FROM move_service";
 $result2 = $conn->query($sql2);
 $data2 = [];
 if ($result2 === false) {
@@ -69,9 +69,7 @@ foreach ($matches as $match) {
     if ($result_profile === false) {
         die("Error fetching profile data: " . $conn->error);
     } else {
-        while ($row = $result_profile->fetch_assoc()) {
-            $profile_data = $row;
-        }
+        $profile_data = $result_profile->fetch_assoc();
     }
 
     $sql_photo = "SELECT photo_content FROM photo WHERE ID = '$student_id'";
@@ -79,9 +77,7 @@ foreach ($matches as $match) {
     if ($result_photo === false) {
         die("Error fetching photo data: " . $conn->error);
     } else {
-        while ($row = $result_photo->fetch_assoc()) {
-            $photo_data = $row;
-        }
+        $photo_data = $result_photo->fetch_assoc();
     }
 
     $matched_profiles[] = array_merge($match, ['profile' => $profile_data], ['photo' => $photo_data]);
@@ -134,13 +130,9 @@ foreach ($matches as $match) {
                 <div class="profile">
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($match['photo']['photo_content']); ?>" alt="Avatar">
                     <div class="profile-info">
-                        <strong>學號: <?php echo htmlspecialchars($match['幫你搬']['student_id']); ?></strong>
                         <strong>名字: <?php echo htmlspecialchars($match['profile']['Name']); ?></strong>
-                        <p>可用時間: <?php echo htmlspecialchars($match['幫你搬']['available_time']); ?></p>
                         <p>搬家服務: <?php echo htmlspecialchars($match['幫你搬']['move_services']); ?></p>
-                        <p>交通工具: <?php echo htmlspecialchars($match['幫你搬']['transport_mode']); ?></p>
                         <p>起始地點: <?php echo htmlspecialchars($match['幫你搬']['start_location']); ?></p>
-                        <p>備註: <?php echo htmlspecialchars($match['幫你搬']['note']); ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>
