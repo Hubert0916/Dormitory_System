@@ -80,8 +80,9 @@ foreach ($matches as $match) {
         $photo_data = $result_photo->fetch_assoc();
     }
 
-    // Ensure the photo data is not null
+    // Ensure the photo data is properly base64-encoded
     if ($photo_data) {
+        $photo_data['photo_content'] = base64_encode($photo_data['photo_content']);
         $matched_profiles[] = array_merge($match, ['profile' => $profile_data], ['photo' => $photo_data]);
     } else {
         // Handle cases where photo data is missing
@@ -183,7 +184,7 @@ echo '</pre>';
         <?php if (!empty($matched_profiles)): ?>
             <?php foreach ($matched_profiles as $index => $match): ?>
                 <div class="profile" onclick='openModal(<?php echo json_encode($match); ?>)'>
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($match['photo']['photo_content']); ?>" alt="Avatar">
+                    <img src="data:image/jpeg;base64,<?php echo htmlspecialchars($match['photo']['photo_content']); ?>" alt="Avatar">
                     <div class="profile-info">
                         <strong>名字: <?php echo htmlspecialchars($match['profile']['Name']); ?></strong>
                         <p>搬家服務: <?php echo htmlspecialchars($match['幫你搬']['move_services']); ?></p>
