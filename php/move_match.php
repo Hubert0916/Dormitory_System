@@ -1,10 +1,10 @@
 <?php
-    require_once dirname(__FILE__) . "/overlay_nav.php";
-    include 'connection.php';
+require_once dirname(__FILE__)."/connection.php";
+require_once 'connection.php';
 
-// Fetch data from the first database (幫我搬)
-$sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM move_service";
-$result1 = $conn1->query($sql1);
+// Fetch data from the "幫我搬" table
+$sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM 幫我搬";
+$result1 = $conn->query($sql1);
 $data1 = [];
 if ($result1->num_rows > 0) {
     while ($row = $result1->fetch_assoc()) {
@@ -12,9 +12,9 @@ if ($result1->num_rows > 0) {
     }
 }
 
-// Fetch data from the second database (幫你搬)
-$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM move_service";
-$result2 = $conn2->query($sql2);
+// Fetch data from the "幫你搬" table
+$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM 幫你搬";
+$result2 = $conn->query($sql2);
 $data2 = [];
 if ($result2->num_rows > 0) {
     while ($row = $result2->fetch_assoc()) {
@@ -103,6 +103,5 @@ $matches = findMatches($data1, $data2);
 </html>
 
 <?php
-$conn1->close();
-$conn2->close();
+$conn->close();
 ?>
