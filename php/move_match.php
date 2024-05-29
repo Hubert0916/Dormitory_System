@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
-//require_once dirname(__FILE__) . "/overlay_nav.php";
- 
+require_once dirname(__FILE__) . "/overlay_nav.php";
+
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -80,7 +80,13 @@ foreach ($matches as $match) {
         $photo_data = $result_photo->fetch_assoc();
     }
 
-    $matched_profiles[] = array_merge($match, ['profile' => $profile_data], ['photo' => $photo_data]);
+    // Ensure the photo data is not null
+    if ($photo_data) {
+        $matched_profiles[] = array_merge($match, ['profile' => $profile_data], ['photo' => $photo_data]);
+    } else {
+        // Handle cases where photo data is missing
+        $matched_profiles[] = array_merge($match, ['profile' => $profile_data], ['photo' => ['photo_content' => '']]);
+    }
 }
 ?>
 
@@ -204,27 +210,13 @@ foreach ($matches as $match) {
         function openModal(match) {
             console.log(match);  // Debugging: Check if the match data is correct
 
-            document.getElementById('modalImg').src = "data:image/jpeg;base64," + match.photo.photo_content;
+            if (match.photo && match.photo.photo_content) {
+                document.getElementById('modalImg').src = "data:image/jpeg;base64," + match.photo.photo_content;
+            } else {
+                document.getElementById('modalImg').src = ""; // Default or placeholder image
+            }
+
             document.getElementById('modalName').textContent = "名字: " + match.profile.Name;
             document.getElementById('modalServices').textContent = "搬家服務: " + match['幫你搬'].move_services;
             document.getElementById('modalLocation').textContent = "起始地點: " + match['幫你搬'].start_location;
-            document.getElementById('modalNote').textContent = "備註: " + match['幫你搬'].note;
-
-            // Assuming these fields are available in your Profile table
-            document.getElementById('modalFB').href = match.profile.FB;
-            document.getElementById('modalIG').href = match.profile.IG;
-            document.getElementById('modalEmail').href = "mailto:" + match.profile.Email;
-
-            document.getElementById('myModal').style.display = "block";
-        }
-
-        function closeModal() {
-            document.getElementById('myModal').style.display = "none";
-        }
-    </script>
-</body>
-</html>
-
-<?php
-$conn->close();
-?>
+            document.getElementById('modalNote').textContent
