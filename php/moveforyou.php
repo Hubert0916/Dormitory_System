@@ -136,6 +136,8 @@
             resize: none;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    </script>
 </head>
 <body>
     <form id="questionForm" action="offer.php" method="POST">
@@ -290,7 +292,45 @@
             <button type="submit" class="button">提交</button>
         </div>
     </form>
+    <script>
+        // Your existing JavaScript code
 
+        // Function to handle form submission
+        document.getElementById('questionForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('offer.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        title: '申請完成',
+                        text: '您的申請已完成，請靜待通知',
+                        icon: 'success'
+                    }).then(() => {
+                        window.location.href = 'move.php';
+                    });
+                } else {
+                    Swal.fire({
+                        title: '錯誤',
+                        text: data.message,
+                        icon: 'error'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: '錯誤',
+                    text: '提交過程中發生錯誤，請稍後再試',
+                    icon: 'error'
+                });
+            });
+        });
+    </script>
     <script>
         let selectedTimes = [];
 

@@ -6,8 +6,9 @@ if (!isset($_SESSION['ID'])) {
     exit();
 }
 
-// Get ID from session
 $user_data = $_SESSION['ID'];
+
+$response = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $student_id = $user_data;
@@ -17,29 +18,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $start_location = $_POST['location'];
     $note = $_POST['notes'];
 
-    // Include connection.php
     include 'connection.php';
 
     if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+        $response = ['status' => 'error', 'message' => 'Database connection failed: ' . $conn->connect_error];
     } else {
-        echo "Connected successfully.<br>";
-    }
+        $stmt = $conn->prepare("INSERT INTO move_service (student_id, available_time, move_services, transport_mode, start_location, note, reg_date) VALUES (?, ?, ?, ?, ?, ?, NOW())");
+        $stmt->bind_param("isssss", $student_id, $available_time, $move_services, $transport_mode, $start_location, $note);
 
-    $stmt = $conn->prepare("INSERT INTO move_service (student_id, available_time, move_services, transport_mode, start_location, note, reg_date) VALUES (?, ?, ?, ?, ?, ?, NOW())");
-    $stmt->bind_param("isssss", $student_id, $available_time, $move_services, $transport_mode, $start_location, $note);
-    
-    if ($stmt->execute()) {
-        echo "Success: Your move request has been submitted successfully";
-        header("Location: home.php");
-    } else {
-        echo "Error: " . $stmt->error;
+        if ($stmt->execute()) {
+            $response = ['status' => 'success', 'message' => 'Your move request has been submitted successfully'];
+        } else {
+            $response = ['status' => 'error', 'message' => 'Error: ' . $stmt->error];
+        }
+
+        $stmt->close();
+        $conn->close();
     }
-    
-    $stmt->close();
-    $conn->close();
-    
 } else {
-    echo "Error: Please make sure your form is filled correctly";
+    $response = ['status' => 'error', 'message' => 'Invalid request'];
 }
+
+header('Content-Type: application/json');
+echo json_encode($response);
 ?>
