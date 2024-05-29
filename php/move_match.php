@@ -1,10 +1,7 @@
 <?php
 require_once 'connection.php';
 require_once dirname(__FILE__) . "/overlay_nav.php";
-// Check connection
-if ($conn->connect_error) {
-    echo "Connection failed: ";
-}
+
 // Fetch data from the "幫我搬" table
 $sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM Dorm.move_requests";
 $result1 = mysqli_query($conn, $sql1);
