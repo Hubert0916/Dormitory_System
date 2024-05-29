@@ -219,4 +219,23 @@ foreach ($matches as $match) {
             document.getElementById('modalName').textContent = "名字: " + match.profile.Name;
             document.getElementById('modalServices').textContent = "搬家服務: " + match['幫你搬'].move_services;
             document.getElementById('modalLocation').textContent = "起始地點: " + match['幫你搬'].start_location;
-            document.getElementById('modalNote').textContent
+            document.getElementById('modalNote').textContent = "備註: " + match['幫你搬'].note;
+
+            // Assuming these fields are available in your Profile table
+            document.getElementById('modalFB').href = match.profile.FB;
+            document.getElementById('modalIG').href = match.profile.IG;
+            document.getElementById('modalEmail').href = "mailto:" + match.profile.Email;
+
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+    </script>
+</body>
+</html>
+
+<?php
+$conn->close();
+?>
