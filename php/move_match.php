@@ -1,6 +1,6 @@
 <?php
-require_once 'connection.php';
-//require_once dirname(__FILE__) . "/overlay_nav.php";
+
+require_once dirname(__FILE__) . "/overlay_nav.php";
 
 // Check connection
 if ($conn->connect_error) {
@@ -89,12 +89,6 @@ foreach ($matches as $match) {
         $matched_profiles[] = array_merge($match, ['profile' => $profile_data], ['photo' => ['photo_content' => '']]);
     }
 }
-
-// Debugging: Output the matched profiles array to verify the structure
-echo '<pre>';
-print_r($matched_profiles);
-echo '</pre>';
-
 ?>
 
 <!DOCTYPE html>
@@ -216,8 +210,6 @@ echo '</pre>';
 
     <script>
         function openModal(match) {
-            console.log(match);  // Debugging: Check if the match data is correct
-
             if (match && match.photo && match.photo.photo_content) {
                 document.getElementById('modalImg').src = "data:image/jpeg;base64," + match.photo.photo_content;
             } else {
