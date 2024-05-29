@@ -1,9 +1,8 @@
 <?php
-require_once dirname(__FILE__)."/connection.php";
 require_once 'connection.php';
-
+require_once dirname(__FILE__) . "/overlay_nav.php";
 // Fetch data from the "幫我搬" table
-$sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM move_requests";
+$sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM 幫我搬";
 $result1 = $conn->query($sql1);
 $data1 = [];
 if ($result1->num_rows > 0) {
@@ -13,7 +12,7 @@ if ($result1->num_rows > 0) {
 }
 
 // Fetch data from the "幫你搬" table
-$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM move_service";
+$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM 幫你搬";
 $result2 = $conn->query($sql2);
 $data2 = [];
 if ($result2->num_rows > 0) {
@@ -22,16 +21,23 @@ if ($result2->num_rows > 0) {
     }
 }
 
-// Function to compare and find matches
+// Function to split strings into arrays
+function splitValues($string) {
+    return explode(',', $string);
+}
+
+// Function to compare and find matches with at least one overlapping available_time and move_services
 function findMatches($data1, $data2) {
     $matches = [];
     foreach ($data1 as $entry1) {
+        $times1 = splitValues($entry1['available_time']);
+        $services1 = splitValues($entry1['move_services']);
         foreach ($data2 as $entry2) {
-            if (
-                $entry1['available_time'] == $entry2['available_time'] &&
-                $entry1['move_services'] == $entry2['move_services'] &&
-                $entry1['transport_mode'] == $entry2['transport_mode']
-            ) {
+            $times2 = splitValues($entry2['available_time']);
+            $services2 = splitValues($entry2['move_services']);
+            if (array_intersect($times1, $times2) && 
+                array_intersect($services1, $services2) && 
+                $entry1['transport_mode'] == $entry2['transport_mode']) {
                 $matches[] = [
                     '幫我搬' => $entry1,
                     '幫你搬' => $entry2
