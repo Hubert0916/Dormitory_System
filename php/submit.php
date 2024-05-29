@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if ($stmt->execute()) {
         echo "Success: Your move request has been submitted successfully";
-        header("Location: home.php");
+        header("Location: move_match.php");
     } else {
         echo "Error: " . $stmt->error;
     }
