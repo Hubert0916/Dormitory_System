@@ -171,6 +171,8 @@ foreach ($matches as $match) {
             cursor: pointer;
         }
     </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -199,11 +201,12 @@ foreach ($matches as $match) {
             <p id="modalName"></p>
             <p id="modalServices"></p>
             <p id="modalLocation"></p>
+            <p id="modalTime"></p>
             <p id="modalNote"></p>
             <div style="display: flex; gap: 10px;">
-                <a id="modalFB" href="" target="_blank"><img src="facebook_icon.png" alt="FB" style="width:30px; height:30px;"></a>
-                <a id="modalIG" href="" target="_blank"><img src="instagram_icon.png" alt="IG" style="width:30px; height:30px;"></a>
-                <a id="modalEmail" href="" target="_blank"><img src="email_icon.png" alt="Email" style="width:30px; height:30px;"></a>
+                <a id="modalFB" href="" target="_blank"><i class="fab fa-facebook" style="font-size: 30px; color: #3b5998;"></i></a>
+                <a id="modalIG" href="" target="_blank"><i class="fab fa-instagram" style="font-size: 30px; color: #E1306C;"></i></a>
+                <a id="modalEmail" href="" target="_blank"><i class="fas fa-envelope" style="font-size: 30px; color: #D44638;"></i></a>
             </div>
         </div>
     </div>
@@ -219,6 +222,7 @@ foreach ($matches as $match) {
             document.getElementById('modalName').textContent = "名字: " + (match && match.profile ? match.profile.Name : '');
             document.getElementById('modalServices').textContent = "搬家服務: " + (match && match['幫你搬'] ? match['幫你搬'].move_services : '');
             document.getElementById('modalLocation').textContent = "起始地點: " + (match && match['幫你搬'] ? match['幫你搬'].start_location : '');
+            document.getElementById('modalTime').textContent = "可用時間: " + (match && match['幫你搬'] ? match['幫你搬'].available_time : '');
             document.getElementById('modalNote').textContent = "備註: " + (match && match['幫你搬'] ? match['幫你搬'].note : '');
 
             // Assuming these fields are available in your Profile table
