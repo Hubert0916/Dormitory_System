@@ -1,7 +1,7 @@
 <?php
 require_once 'connection.php';
 //require_once dirname(__FILE__) . "/overlay_nav.php";
-
+ 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
