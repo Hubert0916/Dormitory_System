@@ -105,6 +105,11 @@ foreach ($matches as $match) {
             display: flex;
             align-items: center;
             cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .profile:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .profile img {
             border-radius: 50%;
