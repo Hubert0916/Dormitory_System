@@ -164,8 +164,8 @@ foreach ($matches as $match) {
     <div class="container">
         <h1>Matching Entries</h1>
         <?php if (!empty($matched_profiles)): ?>
-            <?php foreach ($matched_profiles as $match): ?>
-                <div class="profile" onclick="openModal(<?php echo htmlspecialchars(json_encode($match)); ?>)">
+            <?php foreach ($matched_profiles as $index => $match): ?>
+                <div class="profile" onclick='openModal(<?php echo json_encode($match); ?>)'>
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($match['photo']['photo_content']); ?>" alt="Avatar">
                     <div class="profile-info">
                         <strong>名字: <?php echo htmlspecialchars($match['profile']['Name']); ?></strong>
@@ -197,6 +197,8 @@ foreach ($matches as $match) {
 
     <script>
         function openModal(match) {
+            console.log(match);  // Debugging: Check if the match data is correct
+
             document.getElementById('modalImg').src = "data:image/jpeg;base64," + match.photo.photo_content;
             document.getElementById('modalName').textContent = "名字: " + match.profile.Name;
             document.getElementById('modalServices').textContent = "搬家服務: " + match['幫你搬'].move_services;
