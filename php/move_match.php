@@ -1,39 +1,21 @@
 <?php
 require_once 'connection.php';
-require_once dirname(__FILE__) . "/overlay_nav.php";
-
-// Function to handle errors and display them
-function handleError($message, $error) {
-    echo "<p style='color: red; font-weight: bold;'>Error: $message - $error</p>";
-    exit();
-}
+//require_once dirname(__FILE__) . "/overlay_nav.php";
 
 // Check connection
 if ($conn->connect_error) {
-    handleError("Connection failed", $conn->connect_error);
-}
-
-// Fetch data from the "幫我搬" table
-$sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM move_requests";
-$result1 = $conn->query($sql1);
-$data1 = [];
-if ($result1 === false) {
-    handleError("Fetching data from move_requests failed", $conn->error);
-} else {
-    while ($row = $result1->fetch_assoc()) {
-        $data1[] = $row;
-    }
+    die("Connection failed: " . $conn->connect_error);
 }
 
 // Fetch data from the "幫你搬" table
-$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM move_service";
-$result2 = $conn->query($sql2);
-$data2 = [];
-if ($result2 === false) {
-    handleError("Fetching data from move_service failed", $conn->error);
+$sql = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM move_service";
+$result = $conn->query($sql);
+$data = [];
+if ($result === false) {
+    die("Error fetching data from move_service: " . $conn->error);
 } else {
-    while ($row = $result2->fetch_assoc()) {
-        $data2[] = $row;
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
     }
 }
 
@@ -42,29 +24,27 @@ function splitValues($string) {
     return explode(',', $string);
 }
 
-// Function to compare and find matches with at least one overlapping available_time and move_services
-function findMatches($data1, $data2) {
+// Function to find matches with at least one overlapping available_time and move_services
+function findMatches($data) {
+    // This example assumes we're matching against a predefined set of criteria
+    $desired_times = splitValues("mon_morning,tue_morning");
+    $desired_services = splitValues("雜物,衣服");
+    $desired_transport_mode = "汽車"; // Example criteria
+
     $matches = [];
-    foreach ($data1 as $entry1) {
-        $times1 = splitValues($entry1['available_time']);
-        $services1 = splitValues($entry1['move_services']);
-        foreach ($data2 as $entry2) {
-            $times2 = splitValues($entry2['available_time']);
-            $services2 = splitValues($entry2['move_services']);
-            if (array_intersect($times1, $times2) && 
-                array_intersect($services1, $services2) && 
-                $entry1['transport_mode'] == $entry2['transport_mode']) {
-                $matches[] = [
-                    '幫我搬' => $entry1,
-                    '幫你搬' => $entry2
-                ];
-            }
+    foreach ($data as $entry) {
+        $times = splitValues($entry['available_time']);
+        $services = splitValues($entry['move_services']);
+        if (array_intersect($times, $desired_times) && 
+            array_intersect($services, $desired_services) && 
+            $entry['transport_mode'] == $desired_transport_mode) {
+            $matches[] = $entry;
         }
     }
     return $matches;
 }
 
-$matches = findMatches($data1, $data2);
+$matches = findMatches($data);
 ?>
 
 <!DOCTYPE html>
@@ -73,54 +53,57 @@ $matches = findMatches($data1, $data2);
     <meta charset="UTF-8">
     <title>Matching Entries</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        body {
+            font-family: Arial, sans-serif;
         }
-        th, td {
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .profile {
             border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
         }
-        th {
-            background-color: #f2f2f2;
+        .profile img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .profile-info {
+            flex: 1;
+        }
+        .profile-info p {
+            margin: 0;
+        }
+        .profile-info strong {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <h1>Matching Entries</h1>
-    <?php if (!empty($matches)): ?>
-        <table>
-            <tr>
-                <th>幫我搬 Student ID</th>
-                <th>幫我搬 Available Time</th>
-                <th>幫我搬 Move Services</th>
-                <th>幫我搬 Transport Mode</th>
-                <th>幫你搬 Student ID</th>
-                <th>幫你搬 Available Time</th>
-                <th>幫你搬 Move Services</th>
-                <th>幫你搬 Transport Mode</th>
-                <th>幫你搬 Start Location</th>
-                <th>幫你搬 Note</th>
-            </tr>
+    <div class="container">
+        <h1>Matching Entries</h1>
+        <?php if (!empty($matches)): ?>
             <?php foreach ($matches as $match): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($match['幫我搬']['student_id']); ?></td>
-                    <td><?php echo htmlspecialchars($match['幫我搬']['available_time']); ?></td>
-                    <td><?php echo htmlspecialchars($match['幫我搬']['move_services']); ?></td>
-                    <td><?php echo htmlspecialchars($match['幫我搬']['transport_mode']); ?></td>
-                    <td><?php echo htmlspecialchars($match['幫你搬']['student_id']); ?></td>
-                    <td><?php echo htmlspecialchars($match['幫你搬']['available_time']); ?></td>
-                    <td><?php echo htmlspecialchars($match['幫你搬']['move_services']); ?></td>
-                    <td><?php echo htmlspecialchars($match['幫你搬']['transport_mode']); ?></td>
-                    <td><?php echo htmlspecialchars($match['幫你搬']['start_location']); ?></td>
-                    <td><?php echo htmlspecialchars($match['幫你搬']['note']); ?></td>
-                </tr>
+                <div class="profile">
+                    <img src="path/to/default-avatar.png" alt="Avatar" width="50" height="50">
+                    <div class="profile-info">
+                        <strong>學號: <?php echo htmlspecialchars($match['student_id']); ?></strong>
+                        <p>可用時間: <?php echo htmlspecialchars($match['available_time']); ?></p>
+                        <p>搬家服務: <?php echo htmlspecialchars($match['move_services']); ?></p>
+                        <p>交通工具: <?php echo htmlspecialchars($match['transport_mode']); ?></p>
+                        <p>起始地點: <?php echo htmlspecialchars($match['start_location']); ?></p>
+                        <p>備註: <?php echo htmlspecialchars($match['note']); ?></p>
+                    </div>
+                </div>
             <?php endforeach; ?>
-        </table>
-    <?php else: ?>
-        <p>No matches found.</p>
-    <?php endif; ?>
+        <?php else: ?>
+            <p>No matches found.</p>
+        <?php endif; ?>
+    </div>
 </body>
 </html>
 
