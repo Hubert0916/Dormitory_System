@@ -2,7 +2,7 @@
 require_once dirname(__FILE__)."/connection.php";
 require_once dirname(__FILE__) . "/overlay_nav.php";
 // Fetch data from the "幫我搬" table
-$sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM move_requests";
+$sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM Dorm.move_requests";
 $result1 = $conn->query($sql1);
 $data1 = [];
 if ($result1->num_rows > 0) {
@@ -12,7 +12,7 @@ if ($result1->num_rows > 0) {
 }
 
 // Fetch data from the "幫你搬" table
-$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM move_service";
+$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM Dorm.move_service";
 $result2 = $conn->query($sql2);
 $data2 = [];
 if ($result2->num_rows > 0) {
