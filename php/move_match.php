@@ -20,7 +20,7 @@ if ($result1 === false) {
 }
 
 // Fetch data from the "move_service" table
-$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location FROM move_service";
+$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM move_service";
 $result2 = $conn->query($sql2);
 $data2 = [];
 if ($result2 === false) {
@@ -104,6 +104,7 @@ foreach ($matches as $match) {
             border-radius: 5px;
             display: flex;
             align-items: center;
+            cursor: pointer;
         }
         .profile img {
             border-radius: 50%;
@@ -120,6 +121,44 @@ foreach ($matches as $match) {
         .profile-info strong {
             display: block;
         }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            backdrop-filter: blur(5px);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -127,7 +166,7 @@ foreach ($matches as $match) {
         <h1>Matching Entries</h1>
         <?php if (!empty($matched_profiles)): ?>
             <?php foreach ($matched_profiles as $match): ?>
-                <div class="profile">
+                <div class="profile" onclick="openModal(<?php echo htmlspecialchars(json_encode($match)); ?>)">
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($match['photo']['photo_content']); ?>" alt="Avatar">
                     <div class="profile-info">
                         <strong>名字: <?php echo htmlspecialchars($match['profile']['Name']); ?></strong>
@@ -140,6 +179,44 @@ foreach ($matches as $match) {
             <p>No matches found.</p>
         <?php endif; ?>
     </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImg" src="" alt="Avatar" style="width:100px; height:100px; border-radius:50%; margin-bottom:20px;">
+            <p id="modalName"></p>
+            <p id="modalServices"></p>
+            <p id="modalLocation"></p>
+            <p id="modalNote"></p>
+            <div style="display: flex; gap: 10px;">
+                <a id="modalFB" href="" target="_blank"><img src="facebook_icon.png" alt="FB" style="width:30px; height:30px;"></a>
+                <a id="modalIG" href="" target="_blank"><img src="instagram_icon.png" alt="IG" style="width:30px; height:30px;"></a>
+                <a id="modalEmail" href="" target="_blank"><img src="email_icon.png" alt="Email" style="width:30px; height:30px;"></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(match) {
+            document.getElementById('modalImg').src = "data:image/jpeg;base64," + match.photo.photo_content;
+            document.getElementById('modalName').textContent = "名字: " + match.profile.Name;
+            document.getElementById('modalServices').textContent = "搬家服務: " + match['幫你搬'].move_services;
+            document.getElementById('modalLocation').textContent = "起始地點: " + match['幫你搬'].start_location;
+            document.getElementById('modalNote').textContent = "備註: " + match['幫你搬'].note;
+
+            // Assuming these fields are available in your Profile table
+            document.getElementById('modalFB').href = match.profile.FB;
+            document.getElementById('modalIG').href = match.profile.IG;
+            document.getElementById('modalEmail').href = "mailto:" + match.profile.Email;
+
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+    </script>
 </body>
 </html>
 
