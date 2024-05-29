@@ -4,6 +4,7 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
 
 // Fetch data from the "幫我搬" table
 $sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM Dorm.move_requests";
+echo "111";
 $result1 = mysqli_query($conn, $sql1);
 $data1 = [];
 if ($result1->num_rows > 0) {
