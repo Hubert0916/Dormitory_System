@@ -198,6 +198,7 @@ foreach ($matches as $match) {
             <p id="modalName"></p>
             <p id="modalServices"></p>
             <p id="modalLocation"></p>
+            <p id="modalNote"></p>
             <div style="display: flex; gap: 10px;">
                 <a id="modalFB" href="" target="_blank"><img src="facebook_icon.png" alt="FB" style="width:30px; height:30px;"></a>
                 <a id="modalIG" href="" target="_blank"><img src="instagram_icon.png" alt="IG" style="width:30px; height:30px;"></a>
