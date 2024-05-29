@@ -7,15 +7,27 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch data from the "幫你搬" table
-$sql = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM move_service";
-$result = $conn->query($sql);
-$data = [];
-if ($result === false) {
+// Fetch data from the "move_requests" table
+$sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM move_requests";
+$result1 = $conn->query($sql1);
+$data1 = [];
+if ($result1 === false) {
+    die("Error fetching data from move_requests: " . $conn->error);
+} else {
+    while ($row = $result1->fetch_assoc()) {
+        $data1[] = $row;
+    }
+}
+
+// Fetch data from the "move_service" table
+$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM move_service";
+$result2 = $conn->query($sql2);
+$data2 = [];
+if ($result2 === false) {
     die("Error fetching data from move_service: " . $conn->error);
 } else {
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
+    while ($row = $result2->fetch_assoc()) {
+        $data2[] = $row;
     }
 }
 
@@ -24,27 +36,56 @@ function splitValues($string) {
     return explode(',', $string);
 }
 
-// Function to find matches with at least one overlapping available_time and move_services
-function findMatches($data) {
-    // This example assumes we're matching against a predefined set of criteria
-    $desired_times = splitValues("mon_morning,tue_morning");
-    $desired_services = splitValues("雜物,衣服");
-    $desired_transport_mode = "汽車"; // Example criteria
-
+// Function to compare and find matches with at least one overlapping available_time and move_services
+function findMatches($data1, $data2) {
     $matches = [];
-    foreach ($data as $entry) {
-        $times = splitValues($entry['available_time']);
-        $services = splitValues($entry['move_services']);
-        if (array_intersect($times, $desired_times) && 
-            array_intersect($services, $desired_services) && 
-            $entry['transport_mode'] == $desired_transport_mode) {
-            $matches[] = $entry;
+    foreach ($data1 as $entry1) {
+        $times1 = splitValues($entry1['available_time']);
+        $services1 = splitValues($entry1['move_services']);
+        foreach ($data2 as $entry2) {
+            $times2 = splitValues($entry2['available_time']);
+            $services2 = splitValues($entry2['move_services']);
+            if (array_intersect($times1, $times2) && 
+                array_intersect($services1, $services2) && 
+                $entry1['transport_mode'] == $entry2['transport_mode']) {
+                $matches[] = [
+                    '幫我搬' => $entry1,
+                    '幫你搬' => $entry2
+                ];
+            }
         }
     }
     return $matches;
 }
 
-$matches = findMatches($data);
+$matches = findMatches($data1, $data2);
+
+// Fetch additional profile and photo information for the matched entries
+$matched_profiles = [];
+foreach ($matches as $match) {
+    $student_id = $match['幫你搬']['student_id'];
+    $sql_profile = "SELECT Name FROM Profile WHERE ID = '$student_id'";
+    $result_profile = $conn->query($sql_profile);
+    if ($result_profile === false) {
+        die("Error fetching profile data: " . $conn->error);
+    } else {
+        while ($row = $result_profile->fetch_assoc()) {
+            $profile_data = $row;
+        }
+    }
+
+    $sql_photo = "SELECT photo_content FROM photo WHERE ID = '$student_id'";
+    $result_photo = $conn->query($sql_photo);
+    if ($result_photo === false) {
+        die("Error fetching photo data: " . $conn->error);
+    } else {
+        while ($row = $result_photo->fetch_assoc()) {
+            $photo_data = $row;
+        }
+    }
+
+    $matched_profiles[] = array_merge($match, ['profile' => $profile_data], ['photo' => $photo_data]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +112,8 @@ $matches = findMatches($data);
         .profile img {
             border-radius: 50%;
             margin-right: 10px;
+            width: 50px;
+            height: 50px;
         }
         .profile-info {
             flex: 1;
@@ -86,17 +129,18 @@ $matches = findMatches($data);
 <body>
     <div class="container">
         <h1>Matching Entries</h1>
-        <?php if (!empty($matches)): ?>
-            <?php foreach ($matches as $match): ?>
+        <?php if (!empty($matched_profiles)): ?>
+            <?php foreach ($matched_profiles as $match): ?>
                 <div class="profile">
-                    <img src="path/to/default-avatar.png" alt="Avatar" width="50" height="50">
+                    <img src="data:image/jpeg;base64,<?php echo base64_encode($match['photo']['photo_content']); ?>" alt="Avatar">
                     <div class="profile-info">
-                        <strong>學號: <?php echo htmlspecialchars($match['student_id']); ?></strong>
-                        <p>可用時間: <?php echo htmlspecialchars($match['available_time']); ?></p>
-                        <p>搬家服務: <?php echo htmlspecialchars($match['move_services']); ?></p>
-                        <p>交通工具: <?php echo htmlspecialchars($match['transport_mode']); ?></p>
-                        <p>起始地點: <?php echo htmlspecialchars($match['start_location']); ?></p>
-                        <p>備註: <?php echo htmlspecialchars($match['note']); ?></p>
+                        <strong>學號: <?php echo htmlspecialchars($match['幫你搬']['student_id']); ?></strong>
+                        <strong>名字: <?php echo htmlspecialchars($match['profile']['Name']); ?></strong>
+                        <p>可用時間: <?php echo htmlspecialchars($match['幫你搬']['available_time']); ?></p>
+                        <p>搬家服務: <?php echo htmlspecialchars($match['幫你搬']['move_services']); ?></p>
+                        <p>交通工具: <?php echo htmlspecialchars($match['幫你搬']['transport_mode']); ?></p>
+                        <p>起始地點: <?php echo htmlspecialchars($match['幫你搬']['start_location']); ?></p>
+                        <p>備註: <?php echo htmlspecialchars($match['幫你搬']['note']); ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>
