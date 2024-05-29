@@ -1,6 +1,6 @@
 <?php
 require_once 'connection.php';
-//require_once dirname(__FILE__) . "/overlay_nav.php";
+require_once dirname(__FILE__) . "/overlay_nav.php";
 
 // Check connection
 if ($conn->connect_error) {
@@ -89,8 +89,11 @@ foreach ($matches as $match) {
     }
 }
 
-// Debugging: Log the matched profiles
-echo "<script>console.log(" . json_encode($matched_profiles) . ");</script>";
+// Debugging: Output the matched profiles array to verify the structure
+echo '<pre>';
+print_r($matched_profiles);
+echo '</pre>';
+
 ?>
 
 <!DOCTYPE html>
