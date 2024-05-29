@@ -2,9 +2,15 @@
 require_once 'connection.php';
 require_once dirname(__FILE__) . "/overlay_nav.php";
 
+// Function to handle errors and display them
+function handleError($message, $error) {
+    echo "<p style='color: red; font-weight: bold;'>Error: $message - $error</p>";
+    exit();
+}
+
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    handleError("Connection failed", $conn->connect_error);
 }
 
 // Fetch data from the "幫我搬" table
@@ -12,7 +18,7 @@ $sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM m
 $result1 = $conn->query($sql1);
 $data1 = [];
 if ($result1 === false) {
-    die("Error fetching move_requests: " . $conn->error);
+    handleError("Fetching data from move_requests failed", $conn->error);
 } else {
     while ($row = $result1->fetch_assoc()) {
         $data1[] = $row;
@@ -24,7 +30,7 @@ $sql2 = "SELECT student_id, available_time, move_services, transport_mode, start
 $result2 = $conn->query($sql2);
 $data2 = [];
 if ($result2 === false) {
-    die("Error fetching move_service: " . $conn->error);
+    handleError("Fetching data from move_service failed", $conn->error);
 } else {
     while ($row = $result2->fetch_assoc()) {
         $data2[] = $row;
