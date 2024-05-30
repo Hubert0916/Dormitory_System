@@ -86,13 +86,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
     $id_sql = "SELECT * FROM Dorm.Profile WHERE ID = '$ID'";
     $email_sql = "SELECT * FROM Dorm.Profile WHERE Email = '$Email'";
     $id_result = mysqli_query($conn, $id_sql);
-
     $email_result = mysqli_query($conn, $email_sql);
-    if (mysqli_num_rows($id_result) > 0) {
-        header("Location: registration.php?");
-    } 
-    else if (mysqli_num_rows($email_result) === 0 && mysqli_num_rows($id_result) === 0) {
 
+    if (mysqli_num_rows($id_result) > 0) {
+        echo '<script>';
+        echo 'Swal.fire({';
+        echo 'icon: "error",';
+        echo 'title: "ID already exists",';
+        echo 'text: "Please use a different ID.",';
+        echo '});';
+        echo '</script>';
+    } 
+    else if (mysqli_num_rows($email_result) > 0) {
+        echo '<script>';
+        echo 'Swal.fire({';
+        echo 'icon: "error",';
+        echo 'title: "Email already exists",';
+        echo 'text: "Please use a different Email.",';
+        echo '});';
+        echo '</script>';
+    }
+    else{
         $stmt1 = $conn->prepare("INSERT INTO Dorm.Profile(ID, Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password)
         VALUES (?, ?, ?, ?, ?, ?, ? ,? ,? ,?, ?)");
         $stmt1->bind_param("issssssssss", $ID, $Name, $Sex, $Department, $Grade, $Phone, $Email, $FB, $IG, $Intro, $Password);
@@ -102,21 +116,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         $stmt1->close();
 
         $stmt2 = $conn->prepare("INSERT INTO photo (ID, photo_name, photo_type, photo_size, photo_content) VALUES (?, ?, ?, ?, ?)");
+        $null = NULL;
         $stmt2->bind_param("issib", $ID, $fileName, $fileType, $fileSize, $null);
         $stmt2->send_long_data(4, $fileContent);
         if ($stmt2->execute()) {
             echo '<script>';
-            echo 'window.onload = function() {';
             echo 'Swal.fire({';
-            echo 'icon : "success",';
+            echo 'icon: "success",';
             echo 'title: "Profile created successfully",';
-            echo 'text : "You can now login with your account",';
-            echo 'confirmButtonColor: "rgba(11, 29, 64, 0.747)"';
+            echo 'text: "You can now login with your account",';
+            echo 'confirmButtonText: "OK",';
+            echo 'onAfterClose: () => { window.location.href = "login.php"; },';
             echo '});';
-            echo '}';
             echo '</script>';
-
-            header("Location: login.php");
         }
         else {
             echo "Error: " . $stmt2->error;
