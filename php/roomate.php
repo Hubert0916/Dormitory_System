@@ -104,7 +104,7 @@
     </style>
 </head>
 <body>
-    <form id="questionForm" action="submit.php" method="POST" class="container">
+    <form id="questionForm" action="roomate_submit.php" method="POST" class="container">
         <div class="question active" id="question1">
             <label for="sleep_habit">睡眠習慣：</label>
             <div class = "options-row">
