@@ -40,7 +40,25 @@
         </form>
     </div>
 </body>
+    <script>
+        function validateForm(event) {
+        if((document.getElementById('Password').value).length<6){
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Too short',
+                            text: 'Please enter a password of more than 6 characters',
+                        })
+
+                        event.preventDefault();
+                    }
+        else{
+                document.getElementById('registration').submit();
+        }
+    }
+
+    </script>
 </html>
+
 
 <?php
 
