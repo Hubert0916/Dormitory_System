@@ -39,7 +39,7 @@
                         <li><a href="#service5">吧 啦 吧 啦</a></li>
                     </ul>
                 </li>
-                <?php if (!$loggedIn): ?>
+                <?php if (!isset($_SESSION['ID'])): ?>
                     <li><a href="../php/registration.php">註 冊</a></li>
                     <li><a href="../php/login.php">登 入</a></li>
                 <?php else: ?>

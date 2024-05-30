@@ -47,7 +47,7 @@
 						<a class="nav-link" href="#">吧啦吧啦</a>
 					</li>
 				</div>
-				<?php if ($loggedIn): ?>
+				<?php if (isset($_SESSION['ID'])): ?>
 					<li class="nav-item">
 						<a class="nav-link" href="../php/profile.php">個人資訊</a>
 					</li>
