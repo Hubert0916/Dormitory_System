@@ -42,12 +42,14 @@ function findMatches($data1, $data2) {
     foreach ($data1 as $entry1) {
         $times1 = splitValues($entry1['available_time']);
         $services1 = splitValues($entry1['move_services']);
+        $transport_mode1 = $entry1['transport_mode'];
         foreach ($data2 as $entry2) {
             $times2 = splitValues($entry2['available_time']);
             $services2 = splitValues($entry2['move_services']);
+            $transport_mode2 = $entry2['transport_mode'];
             if (array_intersect($times1, $times2) && 
                 array_intersect($services1, $services2) && 
-                $entry1['transport_mode'] == $entry2['transport_mode']) {
+                $transport_mode1 == $transport_mode2) {
                 $matches[] = [
                     '幫我搬' => $entry1,
                     '幫你搬' => $entry2
@@ -176,7 +178,7 @@ foreach ($matches as $match) {
 </head>
 <body>
     <div class="container">
-        <h1>Matching Entries</h1>
+        <h1>已為您搜尋到的結果</h1>
         <?php if (!empty($matched_profiles)): ?>
             <?php foreach ($matched_profiles as $index => $match): ?>
                 <div class="profile" onclick='openModal(<?php echo json_encode($match); ?>)'>
