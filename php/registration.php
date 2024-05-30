@@ -3,7 +3,7 @@
   require_once dirname(__FILE__) . "/overlay_nav.php";
 ?>
 <!DOCTYPE html>
-<html lansg="en">
+<html lang="en">
 <head>
     <title>Register</title>
 </head>
@@ -13,26 +13,24 @@
         <form id="registration" method="post" enctype="multipart/form-data" onsubmit="return validateForm(event)">
             <div class="write">
                 <div class="first-column">
-                    <div class="Name">姓名 :<input type="text" id="Name" name="Name"></div>
-                    <div class="ID">學號 :<input type="text" id="ID" name="ID"></div>
-                    <div class="Email">信箱 :<input type="text" id="Email" name="Email"></div>
-                    <div class="Department">系所 :<input type="text" id="Department" name="Department"></div>
-                    <div class="Grade">年級 :<input type="text" id="Grade" name="Grade"></div>
-                    <div class="Sex">性別 :<input type="text" id="Sex" name="Sex"></div>
-                    <div class="Phone">電話 :<input type="text" id="Phone" name='Phone'></div>
+                    <div class="Name">姓名 :<input type="text" id="Name" name="Name" required></div>
+                    <div class="ID">學號 :<input type="text" id="ID" name="ID" required></div>
+                    <div class="Email">信箱 :<input type="email" id="Email" name="Email" required></div>
+                    <div class="Department">系所 :<input type="text" id="Department" name="Department" required></div>
+                    <div class="Grade">年級 :<input type="text" id="Grade" name="Grade" required></div>
+                    <div class="Sex">性別 :<input type="text" id="Sex" name="Sex" required></div>
+                    <div class="Phone">電話 :<input type="text" id="Phone" name='Phone' required></div>
                     <div class="FB">臉書連結 :<input type="text" id="FB" name="FB"></div>
                     <div class="IG">IG連結 :<input type="text" id="IG" name="IG"></div>
-
-
                 </div>
 
                 <div class="second-column">
-                    <div class="Password">密碼 :<input type="password" id="Password" name="Password"></div>
-                    <div class="Password1">確認密碼 :<input type="password" id="Password1" name="Password1"></div>
-                    <div class="Photo">上傳大頭照 :<input type="file" name="photo" accept="image/*">
+                    <div class="Password">密碼 :<input type="password" id="Password" name="Password" required></div>
+                    <div class="Password1">確認密碼 :<input type="password" id="Password1" name="Password1" required></div>
+                    <div class="Photo">上傳大頭照 :<input type="file" name="photo" accept="image/*" required>
                         <span id="fileName"></span>
                     </div>
-                    <div class="Intro">關於你的短簡介 :<br><textarea input id="Intro" name="Intro"></textarea>
+                    <div class="Intro">關於你的短簡介 :<br><textarea id="Intro" name="Intro" required></textarea>
                     </div>
                 </div>
             </div>
@@ -40,25 +38,36 @@
         </form>
     </div>
 </body>
-    <script>
-        function validateForm(event) {
-        if((document.getElementById('Password').value).length<6){
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Too short',
-                            text: 'Please enter a password of more than 6 characters',
-                        })
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function validateForm(event) {
+        const password = document.getElementById('Password').value;
+        const confirmPassword = document.getElementById('Password1').value;
 
-                        event.preventDefault();
-                    }
-        else{
-                document.getElementById('registration').submit();
+        if (password.length < 6) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Too short',
+                text: 'Please enter a password of more than 6 characters',
+            });
+            event.preventDefault();
+            return false;
         }
+
+        if (password !== confirmPassword) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Passwords do not match',
+                text: 'Please ensure both passwords are the same',
+            });
+            event.preventDefault();
+            return false;
+        }
+
+        return true;
     }
-
-    </script>
+</script>
 </html>
-
 
 <?php
 
@@ -106,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         echo '});';
         echo '</script>';
     }
-    else{
+    else {
         $stmt1 = $conn->prepare("INSERT INTO Dorm.Profile(ID, Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password)
         VALUES (?, ?, ?, ?, ?, ?, ? ,? ,? ,?, ?)");
         $stmt1->bind_param("issssssssss", $ID, $Name, $Sex, $Department, $Grade, $Phone, $Email, $FB, $IG, $Intro, $Password);
@@ -116,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         $stmt1->close();
 
         $stmt2 = $conn->prepare("INSERT INTO photo (ID, photo_name, photo_type, photo_size, photo_content) VALUES (?, ?, ?, ?, ?)");
-        $null = NULL;
+        $null = NULL; // Used to send the file content
         $stmt2->bind_param("issib", $ID, $fileName, $fileType, $fileSize, $null);
         $stmt2->send_long_data(4, $fileContent);
         if ($stmt2->execute()) {
@@ -126,16 +135,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
             echo 'title: "Profile created successfully",';
             echo 'text: "You can now login with your account",';
             echo 'confirmButtonText: "OK",';
-            echo 'onAfterClose: () => { window.location.href = "login.php"; },';
+            echo 'willClose: () => { window.location.href = "login.php"; },';
             echo '});';
             echo '</script>';
-        }
-        else {
+        } else {
             echo "Error: " . $stmt2->error;
         }
 
         $stmt2->close();
-
         $conn->close();
     }
 } 
