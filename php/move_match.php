@@ -158,6 +158,25 @@ foreach ($matches as $match) {
             max-width: 600px;
             border-radius: 10px;
             position: relative;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            animation: bounceIn 0.5s; /* Add bounce animation */
+        }
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
         .close {
             color: #aaa;
@@ -178,7 +197,7 @@ foreach ($matches as $match) {
 </head>
 <body>
     <div class="container">
-        <h1>已為您搜尋到的結果</h1>
+        <h1>Matching Entries</h1>
         <?php if (!empty($matched_profiles)): ?>
             <?php foreach ($matched_profiles as $index => $match): ?>
                 <div class="profile" onclick='openModal(<?php echo json_encode($match); ?>)'>
