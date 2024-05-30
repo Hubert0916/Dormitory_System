@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         $stmt1->close();
 
         $stmt2 = $conn->prepare("INSERT INTO photo (ID, photo_name, photo_type, photo_size, photo_content) VALUES (?, ?, ?, ?, ?)");
-        $null = NULL; // Used to send the file content
+        $null = NULL;
         $stmt2->bind_param("issib", $ID, $fileName, $fileType, $fileSize, $null);
         $stmt2->send_long_data(4, $fileContent);
         if ($stmt2->execute()) {
