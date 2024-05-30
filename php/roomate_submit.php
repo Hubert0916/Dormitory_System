@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Connected successfully.<br>";
     }
 
-    $stmt = $conn->prepare("INSERT INTO Dorm.roommates (student_id, sleep_habit, dorm_volume, location, notes) VALUES (?, ?, ?, ?, NOW())");
+    $stmt = $conn->prepare("INSERT INTO Dorm.roommate (student_id, sleep_habit, dorm_volume, location, notes) VALUES (?, ?, ?, ?, NOW())");
     $stmt->bind_param("ssss", $student_id, $sleep_habit, $dorm_volume, $location, $notes);
     
     if ($stmt->execute()) {
