@@ -9,10 +9,8 @@ if (!isset($_SESSION['ID'])) {
 // Get ID from session
 $user_data = $_SESSION['ID'];
 
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $student_id = $user_data;
+    $user_id = $user_data;
     $sleep_habit = $_POST['sleep_habit'];
     $dorm_volume = $_POST['dorm_volume'];
     $location = $_POST['location'];
@@ -27,12 +25,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Connected successfully.<br>";
     }
 
-    $stmt = $conn->prepare("INSERT INTO Dorm.roommate (student_id, sleep_habit, dorm_volume, location, notes) VALUES (?, ?, ?, ?, NOW())");
-    $stmt->bind_param("ssss", $student_id, $sleep_habit, $dorm_volume, $location, $notes);
+    $stmt = $conn->prepare("INSERT INTO Dorm.roomate (user_id, sleep_habit, dorm_volume, location, notes) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $user_id, $sleep_habit, $dorm_volume, $location, $notes);
     
     if ($stmt->execute()) {
         echo "Success: Your move request has been submitted successfully";
-        header("Location: move_match.php");
+        header("Location: roomate_match.php");
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -44,4 +42,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Error: Please make sure your form is filled correctly";
 }
 ?>
-
