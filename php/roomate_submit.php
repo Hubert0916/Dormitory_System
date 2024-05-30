@@ -21,21 +21,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-    } else {
-        echo "Connected successfully.<br>";
     }
 
-    $stmt = $conn->prepare("INSERT INTO Dorm.roomate (user_id, sleep_habit, dorm_volume, location, notes) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $user_id, $sleep_habit, $dorm_volume, $location, $notes);
+    // 刪除現有的用戶數據
+    $delete_stmt = $conn->prepare("DELETE FROM Dorm.roomate WHERE user_id = ?");
+    $delete_stmt->bind_param("s", $user_id);
+    $delete_stmt->execute();
+    $delete_stmt->close();
+
+    // 插入新數據
+    $insert_stmt = $conn->prepare("INSERT INTO Dorm.roomate (user_id, sleep_habit, dorm_volume, location, notes) VALUES (?, ?, ?, ?, ?)");
+    $insert_stmt->bind_param("sssss", $user_id, $sleep_habit, $dorm_volume, $location, $notes);
     
-    if ($stmt->execute()) {
-        echo "Success: Your move request has been submitted successfully";
+    if ($insert_stmt->execute()) {
         header("Location: roomate_match.php");
+        exit();
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Error: " . $insert_stmt->error;
     }
     
-    $stmt->close();
+    $insert_stmt->close();
     $conn->close();
     
 } else {
