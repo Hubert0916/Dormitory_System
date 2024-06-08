@@ -23,11 +23,39 @@ if (isset($_SESSION['ID'])) {
             $roommates[] = ['RID' => $RID, 'Rname' => $Rname, 'Rtype' => $Rtype, 'Rphoto' => base64_encode($Rphoto)];
         }
     }
+    $getRoommate_sql->close();
 } else {
     echo "<script>alert('請先登入');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $Dorm = htmlspecialchars($_POST["imageChoice"]);
+
+    if (isset($_POST["room"])) {
+        $Room = htmlspecialchars($_POST["room"]);
+    }
+
+    if(isset($_POST["chooserm"])) {
+        $RoommateID = htmlspecialchars($_POST["chooserm"]);
+    }
+
+    $Reason = htmlspecialchars($_POST["Radios"]);
+
+    if (isset($_POST["other"])) {
+        $other = htmlspecialchars($_POST["other"]);
+    }
+
+    $report_sql = $conn->prepare("INSERT INTO Dorm.Report (Dormitory, Room, Roommate_ID, Reason, Note)  VALUES (?, ?, ?, ?, ?)");
+    $report_sql->bind_param("ssiss", $Dorm, $Room, $RoommateID, $Reason, $other);
+
+    if (!$report_sql->execute()) {
+        echo "Error: " . $report_sql->error;
+    }
+    $report_sql->close();
+}
+
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +97,7 @@ if (isset($_SESSION['ID'])) {
                     </div>
                 </div>
 
-                <form id="imageForm" method="post" onsubmit="Message()">
+                <form id="imageForm" method="post" action="report.php">
                     <div class="step" id="step1">
                         <div class="text-center">
                             <h2>檢舉的宿舍位於...<h2>
@@ -77,66 +105,60 @@ if (isset($_SESSION['ID'])) {
                         <hr>
                         <div class="container-fluid p-5">
                             <div class="row">
+                                <input type="hidden" name="imageChoice" id="imageChoice">
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="1">
-                                    <img src="../pic/8.jpg" class="img-fluid rounded" onclick="submitStep1('8舍')">
+
+                                    <img src="../pic/8.jpg" class="img-fluid rounded" onclick="submitStep1('8舍');">
                                     <h5 class="mt-2">8舍<h5>
                                 </div>
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="2">
-                                    <img src="../pic/9.jpg" class="img-fluid rounded" onclick="submitStep1('9舍')">
+                                    <img src="../pic/9.jpg" class="img-fluid rounded" onclick="submitStep1('9舍');">
                                     <h5 class="mt-2">9舍<h5>
                                 </div>
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="3">
-                                    <img src="../pic/10.jpg" class="img-fluid rounded" onclick="submitStep1('10舍')">
+
+                                    <img src="../pic/10.jpg" class="img-fluid rounded" onclick="submitStep1('10舍');">
                                     <h5 class="mt-2">10舍<h5>
                                 </div>
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="2">
-                                    <img src="../pic/11.jpg" class="img-fluid rounded" onclick="submitStep1('11舍')">
+
+                                    <img src="../pic/11.jpg" class="img-fluid rounded" onclick="submitStep1('11舍');">
                                     <h5 class="mt-2">11舍<h5>
                                 </div>
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="2">
-                                    <img src="../pic/12.jpg" class="img-fluid rounded" onclick="submitStep1('12舍')">
+
+                                    <img src="../pic/12.jpg" class="img-fluid rounded" onclick="submitStep1('12舍');">
                                     <h5 class="mt-2">12舍<h5>
                                 </div>
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="2">
-                                    <img src="../pic/13.jpg" class="img-fluid rounded" onclick="submitStep1('13舍')">
+
+                                    <img src="../pic/13.jpg" class="img-fluid rounded" onclick="submitStep1('13舍');">
                                     <h5 class="mt-2">13舍<h5>
                                 </div>
                             </div>
                             <hr><br>
                             <div class="row">
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="1">
-                                    <img src="../pic/7.jpg" class="img-fluid rounded" onclick="submitStep1('7舍')">
+                                    <img src="../pic/7.jpg" class="img-fluid rounded" onclick="submitStep1('7舍');">
                                     <h5 class="mt-2">7舍<h5>
                                 </div>
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="2">
-                                    <img src="../pic/girl2.jpg" class="img-fluid rounded" onclick="submitStep1('女二舍')">
+                                    <img src="../pic/girl2.jpg" class="img-fluid rounded" onclick="submitStep1('女二舍');">
                                     <h5 class="mt-2">女二舍<h5>
                                 </div>
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="2">
-                                    <img src="../pic/xuan.jpg" class="img-fluid rounded" onclick="submitStep1('竹軒')">
+                                    <img src="../pic/xuan.jpg" class="img-fluid rounded" onclick="submitStep1('竹軒');">
                                     <h5 class="mt-2">竹軒<h5>
                                 </div>
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="2">
-                                    <img src="../pic/1+.jpg" class="img-fluid rounded" onclick="submitStep1('研一舍')">
+                                    <img src="../pic/1+.jpg" class="img-fluid rounded" onclick="submitStep1('研一舍');">
                                     <h5 class="mt-2">研一舍<h5>
                                 </div>
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="2">
-                                    <img src="../pic/2+.jpg" class="img-fluid rounded" onclick="submitStep1('研二舍')">
+                                    <img src="../pic/2+.jpg" class="img-fluid rounded" onclick="submitStep1('研二舍');">
                                     <h5 class="mt-2">研二舍<h5>
                                 </div>
                                 <div class="col-md-2 text-center image-container">
-                                    <input type="hidden" name="imageChoice" value="2">
                                     <img src="../pic/3+.png" class="img-fluid rounded" onclick="submitStep1('研三舍')">
                                     <h5 class="mt-2">研三舍<h5>
                                 </div>
@@ -151,22 +173,20 @@ if (isset($_SESSION['ID'])) {
                         <hr>
                         <div class="container-fluid p-5">
                             <div class="row ms-5">
+                                <input type="hidden" name="blockChoice">
                                 <div class="col-md-4 text-center block-container">
-                                    <input type="hidden" name="blockChoice" value="1">
-                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('a')">
+                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('a');">
                                         <i class="bi bi-person-x-fill icon fa-9x"></i>
                                         <p>不知道</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-center block-container">
-                                    <input type="hidden" name="blockChoice" value="2">
                                     <div class="rect-block d-flex flex-column" onclick="submitStep2('b'); inputRoom();">
                                         <i class="bi bi-door-closed icon fa-9x"></i>
                                         <p>房號</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-center block-container">
-                                    <input type="hidden" name="blockChoice" value="3">
                                     <div class="rect-block d-flex flex-column" onclick="submitStep2('c'); reportRoommate();">
                                         <i class="bi bi-person-raised-hand icon fa-9x"></i>
                                         <p>室友</p>
@@ -193,16 +213,29 @@ if (isset($_SESSION['ID'])) {
                             <h2>哪個室友...(快完成了)<h2>
                         </div>
                         <hr>
-
-                        <?php if (!empty($roommates)) : ?>
-                            <?php foreach ($roommates as $roommate) : ?>
-                                <div>
-                                    <img src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>" />
+                        <div class="container-fluid p-5">
+                            <div class="row ms-5">
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-center">
+                                        <input type="hidden" id="chooserm" name="chooserm">
+                                        <?php if (!empty($roommates)) : ?>
+                                            <?php foreach ($roommates as $roommate) : ?>
+                                                <div class="col-md-4 text-center">
+                                                    <div class="rect-block d-flex flex-column">
+                                                        <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>" onclick="submitStep3('c', '<?php echo $roommate['RID']; ?>');" />
+                                                        <br>
+                                                        <p><?php echo "ID : " . $roommate['RID']; ?></p>
+                                                        <p><?php echo "Name : " . $roommate['Rname']; ?></p>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        <?php else : ?>
+                                            <p>没有找到照片。</p>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <p>没有找到照片。</p>
-                        <?php endif; ?>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -214,68 +247,68 @@ if (isset($_SESSION['ID'])) {
                         <div class="container-fluid px-5">
                             <div class="form-group">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption1" value="option1">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption1" value="吵">
                                     <label class="form-check-label" for="radioOption1">
                                         未保持宿舍安寧影響他人者
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption2" value="option2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption2" value="髒">
                                     <label class="form-check-label" for="radioOption2">
                                         未能保持宿舍內外清潔
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption3" value="option3">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption3" value="抽菸">
                                     <label class="form-check-label" for="radioOption3">
                                         宿舍內外十公尺內吸菸
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption4" value="option4">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption4" value="亂堆">
                                     <label class="form-check-label" for="radioOption4">
                                         公共區域堆放私人物品者
                                     </label>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption5" value="option5">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption5" value="電器">
                                     <label class="form-check-label" for="radioOption5">
                                         寢室內使用或置放有安全堪慮電器用品(電磁爐、電熨斗、微波爐等)
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption6" value="option6">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption6" value="毀損">
                                     <label class="form-check-label" for="radioOption6">
                                         故意毀損宿舍
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption7" value="option7">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption7" value="推銷">
                                     <label class="form-check-label" for="radioOption7">
                                         宿舍內從事未經許可之銷售行為
                                     </label>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption8" value="option8">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption8" value="賭博">
                                     <label class="form-check-label" for="radioOption8">
                                         宿舍內賭博等類似型態行為
                                     </label>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption9" value="option9">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption9" value="住宿權">
                                     <label class="form-check-label" for="radioOption9">
                                         刊登買賣床位及住宿權頂讓訊息
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption10" value="option10">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption10" value="other">
                                     <label class="form-check-label" for="radioOption10">
                                         其他
                                     </label>
-                                    <input type="text" class="form-control mt-1" id="otherInput" placeholder="請輸入其他選項" disabled>
+                                    <input type="text" class="form-control mt-1" id="other" name="other" placeholder="請輸入其他選項" disabled>
                                 </div>
                             </div>
                             <button type="submit" id="btn-ok" class="btn btn-primary mt-5 w-100">提交</button>
@@ -287,7 +320,7 @@ if (isset($_SESSION['ID'])) {
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function Message() {
-                event.preventDefault();
+
                 Swal.fire({
                     icon: 'success',
                     title: '恭喜! 舉報成功',
@@ -297,6 +330,7 @@ if (isset($_SESSION['ID'])) {
                         window.location.href = "home.php";
                     },
                 });
+
             }
         </script>
 

@@ -1,4 +1,4 @@
-function submitStep1(imageNumber) {
+function submitStep1(imageOption) {
     var step1 = document.getElementById('step1');
     var step2 = document.getElementById('step2');
     var line1 = document.getElementById('line1');
@@ -8,11 +8,10 @@ function submitStep1(imageNumber) {
     line1.classList.add('bg-success');
     cir2.classList.add('bg-success');
 
-    var form = document.getElementById('imageForm');
-    form.imageChoice.value = imageNumber;
+    document.getElementById('imageChoice').value = imageOption;
 }
 
-function submitStep2(imageNumber) {
+function submitStep2(option) {
     var step2 = document.getElementById('step2');
     var line2 = document.getElementById('line2');
     var cir3 = document.getElementById('cir3');
@@ -22,7 +21,7 @@ function submitStep2(imageNumber) {
     cir3.classList.add('bg-success');
     step2.classList.add('d-none');
 
-    if (imageNumber == 'a') {
+    if (option == 'a') {
         var line3 = document.getElementById('line3');
         var cir4 = document.getElementById('cir4');
         line3.classList.remove('bg-secondary');
@@ -34,21 +33,21 @@ function submitStep2(imageNumber) {
         step4.classList.remove('d-none');
     }
 
-    else if (imageNumber == 'b') {
+    else if (option == 'b') {
         var step3b = document.getElementById('step3b');
         step3b.classList.remove('d-none');
         document.getElementById('room').disabled = false;
         document.getElementById('room').required = true;
     }
 
-    else if (imageNumber == 'c') {
+    else if (option == 'c') {
         var step3c = document.getElementById('step3c');
         step3c.classList.remove('d-none');
 
     }
 }
 
-function submitStep3(number) {
+function submitStep3(number, id) {
 
     var step3 = document.getElementById('step3' + number);
     var step4 = document.getElementById('step4');
@@ -60,13 +59,15 @@ function submitStep3(number) {
     cir4.classList.add('bg-success');
     step3.classList.add('d-none');
     step4.classList.remove('d-none');
+
+    document.getElementById('chooserm').value = id;
 }
 
 
 $('input[type=radio][name=Radios]').change(function () {
-    if (this.value === 'option10') {
-        $('#otherInput').prop('disabled', false);
+    if (this.value === 'other') {
+        $('#other').prop('disabled', false);
     } else {
-        $('#otherInput').prop('disabled', true).val('');
+        $('#other').prop('disabled', true).val('');
     }
 })

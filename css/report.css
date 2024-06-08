@@ -1,23 +1,19 @@
-body
-{
+body {
     background-color: #F0EBE3 !important;
 }
 
-.image-container img 
-{
+.image-container img {
     transition: transform 0.5s ease;
 }
 
-.image-container:hover img
-{
+.image-container:hover img {
     transform: scale(1.1);
     cursor: pointer;
     transition: transform 0.5s ease;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.rect-block 
-{
+.rect-block {
     width: 80%;
     height: 500px;
     background-color: white;
@@ -34,15 +30,19 @@ body
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.cir
-{
+.cir {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.form-check-input:checked + .form-check-label 
-{
+.form-check-input:checked+.form-check-label {
     font-weight: bold;
     color: #007bff;
+}
+
+.fixed-size {
+    width: 300px;
+    height: 225px;
+    object-fit: contain;
 }
