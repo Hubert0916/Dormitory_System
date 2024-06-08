@@ -1,12 +1,14 @@
 <?php
-  require_once dirname(__FILE__) . "/head.php";
-  require_once dirname(__FILE__) . "/overlay_nav.php";
+require_once dirname(__FILE__) . "/head.php";
+require_once dirname(__FILE__) . "/overlay_nav.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Register</title>
 </head>
+
 <body>
     <div class="box">
         <h1>註冊</h1>
@@ -18,6 +20,24 @@
                     <div class="Email">信箱 :<input type="email" id="Email" name="Email" required></div>
                     <div class="Department">系所 :<input type="text" id="Department" name="Department" required></div>
                     <div class="Grade">年級 :<input type="text" id="Grade" name="Grade" required></div>
+                    <div class="Dorm">宿舍 :
+                        <select name="Dorm" required>
+                            <option value="">請選擇你居住的宿舍</option>
+                            <option value="七舍">七舍</option>
+                            <option value="八舍">八舍</option>
+                            <option value="九舍">九舍</option>
+                            <option value="十舍">十舍</option>
+                            <option value="十一舍">十一舍</option>
+                            <option value="十二舍">十二舍</option>
+                            <option value="十三舍">十三舍</option>
+                            <option value="女二舍">女二舍</option>
+                            <option value="竹軒">竹軒</option>
+                            <option value="研一舍">研一舍</option>
+                            <option value="研二舍">研二舍</option>
+                            <option value="研三舍">研三舍</option>
+                        </select>
+                    </div>
+                    <div class="Room">房號 :<input type="text" id="Room" name="Room" required></div>
                     <div class="Sex">性別 :<input type="text" id="Sex" name="Sex" required></div>
                     <div class="Phone">電話 :<input type="text" id="Phone" name='Phone' required></div>
                     <div class="FB">臉書連結 :<input type="text" id="FB" name="FB"></div>
@@ -67,6 +87,7 @@
         return true;
     }
 </script>
+
 </html>
 
 <?php
@@ -78,6 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
     $Sex = htmlspecialchars($_POST["Sex"]);
     $Department = htmlspecialchars($_POST["Department"]);
     $Grade = htmlspecialchars($_POST["Grade"]);
+    $Dorm = htmlspecialchars($_POST["Dorm"]);
+    $Room = htmlspecialchars($_POST["Room"]);
     $Phone = htmlspecialchars($_POST["Phone"]);
     $Email = htmlspecialchars($_POST["Email"]);
     $FB = htmlspecialchars($_POST["FB"]);
@@ -105,8 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         echo 'text: "Please use a different ID.",';
         echo '});';
         echo '</script>';
-    } 
-    else if (mysqli_num_rows($email_result) > 0) {
+    } else if (mysqli_num_rows($email_result) > 0) {
         echo '<script>';
         echo 'Swal.fire({';
         echo 'icon: "error",';
@@ -114,11 +136,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         echo 'text: "Please use a different Email.",';
         echo '});';
         echo '</script>';
-    }
-    else {
-        $stmt1 = $conn->prepare("INSERT INTO Dorm.Profile(ID, Name, Sex, Department, Grade, Phone, Email, FB, IG, Intro, Password)
-        VALUES (?, ?, ?, ?, ?, ?, ? ,? ,? ,?, ?)");
-        $stmt1->bind_param("issssssssss", $ID, $Name, $Sex, $Department, $Grade, $Phone, $Email, $FB, $IG, $Intro, $Password);
+    } else {
+        $stmt1 = $conn->prepare("INSERT INTO Dorm.Profile(ID, Name, Sex, Department, Grade, Dorm, Room, Phone, Email, FB, IG, Intro, Password)
+        VALUES (?, ?, ?, ?, ?, ?, ? ,? ,? ,?, ?, ?, ?)");
+        $stmt1->bind_param("issssssssssss", $ID, $Name, $Sex, $Department, $Grade, $Dorm, $Room, $Phone, $Email, $FB, $IG, $Intro, $Password);
         if (!$stmt1->execute()) {
             echo "Error: " . $stmt1->error;
         }
@@ -145,7 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         $stmt2->close();
         $conn->close();
     }
-} 
+}
 ?>
 
 <style>
