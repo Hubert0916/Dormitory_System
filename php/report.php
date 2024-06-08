@@ -1,3 +1,34 @@
+<?php
+require_once dirname(__FILE__) . "/overlay_nav.php";
+require_once dirname(__FILE__) . '/session.php';
+require_once dirname(__FILE__) . '/connection.php';
+
+if (isset($_SESSION['ID'])) {
+
+    if ($conn->connect_error) {
+        die("Connection failed. $conn->connect_error");
+    }
+    $id = intval($_SESSION['ID']);
+    $getRoommate_sql = $conn->prepare("SELECT pr.ID, pr.Name, ph.photo_type, ph.photo_content FROM Dorm.Profile as pr, Dorm.photo as ph WHERE pr.ID = ph.id and pr.id != ? and pr.Room = (SELECT p.Room from Dorm.Profile as p WHERE p.ID = ?) and pr.Dorm = (SELECT p.Dorm from Dorm.Profile as p WHERE p.ID = ?)");
+    $getRoommate_sql->bind_param("iii", $id, $id, $id);
+    $getRoommate_sql->execute();
+    $getRoommate_sql->store_result();
+
+    if ($getRoommate_sql->num_rows() > 0) {
+        $getRoommate_sql->bind_result($RID, $Rname, $Rtype, $Rphoto);
+
+        $roommates = [];
+
+        while ($getRoommate_sql->fetch()) {
+            $roommates[] = ['RID' => $RID, 'Rname' => $Rname, 'Rtype' => $Rtype, 'Rphoto' => base64_encode($Rphoto)];
+        }
+    }
+} else {
+    echo "<script>alert('請先登入');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +42,6 @@
 </head>
 
 <body>
-    <?php include "overlay_nav.php"; ?>
-
     <div class="container-fluid ms-3">
         <div class="row">
             <div class="col-md-12">
@@ -31,222 +60,248 @@
                         <div class="bg-secondary text-white rounded-pill cir" id="cir3" style="width: 2rem; height: 2rem">
                             3
                         </div>
+                        <span class="bg-secondary w-25 rounded mt-auto mb-auto" id="line3" style="height: 0.2rem">
+                        </span>
+                        <div class="bg-secondary text-white rounded-pill cir" id="cir4" style="width: 2rem; height: 2rem">
+                            4
+                        </div>
 
                     </div>
                 </div>
 
                 <form id="imageForm" method="post" onsubmit="Message()">
-                    <div class=" step" id="step1">
-                    <div class="text-center">
-                        <h2>檢舉的宿舍位於...<h2>
-                    </div>
-                    <hr>
-                    <div class="container-fluid p-5">
-                        <div class="row">
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="1">
-                                <img src="../pic/8.jpg" class="img-fluid rounded" onclick="submitStep1('8舍')">
-                                <h5 class="mt-2">8舍<h5>
-                            </div>
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="2">
-                                <img src="../pic/9.jpg" class="img-fluid rounded" onclick="submitStep1('9舍')">
-                                <h5 class="mt-2">9舍<h5>
-                            </div>
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="3">
-                                <img src="../pic/10.jpg" class="img-fluid rounded" onclick="submitStep1('10舍')">
-                                <h5 class="mt-2">10舍<h5>
-                            </div>
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="2">
-                                <img src="../pic/11.jpg" class="img-fluid rounded" onclick="submitStep1('11舍')">
-                                <h5 class="mt-2">11舍<h5>
-                            </div>
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="2">
-                                <img src="../pic/12.jpg" class="img-fluid rounded" onclick="submitStep1('12舍')">
-                                <h5 class="mt-2">12舍<h5>
-                            </div>
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="2">
-                                <img src="../pic/13.jpg" class="img-fluid rounded" onclick="submitStep1('13舍')">
-                                <h5 class="mt-2">13舍<h5>
-                            </div>
+                    <div class="step" id="step1">
+                        <div class="text-center">
+                            <h2>檢舉的宿舍位於...<h2>
                         </div>
-                        <hr><br>
-                        <div class="row">
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="1">
-                                <img src="../pic/7.jpg" class="img-fluid rounded" onclick="submitStep1('7舍')">
-                                <h5 class="mt-2">7舍<h5>
+                        <hr>
+                        <div class="container-fluid p-5">
+                            <div class="row">
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="1">
+                                    <img src="../pic/8.jpg" class="img-fluid rounded" onclick="submitStep1('8舍')">
+                                    <h5 class="mt-2">8舍<h5>
+                                </div>
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="2">
+                                    <img src="../pic/9.jpg" class="img-fluid rounded" onclick="submitStep1('9舍')">
+                                    <h5 class="mt-2">9舍<h5>
+                                </div>
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="3">
+                                    <img src="../pic/10.jpg" class="img-fluid rounded" onclick="submitStep1('10舍')">
+                                    <h5 class="mt-2">10舍<h5>
+                                </div>
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="2">
+                                    <img src="../pic/11.jpg" class="img-fluid rounded" onclick="submitStep1('11舍')">
+                                    <h5 class="mt-2">11舍<h5>
+                                </div>
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="2">
+                                    <img src="../pic/12.jpg" class="img-fluid rounded" onclick="submitStep1('12舍')">
+                                    <h5 class="mt-2">12舍<h5>
+                                </div>
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="2">
+                                    <img src="../pic/13.jpg" class="img-fluid rounded" onclick="submitStep1('13舍')">
+                                    <h5 class="mt-2">13舍<h5>
+                                </div>
                             </div>
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="2">
-                                <img src="../pic/girl2.jpg" class="img-fluid rounded" onclick="submitStep1('女二舍')">
-                                <h5 class="mt-2">女二舍<h5>
-                            </div>
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="2">
-                                <img src="../pic/xuan.jpg" class="img-fluid rounded" onclick="submitStep1('竹軒')">
-                                <h5 class="mt-2">竹軒<h5>
-                            </div>
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="2">
-                                <img src="../pic/1+.jpg" class="img-fluid rounded" onclick="submitStep1('研一舍')">
-                                <h5 class="mt-2">研一舍<h5>
-                            </div>
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="2">
-                                <img src="../pic/2+.jpg" class="img-fluid rounded" onclick="submitStep1('研二舍')">
-                                <h5 class="mt-2">研二舍<h5>
-                            </div>
-                            <div class="col-md-2 text-center image-container">
-                                <input type="hidden" name="imageChoice" value="2">
-                                <img src="../pic/3+.png" class="img-fluid rounded" onclick="submitStep1('研三舍')">
-                                <h5 class="mt-2">研三舍<h5>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-
-            <div class="step d-none" id="step2">
-                <div class="text-center">
-                    <h2>你要檢舉的對象...<h2>
-                </div>
-                <hr>
-                <div class="container-fluid p-5">
-                    <div class="row ms-5">
-                        <div class="col-md-4 text-center block-container">
-                            <input type="hidden" name="blockChoice" value="1">
-                            <div class="rect-block d-flex flex-column" onclick="submitStep2('1')">
-                                <i class="bi bi-person-x-fill icon fa-9x"></i>
-                                <p>不知道</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 text-center block-container">
-                            <input type="hidden" name="blockChoice" value="2">
-                            <div class="rect-block d-flex flex-column" onclick="submitStep2('2'); inputRoom();">
-                                <i class="bi bi-door-closed icon fa-9x"></i>
-                                <p>房號</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 text-center block-container">
-                            <input type="hidden" name="blockChoice" value="3">
-                            <div class="rect-block d-flex flex-column" onclick="submitStep2('3')">
-                                <i class="bi bi-person-raised-hand icon fa-9x"></i>
-                                <p>室友</p>
+                            <hr><br>
+                            <div class="row">
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="1">
+                                    <img src="../pic/7.jpg" class="img-fluid rounded" onclick="submitStep1('7舍')">
+                                    <h5 class="mt-2">7舍<h5>
+                                </div>
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="2">
+                                    <img src="../pic/girl2.jpg" class="img-fluid rounded" onclick="submitStep1('女二舍')">
+                                    <h5 class="mt-2">女二舍<h5>
+                                </div>
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="2">
+                                    <img src="../pic/xuan.jpg" class="img-fluid rounded" onclick="submitStep1('竹軒')">
+                                    <h5 class="mt-2">竹軒<h5>
+                                </div>
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="2">
+                                    <img src="../pic/1+.jpg" class="img-fluid rounded" onclick="submitStep1('研一舍')">
+                                    <h5 class="mt-2">研一舍<h5>
+                                </div>
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="2">
+                                    <img src="../pic/2+.jpg" class="img-fluid rounded" onclick="submitStep1('研二舍')">
+                                    <h5 class="mt-2">研二舍<h5>
+                                </div>
+                                <div class="col-md-2 text-center image-container">
+                                    <input type="hidden" name="imageChoice" value="2">
+                                    <img src="../pic/3+.png" class="img-fluid rounded" onclick="submitStep1('研三舍')">
+                                    <h5 class="mt-2">研三舍<h5>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="step d-none" id="step2+">
-                <div class="text-center">
-                    <h2>房號...<h2>
-                </div>
-                <hr>
-
-                <div class="d-flex justify-content-center">
-                    <input class="w-100 mb-5 mx-5" type="text" name="room" id="room" placeholder="房號" disabled>
-                </div>
-            </div>
-
-            <div class="step d-none" id="step3">
-                <div class="text-center">
-                    <h2>緣由...<h2>
-                </div>
-                <hr>
-                <div class="container-fluid px-5">
-                    <div class="form-group">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Radios" id="radioOption1" value="option1">
-                            <label class="form-check-label" for="radioOption1">
-                                未保持宿舍安寧影響他人者
-                            </label>
+                    <div class="step d-none" id="step2">
+                        <div class="text-center">
+                            <h2>你要檢舉的對象...<h2>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Radios" id="radioOption2" value="option2">
-                            <label class="form-check-label" for="radioOption2">
-                                未能保持宿舍內外清潔
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Radios" id="radioOption3" value="option3">
-                            <label class="form-check-label" for="radioOption3">
-                                宿舍內外十公尺內吸菸
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Radios" id="radioOption4" value="option4">
-                            <label class="form-check-label" for="radioOption4">
-                                公共區域堆放私人物品者
-                            </label>
-                        </div>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Radios" id="radioOption5" value="option5">
-                            <label class="form-check-label" for="radioOption5">
-                                寢室內使用或置放有安全堪慮電器用品(電磁爐、電熨斗、微波爐等)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Radios" id="radioOption6" value="option6">
-                            <label class="form-check-label" for="radioOption6">
-                                故意毀損宿舍
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Radios" id="radioOption7" value="option7">
-                            <label class="form-check-label" for="radioOption7">
-                                宿舍內從事未經許可之銷售行為
-                            </label>
-                        </div>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Radios" id="radioOption8" value="option8">
-                            <label class="form-check-label" for="radioOption8">
-                                宿舍內賭博等類似型態行為
-                            </label>
-                        </div>
-
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Radios" id="radioOption9" value="option9">
-                            <label class="form-check-label" for="radioOption9">
-                                刊登買賣床位及住宿權頂讓訊息
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="Radios" id="radioOption10" value="option10">
-                            <label class="form-check-label" for="radioOption10">
-                                其他
-                            </label>
-                            <input type="text" class="form-control mt-1" id="otherInput" placeholder="請輸入其他選項" disabled>
+                        <hr>
+                        <div class="container-fluid p-5">
+                            <div class="row ms-5">
+                                <div class="col-md-4 text-center block-container">
+                                    <input type="hidden" name="blockChoice" value="1">
+                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('a')">
+                                        <i class="bi bi-person-x-fill icon fa-9x"></i>
+                                        <p>不知道</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center block-container">
+                                    <input type="hidden" name="blockChoice" value="2">
+                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('b'); inputRoom();">
+                                        <i class="bi bi-door-closed icon fa-9x"></i>
+                                        <p>房號</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-center block-container">
+                                    <input type="hidden" name="blockChoice" value="3">
+                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('c'); reportRoommate();">
+                                        <i class="bi bi-person-raised-hand icon fa-9x"></i>
+                                        <p>室友</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <button type="submit" id="btn-ok" class="btn btn-primary mt-5 w-100">提交</button>
-                </div>
+
+                    <div class="step d-none" id="step3b">
+                        <div class="text-center">
+                            <h2>房號...<h2>
+                        </div>
+                        <hr>
+
+                        <div class="d-flex flex-column align-items-center">
+                            <input class="w-75 mb-5 mx-5" type="text" name="room" id="room" placeholder="501" disabled>
+                            <button type="button" onclick="submitStep3('b');">下一步</button>
+                        </div>
+                    </div>
+
+                    <div class="step d-none" id="step3c">
+                        <div class="d-flex justify-content-center">
+                            <h2>哪個室友...(快完成了)<h2>
+                        </div>
+                        <hr>
+
+                        <?php if (!empty($roommates)) : ?>
+                            <?php foreach ($roommates as $roommate) : ?>
+                                <div>
+                                    <img src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>" />
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <p>没有找到照片。</p>
+                        <?php endif; ?>
+
+                    </div>
+
+                    <div class="step d-none" id="step4">
+                        <div class="text-center">
+                            <h2>緣由...<h2>
+                        </div>
+                        <hr>
+                        <div class="container-fluid px-5">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption1" value="option1">
+                                    <label class="form-check-label" for="radioOption1">
+                                        未保持宿舍安寧影響他人者
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption2" value="option2">
+                                    <label class="form-check-label" for="radioOption2">
+                                        未能保持宿舍內外清潔
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption3" value="option3">
+                                    <label class="form-check-label" for="radioOption3">
+                                        宿舍內外十公尺內吸菸
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption4" value="option4">
+                                    <label class="form-check-label" for="radioOption4">
+                                        公共區域堆放私人物品者
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption5" value="option5">
+                                    <label class="form-check-label" for="radioOption5">
+                                        寢室內使用或置放有安全堪慮電器用品(電磁爐、電熨斗、微波爐等)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption6" value="option6">
+                                    <label class="form-check-label" for="radioOption6">
+                                        故意毀損宿舍
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption7" value="option7">
+                                    <label class="form-check-label" for="radioOption7">
+                                        宿舍內從事未經許可之銷售行為
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption8" value="option8">
+                                    <label class="form-check-label" for="radioOption8">
+                                        宿舍內賭博等類似型態行為
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption9" value="option9">
+                                    <label class="form-check-label" for="radioOption9">
+                                        刊登買賣床位及住宿權頂讓訊息
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption10" value="option10">
+                                    <label class="form-check-label" for="radioOption10">
+                                        其他
+                                    </label>
+                                    <input type="text" class="form-control mt-1" id="otherInput" placeholder="請輸入其他選項" disabled>
+                                </div>
+                            </div>
+                            <button type="submit" id="btn-ok" class="btn btn-primary mt-5 w-100">提交</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            </form>
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function Message() {
-            event.preventDefault();
-            Swal.fire({
-                icon: 'success',
-                title: '恭喜! 舉報成功',
-                text: '謝謝伸張宿舍正義!',
-                confirmButtonText: "OK",
-                willClose: () => { window.location.href = "home.php"; },
-            });
-        }
-    </script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function Message() {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'success',
+                    title: '恭喜! 舉報成功',
+                    text: '謝謝伸張宿舍正義!',
+                    confirmButtonText: "OK",
+                    willClose: () => {
+                        window.location.href = "home.php";
+                    },
+                });
+            }
+        </script>
 
-    <script src="../js/report.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="../js/report.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>

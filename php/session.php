@@ -32,5 +32,4 @@ if (isset($_SESSION['ID'])) {
     }
 
     $stmt->close();
-    $conn->close();
 }
