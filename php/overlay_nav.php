@@ -35,7 +35,7 @@
 						<a class="nav-link" href="../php/move.php">協助搬遷</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">配對室友</a>
+						<a class="nav-link" href="../php/roomate.php">配對室友</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">設備報修</a>
