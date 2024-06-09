@@ -116,7 +116,7 @@ $conn->close();
                                     </div>
                                 </div>
                                 <div class="col-md-3 text-center block-container">
-                                    <div class="rect-block d-flex flex-column" onclick="submitStep1('9')">
+                                    <div class="rect-block d-flex flex-column" onclick="submitStep1('9舍')">
                                         <img src="../pic/9.jpg" class="img-fluid rounded">
                                         <h5 class="mt-2">9舍</h5>
                                     </div>
