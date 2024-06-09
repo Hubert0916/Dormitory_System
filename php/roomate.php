@@ -11,37 +11,54 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
-            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #F0EBE3;
+            font-family: "Noto Serif TC", serif !important;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
+            width: 100%;
         }
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 80%;
+            width: 100%;
             max-width: 1000px;
+            height: 100%;
+            padding: 20px;
         }
-        .question {
+        .question1 {
             display: none;
             flex-direction: column;
             align-items: center;
             width: 100%;
+            height: 100%;
             text-align: center;
+            margin-top: 250px;
         }
-        .question.active {
+        .question2 {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .question1.active {
+            display: flex;
+        }
+        .question2.active {
             display: flex;
         }
         .box {
-            width: 30%;
-            height: 80%;
+            width: 100%;
+            height: 100%;
             background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -51,24 +68,25 @@
             align-items: center;
             cursor: pointer;
         }
+
         .box:hover {
             transform: translateY(-10px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
         .box img {
             width: 100%;
-            max-width: 200px;
+            max-width: 250px;
             height: auto;
             border-radius: 10px;
             object-fit: cover;
         }
         .box.selected {
-            border-color: #007bff;
+            border-color: #99A799;
         }
         .box p {
-            margin-top: 20px;
+            margin-top: 10px;
             font-size: 18px;
-            color: #495057;
+            color: #576F72;
         }
         
         .button {
@@ -78,70 +96,98 @@
             font-size: 16px;
             text-decoration: none;
             border-radius: 5px;
-            background-color: #495057;
+            border-style: none;
+            background-color: #576F72;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
         .button:hover {
-            background-color: #343a40;
+            background-color: #99A799;
             transform: translateY(-2px);
         }
         .options-row {
             display: flex;
             justify-content: center;
             gap: 20px;
-            margin: 20px 0;
+            margin: 10px 0;
+            width: 600px;
+            height: 100px;
         }
         .location-options {
+            display: grid;
+            justify-content: center;
+            grid-template-columns: repeat(4, 2fr);
+            gap: 20px;
+            margin: 10px 0;
+            width: 1000px;
+            height: 1000px;
+        }
+        .sleep {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
             margin: 20px 0;
-            max-width: 1000px;
+            color: #576F72;
+            font-size: 25px;
+        }
+        .textarea-container {
+            width: 100%;
+            margin-top: 20px;
+        }
+        textarea {
+            width: 50%;
+            height: 100px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 2px solid #dee2e6;
+        }
+        textarea:focus {
+            border-color: #99A799;
+            outline: none;
         }
     </style>
 </head>
 <body>
     <form id="questionForm" action="roomate_submit.php" method="POST" class="container">
-        <div class="question active" id="question1">
-            <label for="sleep_habit">睡眠習慣：</label>
+        <div class="question1 active" id="question1">
+            <label for="sleep_habit" class="sleep">睡 眠 習 慣：</label>
             <div class = "options-row">
             <div class="box sleep-option" data-sleep="10點~12點">
-                <p>10點~12點</p>
+                <p>10-12點</p>
             </div>
             <div class="box sleep-option" data-sleep="12點~2點">
-                <p>12點~2點</p>
+                <p>12-2點</p>
             </div>
             <div class="box sleep-option" data-sleep="2點~4點">
-                <p>2點~4點</p>
+                <p>2-4點</p>
             </div>
             <div class="box sleep-option" data-sleep="4點~6點">
-                <p>4點~6點</p>
+                <p>4-6點</p>
             </div>
             </div>
             <input type="hidden" id="sleep_habit" name="sleep_habit" value="">
             <button type="button" class="button" onclick="nextQuestion(1)">下一題</button>
         </div>
-        <div class="question" id="question2">
-            <label for="dorm_volume">宿舍音量：</label>
+        <div class="question1" id="question2">
+            <label for="dorm_volume" class="sleep">宿 舍 音 量：</label>
             <div class = "options-row">
             <div class="box volume-option" data-volume="完全無聲音">
                 <p>完全無聲音</p>
             </div>
             <div class="box volume-option" data-volume="可接受交談聲">
-                <p>可接受交談聲</p>
+                <p>接受交談聲</p>
             </div>
             <div class="box volume-option" data-volume="可接受嘈雜聲">
-                <p>可接受嘈雜聲</p>
+                <p>接受嘈雜聲</p>
             </div>
             </div>
             <input type="hidden" id="dorm_volume" name="dorm_volume" value="">
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
-        <div class="question" id="question3">
-            <label for="location">住哪：</label>
+        <div class="question2" id="question3">
+            <label for="location" class="sleep">住哪：</label>
             <div class="location-options">
                 <div class="box location-option" data-location="8舍">
                     <img src="../pic/8.jpg" alt="8舍">
@@ -195,8 +241,8 @@
             <input type="hidden" id="location" name="location" value="">
             <button type="button" class="button" onclick="nextQuestion(3)">下一題</button>
         </div>
-        <div class="question" id="question4">
-            <label for="notes">其他特殊備註：</label>
+        <div class="question1" id="question4">
+            <label for="notes" class="sleep">其 他 特 殊 備 註：</label>
             <div class="textarea-container">
                 <textarea id="notes" name="notes" placeholder="請在此輸入其他特殊備註..."></textarea>
             </div>
