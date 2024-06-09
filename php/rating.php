@@ -1,0 +1,192 @@
+<?php
+require_once dirname(__FILE__) . "/overlay_nav.php";
+require_once dirname(__FILE__) . '/session.php';
+require_once dirname(__FILE__) . '/connection.php';
+
+if (isset($_SESSION['ID'])) {
+
+    if ($conn->connect_error) {
+        die("Connection failed. $conn->connect_error");
+    }
+    $id = intval($_SESSION['ID']);
+    $getRoommate_sql = $conn->prepare("SELECT pr.ID, pr.Name, ph.photo_type, ph.photo_content FROM Dorm.Profile as pr, Dorm.photo as ph WHERE pr.ID = ph.id and pr.id != ? and pr.Room = (SELECT p.Room from Dorm.Profile as p WHERE p.ID = ?) and pr.Dorm = (SELECT p.Dorm from Dorm.Profile as p WHERE p.ID = ?)");
+    $getRoommate_sql->bind_param("iii", $id, $id, $id);
+    $getRoommate_sql->execute();
+    $getRoommate_sql->store_result();
+
+    if ($getRoommate_sql->num_rows() > 0) {
+        $getRoommate_sql->bind_result($RID, $Rname, $Rtype, $Rphoto);
+
+        $roommates = [];
+
+        while ($getRoommate_sql->fetch()) {
+            $roommates[] = ['RID' => $RID, 'Rname' => $Rname, 'Rtype' => $Rtype, 'Rphoto' => base64_encode($Rphoto)];
+        }
+    }
+    $getRoommate_sql->close();
+} else {
+    echo "<script>alert('請先登入');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roommate Rating</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="../css/rating.css">
+</head>
+
+<body>
+    <form>
+        <div class="container-fluid mx-3 my-5">
+            <div class="step d-flex flex-column" id="step1">
+                <div class="text-center">
+                    <h2>評分系統(還沒完成，去了)<h2>
+                </div>
+                <hr>
+                <div class="container-fluid p-5">
+                    <input type="hidden" name="ratingsys" id="ratingsys">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-md-3 block-container mx-5">
+                            <div class="rect-block d-flex flex-column" onclick="submitStep1()">
+                                <img src="../pic/star.jpg" class="img-fluid rounded">
+                                <h3 class="mt-2">評分室友</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-3  block-container mx-5">
+                            <div class="rect-block d-flex flex-column">
+                                <img src="../pic/search.jpg" class="img-fluid rounded">
+                                <h3 class="mt-2">X</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container-fluid mx-3 my-5">
+            <div class="step d-flex d-none flex-column" id="step2">
+                <div class="text-center">
+                    <h2>哪個室友...<h2>
+                </div>
+                <hr>
+                <div class="container-fluid p-5">
+                    <input type="hidden" name="ratingsys" id="ratingsys">
+                    <div class="row justify-content-center text-center">
+                        <div class="col-md-3 block-container mx-5">
+                            <div class="rect-block d-flex flex-column" onclick="submitStep2()">
+                                <img src="../pic/man.jpg" class="img-fluid rounded">
+                                <h3 class="mt-2">?</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-3 block-container mx-5">
+                            <div class="rect-block d-flex flex-column" onclick="submitStep2()">
+                                <img src="../pic/man.jpg" class="img-fluid rounded">
+                                <h3 class="mt-2">?</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-3 block-container mx-5">
+                            <div class="rect-block d-flex flex-column" onclick="submitStep2()">
+                                <img src="../pic/man.jpg" class="img-fluid rounded">
+                                <h3 class="mt-2">?</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container-fluid mx-3 my-5">
+            <div class="step d-flex flex-column d-none" id="step3">
+                <div class="text-center">
+                    <h2>室友評分</h2>
+                </div>
+                <hr>
+                <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
+
+
+                    <div class="form-group">
+                        <label>衛生習慣</label>
+                        <div class="star-rating d-inline-block">
+                            <input class="d-none" id="star5-1" type="radio" name="rating1" value="5"><label for="star5-1" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-1" type="radio" name="rating1" value="4"><label for="star4-1" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-1" type="radio" name="rating1" value="3"><label for="star3-1" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-1" type="radio" name="rating1" value="2"><label for="star2-1" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-1" type="radio" name="rating1" value="1"><label for="star1-1" title="1 star"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>生活作息</label>
+                        <div class="star-rating d-inline-block">
+                            <input class="d-none" id="star5-2" type="radio" name="rating2" value="5"><label for="star5-2" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-2" type="radio" name="rating2" value="4"><label for="star4-2" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-2" type="radio" name="rating2" value="3"><label for="star3-2" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-2" type="radio" name="rating2" value="2"><label for="star2-2" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-2" type="radio" name="rating2" value="1"><label for="star1-2" title="1 star"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>安靜程度</label>
+                        <div class="star-rating d-inline-block">
+                            <input class="d-none" id="star5-3" type="radio" name="rating3" value="5"><label for="star5-3" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-3" type="radio" name="rating3" value="4"><label for="star4-3" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-3" type="radio" name="rating3" value="3"><label for="star3-3" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-3" type="radio" name="rating3" value="2"><label for="star2-3" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-3" type="radio" name="rating3" value="1"><label for="star1-3" title="1 star"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>準時還錢</label>
+                        <div class="star-rating d-inline-block">
+                            <input class="d-none" id="star5-4" type="radio" name="rating4" value="5"><label for="star5-4" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-4" type="radio" name="rating4" value="4"><label for="star4-4" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-4" type="radio" name="rating4" value="3"><label for="star3-4" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-4" type="radio" name="rating4" value="2"><label for="star2-4" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-4" type="radio" name="rating4" value="1"><label for="star1-4" title="1 star"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>人際互動</label>
+                        <div class="star-rating d-inline-block">
+                            <input class="d-none" id="star5-5" type="radio" name="rating5" value="5"><label for="star5-5" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-5" type="radio" name="rating5" value="4"><label for="star4-5" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-5" type="radio" name="rating5" value="3"><label for="star3-5" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-5" type="radio" name="rating5" value="2"><label for="star2-5" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-5" type="radio" name="rating5" value="1"><label for="star1-5" title="1 star"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">留言</label>
+                        <textarea id="comments" class="form-control" rows="4" placeholder="輸入您的留言"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">提交</button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="../js/rating.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</body>
+
+</html>
