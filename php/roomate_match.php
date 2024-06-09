@@ -1,4 +1,5 @@
 <?php
+require_once dirname(__FILE__) . "/overlay_nav.php";
 session_start();
 
 if (!isset($_SESSION['ID'])) {
