@@ -34,7 +34,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="../php/move.php">協 助 搬 遷</a></li>
                         <li><a href="../php/roomate.php">配 對 室 友</a></li>
-                        <li><a href="#service3">設 備 報 修</a></li>
+                        <li><a href="#service3">評 分 室 友</a></li>
                         <li><a href="../php/report.php">檢 舉 鄰 居</a></li>
                         <li><a href="#service5">吧 啦 吧 啦</a></li>
                     </ul>
@@ -97,10 +97,10 @@
                     </div>
                     <div class="service-box-content">
                         <div class="service-box-title">
-                            <h2>設備報修</h2>
+                            <h2>評分室友</h2>
                         </div>
                         <div class="service-box-text">
-                            <p>我們提供設備報修服務，讓您可以輕鬆報修。</p>
+                            <p>我們提供評分室友服務，讓您可以幫室友品頭論足。</p>
                         </div>
                         <div class="service-box-link">
                             <a href="#service3">Learn More</a>

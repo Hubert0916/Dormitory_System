@@ -1,0 +1,53 @@
+body {
+    background-color: #F0EBE3 !important;
+}
+
+#step1 .rect-block {
+    width: 100%;
+    height: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: transform 0.5s ease;
+}
+
+#step1 .rect-block:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+#step2 .rect-block {
+    width: 100%;
+    height: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: transform 0.5s ease;
+}
+
+#step2 .rect-block:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.star-rating {
+    direction: rtl;
+}
+
+.star-rating label {
+    font-size: 1.5rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating input[type="radio"]:checked~label {
+    color: #f39c12;
+}
+
+.star-rating label:hover,
+.star-rating label:hover~label {
+    color: #f39c12;
+}

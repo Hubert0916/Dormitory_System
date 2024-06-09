@@ -38,7 +38,7 @@
 						<a class="nav-link" href="../php/roomate.php">配對室友</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">設備報修</a>
+						<a class="nav-link" href="../php/rating.php">室友評分</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="../php/report.php">檢舉鄰居</a>
