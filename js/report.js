@@ -28,9 +28,9 @@ function submitStep2(option) {
         line3.classList.add('bg-success');
         cir4.classList.remove('bg-secondary');
         cir4.classList.add('bg-success');
-
         var step4 = document.getElementById('step4');
         step4.classList.remove('d-none');
+        document.getElementById('reportID').required = false;
     }
 
     else if (option == 'b') {
@@ -38,12 +38,12 @@ function submitStep2(option) {
         step3b.classList.remove('d-none');
         document.getElementById('room').disabled = false;
         document.getElementById('room').required = true;
+        document.getElementById('reportID').required = false;
     }
 
     else if (option == 'c') {
         var step3c = document.getElementById('step3c');
         step3c.classList.remove('d-none');
-
     }
 }
 
@@ -60,13 +60,15 @@ function submitStep3(number, id) {
     step3.classList.add('d-none');
     step4.classList.remove('d-none');
 
-    document.getElementById('chooserm').value = id;
+    if (id !== -1) {
+        document.getElementById('chooserm').value = id;
+    }
 }
-
 
 $('input[type=radio][name=Radios]').change(function () {
     if (this.value === 'other') {
         $('#other').prop('disabled', false);
+        $('#other').prop('required', true);
     } else {
         $('#other').prop('disabled', true).val('');
     }
