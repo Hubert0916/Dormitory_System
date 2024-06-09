@@ -187,7 +187,7 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question2" id="question3">
-            <label for="location" class="sleep">住哪：</label>
+            <label for="location" class="sleep">住 哪：</label>
             <div class="location-options">
                 <div class="box location-option" data-location="8舍">
                     <img src="../pic/8.jpg" alt="8舍">

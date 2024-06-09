@@ -76,23 +76,25 @@
                     <div class="service-box-content">
                         <div class="service-box-title">
                             <h2>協助搬遷</h2>
+                            <img src="../pic/move.gif" alt="">
                         </div>
                         <div class="service-box-text">
-                            <p>我們提供搬遷服務，讓您可以輕鬆搬遷到新的宿舍。</p>
-                        </div>
-                        <div class="service-box-link">
-                            <a href="../php/move.php">Learn More</a>
+                            <p>我們提供搬家服務，讓您可以輕鬆搬家。</p>
+                            <div class="service-box-link">
+                                <a href="../php/move.php" alt="">Learn More</a>
+                            </div>
                         </div>
                     </div>
                     <div class="service-box-content">
                         <div class="service-box-title">
                             <h2>配對室友</h2>
+                            <img src="../pic/roomate.gif" alt="">
                         </div>
                         <div class="service-box-text">
-                            <p>我們提供室友配對服務，讓您可以找到適合的室友。</p>
-                        </div>
-                        <div class="service-box-link">
-                            <a href="#service2">Learn More</a>
+                            <p>我們提供室友配對服務，讓您可以找到合適的室友。</p>
+                            <div class="service-box-link">
+                                <a href="../php/roomate.php">Learn More</a>
+                            </div>
                         </div>
                     </div>
                     <div class="service-box-content">
