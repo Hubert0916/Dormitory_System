@@ -171,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <tbody>
                             <?php if (!empty($reviewees)) : ?>
                                 <?php foreach ($reviewees as $reviewee) : ?>
-                                    <tr>
+                                    <tr onclick="openProfile(<?php echo $reviewee['EID']; ?>);">
                                         <th scope="row"><?php echo $reviewee['EID']; ?></th>
                                         <td><?php echo $reviewee['Ename']; ?></td>
                                         <td><?php echo $reviewee['r1']; ?></td>
@@ -268,6 +268,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
     <script src="../js/rating.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        function openProfile(id) {
+            var url = 'profile.php?ID=' + id;
+            window.open(url, '_blank');
+        };
+    </script>
 </body>
 </body>
 
