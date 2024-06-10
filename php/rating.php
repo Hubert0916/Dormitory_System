@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $count_sql->store_result();
 
     if ($count_sql->num_rows) {
-        $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ? , Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Rating_six = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
+        $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ?, Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Rating_six = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
         $update_sql->bind_param("ddddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $rating6 ,$review, $ReviewerID, $RevieweeID);
         $update_sql->execute();
         $update_sql->close();
