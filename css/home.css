@@ -225,14 +225,14 @@ footer{
 	gap: 100px;
 	margin-left: 175px;
 	margin-top: 150px;
-	margin-bottom: 1000px;
+	margin-bottom: 800px;
 }
 .service-box-content {
 	display: flex;
 	flex-direction: row;
 	justify-content: left;
 	align-items: center;
-	text-align: center;
+	text-align: left;
 	gap: 80px;
 }
 .service-box-link a{
@@ -250,4 +250,12 @@ footer{
 .service-box-pic img{
 	width: 450px;
 	height: 350px;
+}
+.service-intro ul{
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+.service-intro li{
+	padding: 5px 0;
 }

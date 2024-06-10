@@ -1,9 +1,9 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
-require_once dirname(__FILE__) . "/session.php";
-require_once dirname(__FILE__) . "/connection.php";
-require_once dirname(__FILE__) . "/overlay_nav.php";
-require_once dirname(__FILE__) . "/head.php";
+require_once dirname(__FILE__)."/session.php";
+require_once dirname(__FILE__)."/connection.php";
+require_once dirname(__FILE__)."/overlay_nav.php";
+require_once dirname(__FILE__)."/head.php";
 
 
 if (isset($_SESSION['ID'])) {
@@ -98,6 +98,7 @@ if (isset($_SESSION['ID'])) {
                 <h2><span class="english">Sex : </span><span class="chinese"> <?php echo $user_data['Sex']; ?></span></h2>
                 <h2><span class="english">Depart. : </span><span class="chinese"> <?php echo $user_data['Department']; ?></span></h2>
                 <h2><span class="english">Grade : </span><span class="chinese"> <?php echo $user_data['Grade']; ?></span></h2>
+                <h2><span class="english">Dorm : </span><span class="chinese"> <?php echo $user_data['Dorm']; ?></span></h2>
             </div>
         </div>
         <div class="right-side">
