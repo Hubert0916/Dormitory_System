@@ -97,7 +97,7 @@ foreach ($matches as $match) {
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>Matching Entries</title>
+    <title>已為您搜尋到以下結果:</title>
     <style>
         body {
             font-family: Arial, sans-serif;

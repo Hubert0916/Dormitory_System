@@ -24,17 +24,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Connected successfully.<br>";
     }
 
-    $stmt = $conn->prepare("INSERT INTO Dorm.move_requests (student_id, available_time, move_services, transport_mode, reg_date) VALUES (?, ?, ?, ?, NOW())");
-    $stmt->bind_param("ssss", $student_id, $available_time, $move_services, $transport_mode);
+    // Delete existing entries with the same student_id
+    $delete_stmt = $conn->prepare("DELETE FROM Dorm.move_requests WHERE student_id = ?");
+    $delete_stmt->bind_param("s", $student_id);
+    if (!$delete_stmt->execute()) {
+        echo "Error: " . $delete_stmt->error;
+    }
+    $delete_stmt->close();
+
+    // Insert new entry
+    $insert_stmt = $conn->prepare("INSERT INTO Dorm.move_requests (student_id, available_time, move_services, transport_mode, reg_date) VALUES (?, ?, ?, ?, NOW())");
+    $insert_stmt->bind_param("ssss", $student_id, $available_time, $move_services, $transport_mode);
     
-    if ($stmt->execute()) {
+    if ($insert_stmt->execute()) {
         echo "Success: Your move request has been submitted successfully";
         header("Location: move_match.php");
+        exit();
     } else {
-        echo "Error: " . $stmt->error;
+        echo "Error: " . $insert_stmt->error;
     }
     
-    $stmt->close();
+    $insert_stmt->close();
     $conn->close();
     
 } else {
