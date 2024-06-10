@@ -36,8 +36,8 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
-            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #F0EBE3 !important;
+            font-family: "Noto Serif TC", serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -84,8 +84,8 @@
             font-size: 16px;
             text-decoration: none;
             border-radius: 5px;
-            background-color: #495057;
-            color: white;
+            background-color: #576F72;
+            color: #F0EBE3;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }

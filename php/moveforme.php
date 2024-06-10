@@ -11,12 +11,12 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: "Noto Serif TC", serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: #F0EBE3;
         }
         .container {
             display: flex;
@@ -29,7 +29,6 @@
         .box {
             width: 30%;
             height: 80%;
-            background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
             padding: 20px;
@@ -140,7 +139,7 @@
 <body>
     <form id="questionForm" action="submit.php" method="post">
         <div class="question active" id="question1">
-            <label for="time">你有空的時間：</label>
+            <label for="time">你有空的時間：<br></label>
             <table>
                 <tr>
                     <th>時間</th>
@@ -206,7 +205,7 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
-            <label for="transport">你想用什麼交通工具？</label>
+            <label for="transport">想用什麼交通工具？</label>
             <div class="options-row">
                 <div class="box transport-option" data-transport="汽車">
                     <img src="../pic/vehicle.png" alt="汽車">
