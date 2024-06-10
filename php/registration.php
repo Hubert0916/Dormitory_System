@@ -20,6 +20,14 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
                     <div class="Email">信箱 :<input type="email" id="Email" name="Email" required></div>
                     <div class="Department">系所 :<input type="text" id="Department" name="Department" required></div>
                     <div class="Grade">年級 :<input type="text" id="Grade" name="Grade" required></div>
+                    <div class="Phone">電話 :<input type="text" id="Phone" name='Phone' required></div>
+                    <div class="FB">臉書連結 :<input type="text" id="FB" name="FB"></div>
+                    <div class="IG">IG連結 :<input type="text" id="IG" name="IG"></div>
+                    <div class="Password">密碼 :<input type="password" id="Password" name="Password" required></div>
+                    <div class="Password1">確認密碼 :<input type="password" id="Password1" name="Password1" required></div>
+                </div>
+
+                <div class="second-column">
                     <div class="Dorm">宿舍 :
                         <select name="Dorm" required>
                             <option value="">請選擇你居住的宿舍</option>
@@ -37,16 +45,8 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
                             <option value="研三舍">研三舍</option>
                         </select>
                     </div>
-                    <div class="Room">房號 :<input type="text" id="Room" name="Room" required></div>
+                    <div class="Room">房號 :<input type="text" id="Room" name="Room" ></div>
                     <div class="Sex">性別 :<input type="text" id="Sex" name="Sex" required></div>
-                    <div class="Phone">電話 :<input type="text" id="Phone" name='Phone' required></div>
-                    <div class="FB">臉書連結 :<input type="text" id="FB" name="FB"></div>
-                    <div class="IG">IG連結 :<input type="text" id="IG" name="IG"></div>
-                </div>
-
-                <div class="second-column">
-                    <div class="Password">密碼 :<input type="password" id="Password" name="Password" required></div>
-                    <div class="Password1">確認密碼 :<input type="password" id="Password1" name="Password1" required></div>
                     <div class="Photo">上傳大頭照 :<input type="file" name="photo" accept="image/*" required>
                         <span id="fileName"></span>
                     </div>
@@ -225,7 +225,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         height: 25px;
         border-radius: 5px;
         border: 1px solid #bebbbb73;
-        ;
         color: #576F72;
         background-color: #f2f2f2;
     }
@@ -234,12 +233,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         margin-left: 70px;
     }
 
-    .EngName input {
-        margin-left: 32px;
-    }
-
     .Sex input {
         margin-left: 70px;
+    }
+
+    .Room input {
+        margin-left: 70px;
+    }
+    
+    .Dorm select {
+        font-size: 13px;
+        margin-left: 70px;
+        width: 150px;
+        height: 25px;
+        border-radius: 5px;
+        border: 1px solid #bebbbb73;
+        color: #576F72;
+        background-color: #f2f2f2;
+        margin-bottom: 20px;
     }
 
     .Email input {
@@ -281,6 +292,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
     .Photo input {
         margin-left: 13px;
         background-color: #F0EBE3;
+        font-size: 13px;
+        color: #576F72;
+        background-color: #f2f2f2;
     }
 
     .Intro {
@@ -292,7 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         resize: none;
         overflow-y: auto;
         width: 265px;
-        height: 225px;
+        height: 215px;
         align-items: center;
         border: #F0EBE3;
         font-size: 15px;
