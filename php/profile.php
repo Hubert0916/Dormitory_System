@@ -1,30 +1,103 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
-require_once dirname(__FILE__)."/session.php";
-require_once dirname(__FILE__)."/connection.php";
-require_once dirname(__FILE__)."/overlay_nav.php";
-require_once dirname(__FILE__)."/head.php";
+require_once dirname(__FILE__) . "/session.php";
+require_once dirname(__FILE__) . "/connection.php";
+require_once dirname(__FILE__) . "/overlay_nav.php";
+require_once dirname(__FILE__) . "/head.php";
 
+if (isset($_GET['ID'])) {
+    $id = $_GET['ID'];
+    $getProfile_sql = $conn->prepare("SELECT * FROM Dorm.Profile WHERE ID = ?");
+    $getProfile_sql->bind_param("i", $id);
+    $getProfile_sql->execute();
+    $result = $getProfile_sql->get_result();
 
-if (isset($_SESSION['ID'])) {
-    $id = $_SESSION['ID'];
-    $user_data = $_SESSION['user_data'];
+    if ($result->num_rows) {
+        $row = $result->fetch_assoc();
+        $user_data = $row;
 
-    $getRating_sql = $conn->prepare("SELECT ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2) FROM Rating WHERE Reviewee_ID = ?");
+        $getPhoto_sql = $conn->prepare("SELECT photo_type, photo_content FROM Dorm.photo WHERE ID = ?");
+        $getPhoto_sql->bind_param("i", $id);
+        $getPhoto_sql->execute();
+        $result = $getPhoto_sql->get_result();
+
+        if ($result->num_rows) {
+            $row = $result->fetch_assoc();
+            $user_data['photo'] = $row;
+        }
+
+        $getPhoto_sql->free_result();
+        $getPhoto_sql->close();
+    }
+    $getProfile_sql->free_result();
+    $getProfile_sql->close();
+
+    $getRating_sql = $conn->prepare("SELECT ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2), ROUND(AVG(Rating_six), 2) FROM Rating WHERE Reviewee_ID = ?");
     $getRating_sql->bind_param("i", $id);
     $getRating_sql->execute();
     $getRating_sql->store_result();
 
-    $reviewee = array();
-
-    if ($getRating_sql->num_rows() > 0) {
-        $getRating_sql->bind_result($r1, $r2, $r3, $r4, $r5);
+    if ($getRating_sql->num_rows) {
+        $getRating_sql->bind_result($r1, $r2, $r3, $r4, $r5, $r6);
         $getRating_sql->fetch();
-        if ($r1 !== null || $r2 !== null || $r3 !== null || $r4 !== null || $r5 !== null) {
-            $reviewee = ['r1' => $r1, 'r2' => $r2, 'r3' => $r3, 'r4' => $r4, 'r5' => $r5];
+        if ($r1 !== null || $r2 !== null || $r3 !== null || $r4 !== null || $r5 !== null || $r6 !== null) {
+            $reviewee = ['r1' => $r1, 'r2' => $r2, 'r3' => $r3, 'r4' => $r4, 'r5' => $r5, 'r6' => $r6];
+
+            $getReview_sql = $conn->prepare("SELECT Review FROM Dorm.Rating WHERE Reviewee_ID = ?");
+            $getReview_sql->bind_param("i", $id);
+            $getReview_sql->execute();
+            $getReview_sql->store_result();
+            $reviews = array();
+
+            if ($getReview_sql->num_rows > 0) {
+                $getReview_sql->bind_result($rv);
+
+                while ($getReview_sql->fetch()) {
+                    if ($rv !== null)
+                        $reviews[] = ['rv' => $rv];
+                }
+            }
+
+            $getReview_sql->free_result();
+            $getReview_sql->close();
         }
     }
+    $getRating_sql->free_result();
+    $getRating_sql->close();
+} else if (isset($_SESSION['ID'])) {
+    $id = $_SESSION['ID'];
+    $user_data = $_SESSION['user_data'];
 
+    $getRating_sql = $conn->prepare("SELECT ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2), ROUND(AVG(Rating_six), 2) FROM Rating WHERE Reviewee_ID = ?");
+    $getRating_sql->bind_param("i", $id);
+    $getRating_sql->execute();
+    $getRating_sql->store_result();
+
+    if ($getRating_sql->num_rows) {
+        $getRating_sql->bind_result($r1, $r2, $r3, $r4, $r5, $r6);
+        $getRating_sql->fetch();
+        if ($r1 !== null || $r2 !== null || $r3 !== null || $r4 !== null || $r5 !== null || $r6 !== null) {
+            $reviewee = ['r1' => $r1, 'r2' => $r2, 'r3' => $r3, 'r4' => $r4, 'r5' => $r5, 'r6' => $r6];
+
+            $getReview_sql = $conn->prepare("SELECT Review FROM Dorm.Rating WHERE Reviewee_ID = ?");
+            $getReview_sql->bind_param("i", $id);
+            $getReview_sql->execute();
+            $getReview_sql->store_result();
+            $reviews = array();
+
+            if ($getReview_sql->num_rows > 0) {
+                $getReview_sql->bind_result($rv);
+
+                while ($getReview_sql->fetch()) {
+                    if ($rv !== null)
+                        $reviews[] = ['rv' => $rv];
+                }
+            }
+
+            $getReview_sql->free_result();
+            $getReview_sql->close();
+        }
+    }
     $getRating_sql->free_result();
     $getRating_sql->close();
 } else {
@@ -164,10 +237,24 @@ if (isset($_SESSION['ID'])) {
                             <p>財富</p>
                         </div>
                         <div>
-                            <p><?php echo $reviewee['r5']; ?></p> 
-                            <!-- not finished yet -->
+                            <p><?php echo $reviewee['r6']; ?></p>
                         </div>
                     </div>
+                    <br>
+                    <?php if (!empty($reviews)) : ?>
+                        <div>
+                            <h2 class="text-center">評論</h2>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <?php foreach ($reviews as $review) : ?>
+                                        <tr>
+                                            <td><?php echo $review['rv']; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php endif; ?>
                 <?php else : ?>
                     <p>尚未有任何評分.</p>
                 <?php endif; ?>

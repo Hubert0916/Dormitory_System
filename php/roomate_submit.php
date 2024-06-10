@@ -6,44 +6,57 @@ if (!isset($_SESSION['ID'])) {
     exit();
 }
 
-// Get ID from session
-$user_data = $_SESSION['ID'];
+// Include connection.php
+include 'connection.php';
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $user_data;
     $sleep_habit = $_POST['sleep_habit'];
     $dorm_volume = $_POST['dorm_volume'];
     $location = $_POST['location'];
-    $notes = $_POST['notes'];
-    
-    // Include connection.php
-    include 'connection.php';
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    // 篩選完全符合條件的記錄
+    $sql_full_match = "SELECT * FROM Dorm.roomate WHERE sleep_habit = ? AND dorm_volume = ? AND location = ?";
+    $stmt_full_match = $conn->prepare($sql_full_match);
+    if ($stmt_full_match === false) {
+        die("Error preparing statement: " . $conn->error);
     }
-
-    // 刪除現有的用戶數據
-    $delete_stmt = $conn->prepare("DELETE FROM Dorm.roomate WHERE user_id = ?");
-    $delete_stmt->bind_param("s", $user_id);
-    $delete_stmt->execute();
-    $delete_stmt->close();
-
-    // 插入新數據
-    $insert_stmt = $conn->prepare("INSERT INTO Dorm.roomate (user_id, sleep_habit, dorm_volume, location, notes) VALUES (?, ?, ?, ?, ?)");
-    $insert_stmt->bind_param("sssss", $user_id, $sleep_habit, $dorm_volume, $location, $notes);
+    $stmt_full_match->bind_param("sss", $sleep_habit, $dorm_volume, $location);
+    $stmt_full_match->execute();
+    $result_full_match = $stmt_full_match->get_result();
     
-    if ($insert_stmt->execute()) {
-        header("Location: roomate_match.php");
-        exit();
-    } else {
-        echo "Error: " . $insert_stmt->error;
+    $full_matches = [];
+    while ($row = $result_full_match->fetch_assoc()) {
+        $full_matches[] = $row;
     }
+    $stmt_full_match->close();
+
+    // 篩選宿舍相同但其他條件不同的記錄
+    $sql_partial_match = "SELECT * FROM Dorm.roomate WHERE location = ? AND (sleep_habit != ? OR dorm_volume != ?)";
+    $stmt_partial_match = $conn->prepare($sql_partial_match);
+    if ($stmt_partial_match === false) {
+        die("Error preparing statement: " . $conn->error);
+    }
+    $stmt_partial_match->bind_param("sss", $location, $sleep_habit, $dorm_volume);
+    $stmt_partial_match->execute();
+    $result_partial_match = $stmt_partial_match->get_result();
     
-    $insert_stmt->close();
-    $conn->close();
+    $partial_matches = [];
+    while ($row = $result_partial_match->fetch_assoc()) {
+        $partial_matches[] = $row;
+    }
+    $stmt_partial_match->close();
     
-} else {
-    echo "Error: Please make sure your form is filled correctly";
+    // 將篩選結果存儲到 session
+    $_SESSION['full_matches'] = $full_matches;
+    $_SESSION['partial_matches'] = $partial_matches;
+    
+    header("Location: roomate_match.php");
+    exit();
 }
+
+$conn->close();
 ?>

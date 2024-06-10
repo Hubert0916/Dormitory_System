@@ -38,6 +38,10 @@ body {
     object-fit: contain;
 }
 
+tr:hover {
+    cursor: pointer;
+}
+
 
 .star-rating {
     direction: rtl;

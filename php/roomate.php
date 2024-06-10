@@ -299,18 +299,12 @@
             });
         });
 
-        let selectedLocations = [];
-
         document.querySelectorAll('.location-option').forEach(option => {
             option.addEventListener('click', function() {
-                this.classList.toggle('selected');
+                document.querySelectorAll('.location-option').forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
                 const locationValue = this.getAttribute('data-location');
-                if (this.classList.contains('selected')) {
-                    selectedLocations.push(locationValue);
-                } else {
-                    selectedLocations = selectedLocations.filter(location => location !== locationValue);
-                }
-                document.getElementById('location').value = selectedLocations.join(',');
+                document.getElementById('location').value = locationValue;
             });
         });
 
