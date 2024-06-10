@@ -4,8 +4,8 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
     <title>Register</title>
 </head>
 

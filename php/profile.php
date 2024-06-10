@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=UTF-8');
 require_once dirname(__FILE__) . "/session.php";
 require_once dirname(__FILE__)."/connection.php";
 require_once dirname(__FILE__)."/overlay_nav.php";
@@ -18,6 +19,7 @@ else {
 <!DOCTYPE html>
 <html lang="en">
 <head> 
+    <meta charset="UTF-8">
     <title>profile</title>
 </head>
 
