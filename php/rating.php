@@ -1,19 +1,18 @@
 <?php
+require_once dirname(__FILE__) . "/overlay_nav.php";
 require_once dirname(__FILE__) . '/session.php';
 require_once dirname(__FILE__) . '/connection.php';
 
 if (isset($_SESSION['ID'])) {
 
-    if ($conn->connect_error) {
-        die("Connection failed. $conn->connect_error");
-    }
     $id = htmlspecialchars($_SESSION['ID']);
+
     $getRoommate_sql = $conn->prepare("SELECT pr.ID, pr.Name, ph.photo_type, ph.photo_content FROM Dorm.Profile as pr, Dorm.photo as ph WHERE pr.ID = ph.id and pr.id != ? and pr.Room = (SELECT p.Room from Dorm.Profile as p WHERE p.ID = ?) and pr.Dorm = (SELECT p.Dorm from Dorm.Profile as p WHERE p.ID = ?)");
     $getRoommate_sql->bind_param("iii", $id, $id, $id);
     $getRoommate_sql->execute();
     $getRoommate_sql->store_result();
 
-    if ($getRoommate_sql->num_rows() > 0) {
+    if ($getRoommate_sql->num_rows > 0) {
         $getRoommate_sql->bind_result($RID, $Rname, $Rtype, $Rphoto);
 
         $roommates = [];
@@ -24,6 +23,23 @@ if (isset($_SESSION['ID'])) {
     }
     $getRoommate_sql->free_result();
     $getRoommate_sql->close();
+
+    $getRating_sql = $conn->prepare("SELECT Reviewee_ID, Reviewee_name, ROUND(AVG(Rating_one), 3), ROUND(AVG(Rating_two), 3), ROUND(AVG(Rating_three), 3), ROUND(AVG(Rating_four), 3), ROUND(AVG(Rating_five), 3) FROM Rating GROUP BY Reviewee_ID, Reviewee_name");
+    $getRating_sql->execute();
+    $getRating_sql->store_result();
+
+    if ($getRating_sql->num_rows) {
+        $getRating_sql->bind_result($EID, $Ename, $r1, $r2, $r3, $r4, $r5);
+
+        $reviewees = [];
+
+        while ($getRating_sql->fetch()) {
+            $reviewees[] = ['EID' => $EID, 'Ename' => $Ename, 'r1' => $r1, 'r2' => $r2, 'r3' => $r3, 'r4' => $r4, 'r5' => $r5];
+        }
+    }
+
+    $getRating_sql->free_result();
+    $getRating_sql->close();
 } else {
     echo "<script>alert('請先登入!!!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
@@ -31,51 +47,35 @@ if (isset($_SESSION['ID'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if (isset($_POST["chooseRID"]) && !empty($_POST["chooseRID"])) {
-        $RoommateID = htmlspecialchars($_POST["chooseRID"]);
+    $ReviewerID = htmlspecialchars($_SESSION['ID']);
+    $RevieweeID = htmlspecialchars($_POST["chooseRID"]);
+    $RevieweeName = htmlspecialchars($_POST["chooseRname"]);
+    $ReviewerName = htmlspecialchars($_SESSION['name']);
+    $rating1 = htmlspecialchars($_POST['rating1']);
+    $rating2 = htmlspecialchars($_POST['rating2']);
+    $rating3 = htmlspecialchars($_POST['rating3']);
+    $rating4 = htmlspecialchars($_POST['rating4']);
+    $rating5 = htmlspecialchars($_POST['rating5']);
+    $review = htmlspecialchars($_POST['txtcomment']);
 
-        if (isset($_POST["chooseRname"]) && !empty($_POST["chooseRname"])) {
-            $RoommateName = htmlspecialchars($_POST["chooseRname"]);
-        }
+    $count_sql = $conn->prepare("SELECT * FROM Dorm.Rating WHERE Reviewer_ID = ? and Reviewee_ID = ?");
+    $count_sql->bind_param("ii", $ReviewerID, $RevieweeID);
+    $count_sql->execute();
+    $count_sql->store_result();
 
-        $rating1 = htmlspecialchars($_POST['rating1']);
-        $rating2 = htmlspecialchars($_POST['rating2']);
-        $rating3 = htmlspecialchars($_POST['rating3']);
-        $rating4 = htmlspecialchars($_POST['rating4']);
-        $rating5 = htmlspecialchars($_POST['rating5']);
+    if ($count_sql->num_rows) {
 
-        $count_sql = $conn->prepare("SELECT Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Number FROM Dorm.Rating WHERE ID = ?");
-        $count_sql->bind_param("i", $RoommateID);
-        $count_sql->execute();
-        $count_sql->store_result();
-
-        if ($count_sql->num_rows) {
-            
-            $count_sql->bind_result($origin_rating1, $origin_rating2, $origin_rating3, $origin_rating4, $origin_rating5, $origin_number);
-            $count_sql->fetch();
-            $rating1 = ROUND(($origin_rating1 * $origin_number + $rating1) / ($origin_number + 1), 3);
-            $rating2 = ROUND(($origin_rating2 * $origin_number + $rating2) / ($origin_number + 1), 3);
-            $rating3 = ROUND(($origin_rating3 * $origin_number + $rating3) / ($origin_number + 1), 3);
-            $rating4 = ROUND(($origin_rating4 * $origin_number + $rating4) / ($origin_number + 1), 3);
-            $rating5 = ROUND(($origin_rating5 * $origin_number + $rating5) / ($origin_number + 1), 3);
-            $origin_number += 1;
-
-            $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ? , Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Number = ? WHERE ID = ?");
-            $update_sql->bind_param("dddddii", $rating1, $rating2, $rating3, $rating4, $rating5, $origin_number, $RoommateID);
-            $update_sql->execute();
-            $update_sql->close();
-        } else {
-            $insert_sql = $conn->prepare("INSERT INTO Dorm.Rating (ID, Name, Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Number)  VALUES (?, ?, ?, ?, ?, ?, ?, '1')");
-            $insert_sql->bind_param("isddddd", $RoommateID, $RoommateName, $rating1, $rating2, $rating3, $rating4, $rating5);
-            $insert_sql->execute();
-            $insert_sql->close();
-        }
-
-        $count_sql->close();
+        $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ? , Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
+        $update_sql->bind_param("dddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $review, $ReviewerID, $RevieweeID);
+        $update_sql->execute();
+        $update_sql->close();
+    } else {
+        $insert_sql = $conn->prepare("INSERT INTO Dorm.Rating (Reviewer_ID, Reviewee_ID, Reviewer_name, Reviewee_name, Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Review)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $insert_sql->bind_param("iissddddds", $ReviewerID, $RevieweeID, $ReviewerName, $RevieweeName, $rating1, $rating2, $rating3, $rating4, $rating5, $review);
+        $insert_sql->execute();
+        $insert_sql->close();
     }
 }
-
-
 ?>
 
 
@@ -96,20 +96,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container-fluid mx-3 my-5">
             <div class="step d-flex flex-column" id="step1">
                 <div class="text-center">
-                    <h2>評分系統(還沒完成，去了)<h2>
+                    <h2>評分系統<h2>
                 </div>
                 <hr>
                 <div class="container-fluid p-5">
                     <input type="hidden" name="ratingsys" id="ratingsys">
                     <div class="row justify-content-center text-center">
                         <div class="col-md-3 block-container mx-5">
-                            <div class="rect-block d-flex flex-column" onclick="submitStep1()">
+                            <div class="rect-block d-flex flex-column" onclick="submitStep1('a')">
                                 <img src="../pic/star.jpg" class="img-fluid rounded">
                                 <h3 class="mt-2">評分室友</h3>
                             </div>
                         </div>
                         <div class="col-md-3  block-container mx-5">
-                            <div class="rect-block d-flex flex-column">
+                            <div class="rect-block d-flex flex-column" onclick="submitStep1('b')">
                                 <img src="../pic/search.jpg" class="img-fluid rounded">
                                 <h3 class="mt-2">X</h3>
                             </div>
@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="container-fluid mx-3 my-5">
-            <div class="step d-flex d-none flex-column" id="step2">
+            <div class="step d-flex d-none flex-column" id="step2a">
                 <div class="text-center">
                     <h2>哪個室友...<h2>
                 </div>
@@ -133,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="d-flex">
                             <?php foreach ($roommates as $roommate) : ?>
                                 <div class="rect-block d-flex flex-column justify-content-center align-items-center mx-5">
-                                    <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>" onclick="submitStep2('<?php echo $roommate['RID']; ?>', '<?php echo $roommate['Rname']; ?>');" />
+                                    <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>" onclick="submitStep2a('<?php echo $roommate['RID']; ?>', '<?php echo $roommate['Rname']; ?>');" />
                                     <br>
                                     <p><?php echo "ID : " . $roommate['RID']; ?></p>
                                     <p><?php echo "Name : " . $roommate['Rname']; ?></p>
@@ -145,6 +145,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <h2>查無室友資料!!!</h2>
                         </div>
                     <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid mx-3 my-5">
+            <div class="step d-flex d-none flex-column " id="step2b">
+                <div class="text-center">
+                    <h2>評分資訊<h2>
+                </div>
+                <hr>
+
+                <div class="container-fluid w-75 justify-content-center align-items-center">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">學號</th>
+                                <th scope="col">姓名</th>
+                                <th scope="col">衛生習慣(/5)</th>
+                                <th scope="col">生活作息(/5)</th>
+                                <th scope="col">安靜程度(/5)</th>
+                                <th scope="col">準時還錢(/5)</th>
+                                <th scope="col">人際互動(/5)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($reviewees)) : ?>
+                                <?php foreach ($reviewees as $reviewee) : ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $reviewee['EID']; ?></th>
+                                        <td><?php echo $reviewee['Ename']; ?></td>
+                                        <td><?php echo $reviewee['r1']; ?></td>
+                                        <td><?php echo $reviewee['r2']; ?></td>
+                                        <td><?php echo $reviewee['r3']; ?></td>
+                                        <td><?php echo $reviewee['r4']; ?></td>
+                                        <td><?php echo $reviewee['r5']; ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -218,7 +258,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="form-group">
                         <label for="comments">留言</label>
-                        <textarea id="comments" class="form-control" rows="4" placeholder="輸入您的留言"></textarea>
+                        <textarea id="comments" class="form-control" name="txtcomment" rows="4" placeholder="輸入您的留言"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">提交</button>
