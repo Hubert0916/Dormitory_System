@@ -1,5 +1,4 @@
 <?php
-require_once dirname(__FILE__) . "/overlay_nav.php";
 require_once dirname(__FILE__) . '/session.php';
 require_once dirname(__FILE__) . '/connection.php';
 
@@ -8,7 +7,7 @@ if (isset($_SESSION['ID'])) {
     if ($conn->connect_error) {
         die("Connection failed. $conn->connect_error");
     }
-    $id = intval($_SESSION['ID']);
+    $id = htmlspecialchars($_SESSION['ID']);
     $getRoommate_sql = $conn->prepare("SELECT pr.ID, pr.Name, ph.photo_type, ph.photo_content FROM Dorm.Profile as pr, Dorm.photo as ph WHERE pr.ID = ph.id and pr.id != ? and pr.Room = (SELECT p.Room from Dorm.Profile as p WHERE p.ID = ?) and pr.Dorm = (SELECT p.Dorm from Dorm.Profile as p WHERE p.ID = ?)");
     $getRoommate_sql->bind_param("iii", $id, $id, $id);
     $getRoommate_sql->execute();
@@ -23,11 +22,60 @@ if (isset($_SESSION['ID'])) {
             $roommates[] = ['RID' => $RID, 'Rname' => $Rname, 'Rtype' => $Rtype, 'Rphoto' => base64_encode($Rphoto)];
         }
     }
+    $getRoommate_sql->free_result();
     $getRoommate_sql->close();
 } else {
-    echo "<script>alert('請先登入');</script>";
+    echo "<script>alert('請先登入!!!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
 }
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if (isset($_POST["chooseRID"]) && !empty($_POST["chooseRID"])) {
+        $RoommateID = htmlspecialchars($_POST["chooseRID"]);
+
+        if (isset($_POST["chooseRname"]) && !empty($_POST["chooseRname"])) {
+            $RoommateName = htmlspecialchars($_POST["chooseRname"]);
+        }
+
+        $rating1 = htmlspecialchars($_POST['rating1']);
+        $rating2 = htmlspecialchars($_POST['rating2']);
+        $rating3 = htmlspecialchars($_POST['rating3']);
+        $rating4 = htmlspecialchars($_POST['rating4']);
+        $rating5 = htmlspecialchars($_POST['rating5']);
+
+        $count_sql = $conn->prepare("SELECT Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Number FROM Dorm.Rating WHERE ID = ?");
+        $count_sql->bind_param("i", $RoommateID);
+        $count_sql->execute();
+        $count_sql->store_result();
+
+        if ($count_sql->num_rows) {
+            
+            $count_sql->bind_result($origin_rating1, $origin_rating2, $origin_rating3, $origin_rating4, $origin_rating5, $origin_number);
+            $count_sql->fetch();
+            $rating1 = ROUND(($origin_rating1 * $origin_number + $rating1) / ($origin_number + 1), 3);
+            $rating2 = ROUND(($origin_rating2 * $origin_number + $rating2) / ($origin_number + 1), 3);
+            $rating3 = ROUND(($origin_rating3 * $origin_number + $rating3) / ($origin_number + 1), 3);
+            $rating4 = ROUND(($origin_rating4 * $origin_number + $rating4) / ($origin_number + 1), 3);
+            $rating5 = ROUND(($origin_rating5 * $origin_number + $rating5) / ($origin_number + 1), 3);
+            $origin_number += 1;
+
+            $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ? , Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Number = ? WHERE ID = ?");
+            $update_sql->bind_param("dddddii", $rating1, $rating2, $rating3, $rating4, $rating5, $origin_number, $RoommateID);
+            $update_sql->execute();
+            $update_sql->close();
+        } else {
+            $insert_sql = $conn->prepare("INSERT INTO Dorm.Rating (ID, Name, Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Number)  VALUES (?, ?, ?, ?, ?, ?, ?, '1')");
+            $insert_sql->bind_param("isddddd", $RoommateID, $RoommateName, $rating1, $rating2, $rating3, $rating4, $rating5);
+            $insert_sql->execute();
+            $insert_sql->close();
+        }
+
+        $count_sql->close();
+    }
+}
+
+
 ?>
 
 
@@ -44,7 +92,7 @@ if (isset($_SESSION['ID'])) {
 </head>
 
 <body>
-    <form>
+    <form id="ratingForm" method="post" action="rating.php">
         <div class="container-fluid mx-3 my-5">
             <div class="step d-flex flex-column" id="step1">
                 <div class="text-center">
@@ -79,29 +127,25 @@ if (isset($_SESSION['ID'])) {
                 </div>
                 <hr>
                 <div class="container-fluid p-5">
-                    <input type="hidden" name="ratingsys" id="ratingsys">
-                    <div class="row justify-content-center text-center">
-                        <div class="col-md-3 block-container mx-5">
-                            <div class="rect-block d-flex flex-column" onclick="submitStep2()">
-                                <img src="../pic/man.jpg" class="img-fluid rounded">
-                                <h3 class="mt-2">?</h3>
-                            </div>
+                    <input type="hidden" name="chooseRID" id="chooseRID">
+                    <input type="hidden" name="chooseRname" id="chooseRname">
+                    <?php if (!empty($roommates)) : ?>
+                        <div class="d-flex">
+                            <?php foreach ($roommates as $roommate) : ?>
+                                <div class="rect-block d-flex flex-column justify-content-center align-items-center mx-5">
+                                    <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>" onclick="submitStep2('<?php echo $roommate['RID']; ?>', '<?php echo $roommate['Rname']; ?>');" />
+                                    <br>
+                                    <p><?php echo "ID : " . $roommate['RID']; ?></p>
+                                    <p><?php echo "Name : " . $roommate['Rname']; ?></p>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
-                        <div class="col-md-3 block-container mx-5">
-                            <div class="rect-block d-flex flex-column" onclick="submitStep2()">
-                                <img src="../pic/man.jpg" class="img-fluid rounded">
-                                <h3 class="mt-2">?</h3>
-                            </div>
+                    <?php else : ?>
+                        <div class="text-center">
+                            <h2>查無室友資料!!!</h2>
                         </div>
-                        <div class="col-md-3 block-container mx-5">
-                            <div class="rect-block d-flex flex-column" onclick="submitStep2()">
-                                <img src="../pic/man.jpg" class="img-fluid rounded">
-                                <h3 class="mt-2">?</h3>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
-
             </div>
         </div>
 
@@ -112,7 +156,6 @@ if (isset($_SESSION['ID'])) {
                 </div>
                 <hr>
                 <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
-
 
                     <div class="form-group">
                         <label>衛生習慣</label>
