@@ -7,8 +7,10 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch data from the "move_requests" table
-$sql1 = "SELECT student_id, available_time, move_services, transport_mode FROM move_requests";
+// Fetch latest data from the "move_requests" table
+$sql1 = "SELECT student_id, available_time, move_services, transport_mode, MAX(reg_date) as latest_date
+         FROM move_requests
+         GROUP BY student_id, available_time, move_services, transport_mode";
 $result1 = $conn->query($sql1);
 $data1 = [];
 if ($result1 === false) {
@@ -19,8 +21,10 @@ if ($result1 === false) {
     }
 }
 
-// Fetch data from the "move_service" table
-$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note FROM move_service";
+// Fetch latest data from the "move_service" table
+$sql2 = "SELECT student_id, available_time, move_services, transport_mode, start_location, note, MAX(reg_date) as latest_date
+         FROM move_service
+         GROUP BY student_id, available_time, move_services, transport_mode, start_location, note";
 $result2 = $conn->query($sql2);
 $data2 = [];
 if ($result2 === false) {
@@ -62,9 +66,19 @@ function findMatches($data1, $data2) {
 
 $matches = findMatches($data1, $data2);
 
+// Remove duplicate student IDs from matches
+$unique_matches = [];
+$student_ids = [];
+foreach ($matches as $match) {
+    if (!in_array($match['幫你搬']['student_id'], $student_ids)) {
+        $unique_matches[] = $match;
+        $student_ids[] = $match['幫你搬']['student_id'];
+    }
+}
+
 // Fetch additional profile and photo information for the matched entries
 $matched_profiles = [];
-foreach ($matches as $match) {
+foreach ($unique_matches as $match) {
     $student_id = $match['幫你搬']['student_id'];
     $sql_profile = "SELECT Name, FB, IG, Email FROM Profile WHERE ID = '$student_id'";
     $result_profile = $conn->query($sql_profile);
@@ -97,7 +111,7 @@ foreach ($matches as $match) {
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>Matching Entries</title>
+    <title>已為您搜尋到以下結果:</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -197,7 +211,7 @@ foreach ($matches as $match) {
 </head>
 <body>
     <div class="container">
-        <h1>Matching Entries</h1>
+        <h1>已為您搜尋到以下結果</h1>
         <?php if (!empty($matched_profiles)): ?>
             <?php foreach ($matched_profiles as $index => $match): ?>
                 <div class="profile" onclick='openModal(<?php echo json_encode($match); ?>)'>
