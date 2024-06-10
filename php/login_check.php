@@ -2,8 +2,8 @@
 session_start();
 require_once dirname(__FILE__) . "/connection.php";
 
-// 設定最長登入時間為5小時(以秒為單位)
-define('MAX_LOGIN_TIME', 5 * 60 * 60);
+// 設定最長登入時間為2小時(以秒為單位)
+define('MAX_LOGIN_TIME', 2 * 60 * 60);
 
 $query = [
   'ID' => htmlspecialchars($_POST["ID"]),

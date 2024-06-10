@@ -23,7 +23,7 @@
 <body>
 <main>
     <!-- Container -->
-	<div class="container animatedParent animateOnce clearfix">
+	<div class="container animatedParent animateOnce clearfix" id="home">
 		<!-- PHP-Navigation -->
 		<!-- Navigation -->
 		<nav class="navigation animated fadeInDownShort clearfix">
@@ -51,7 +51,7 @@
 		</nav>
 		<!-- Navigation (End) -->
         <!-- Home -->
-        <div class="home animated fadeInUpShort" id="home">
+        <div class="home animated fadeInUpShort">
             <div class="home-content">
                 <div class="title">
                     <div class="content-name">
@@ -67,9 +67,9 @@
         </div>
         <!-- Home (End) -->
         <!-- 介紹 Services 有哪些，跟一些服務的詳細資訊-->
-        <div class="service animated fadeInUpShort" id="service">
+        <div class="service animated fadeInUpShort">
             <div class="service-content">
-                <div class="service-title">
+                <div class="service-title" id="service">
                     <h1>服務</h1>
                 </div>
                 <div class="service-box">
@@ -81,7 +81,14 @@
                             <img src="../pic/move.gif" alt="">
                         </div>
                         <div class="service-box-text">
-                            <p>我們提供搬家服務，讓您可以輕鬆搬家。</p>
+                            <p>您可選擇提供搬遷服務或是尋找搬遷服務。</p>
+                            <ul>
+                                <li>選擇有空的時間</li>
+                                <li>選擇搬遷的物品</li>
+                                <li>選擇搬遷的地點</li>
+                                <li>選擇交通工具</li>
+                                <li>配對啦！</li>
+                            </ul>
                             <div class="service-box-link">
                                 <a href="../php/move.php" alt="">Learn More</a>
                             </div>

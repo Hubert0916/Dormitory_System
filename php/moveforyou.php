@@ -224,7 +224,7 @@
                 </div>
             </div>
             <div class="note">
-                徒手一趟$50，拖車一趟$250，汽車一趟$500
+                徒手一趟$50，拖車一趟$150，汽車一趟$250
             </div>
             <input type="hidden" id="transport" name="transport" value="">
             <button type="button" class="button" onclick="nextQuestion(3)">下一題</button>
