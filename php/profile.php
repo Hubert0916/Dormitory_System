@@ -68,7 +68,7 @@ if (isset($_GET['ID'])) {
     $id = $_SESSION['ID'];
     $user_data = $_SESSION['user_data'];
 
-    $getRating_sql = $conn->prepare("SELECT ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2, ROUND(AVG(Rating_six), 2) FROM Rating WHERE Reviewee_ID = ?");
+    $getRating_sql = $conn->prepare("SELECT ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2), ROUND(AVG(Rating_six), 2) FROM Rating WHERE Reviewee_ID = ?");
     $getRating_sql->bind_param("i", $id);
     $getRating_sql->execute();
     $getRating_sql->store_result();
