@@ -36,7 +36,7 @@
                         <li><a href="../php/roomate.php">配 對 室 友</a></li>
                         <li><a href="../php/rating.php">評 分 室 友</a></li>
                         <li><a href="../php/report.php">檢 舉 鄰 居</a></li>
-                        <li><a href="#service5">吧 啦 吧 啦</a></li>
+                        <li><a href="../php/makefriend.php">吧 啦 吧 啦</a></li>
                     </ul>
                 </li>
                 <?php if (!isset($_SESSION['ID'])): ?>
@@ -153,7 +153,7 @@
                         <div class="service-box-text">
                             <p>我們提供吧啦吧啦服務，讓您可以吧啦吧啦。</p>
                             <div class="service-box-link">
-                                <a href="#service5">Learn More</a>
+                                <a href="../php/makefriend.php">Learn More</a>
                             </div>
                         </div>
                     </div>
