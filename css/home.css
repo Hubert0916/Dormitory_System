@@ -215,7 +215,7 @@ footer{
 /* service-content design */
 .service-content {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
@@ -224,8 +224,8 @@ footer{
 	color: #576F72;
 	gap: 100px;
 	margin-left: 100px;
-	margin-top: 50px;
-	margin-bottom: 200px;
+	margin-top: 150px;
+	margin-bottom: 300px;
 }
 .service-box-content {
 	display: flex;
@@ -246,4 +246,8 @@ footer{
 .service-box-link a:hover{
     color: #576F72;
     background: #E4DCCF;
+}
+.service-box-pic img{
+	width: 450px;
+	height: 450px;
 }
