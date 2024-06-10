@@ -12,7 +12,7 @@ if (isset($_SESSION['ID'])) {
     $getRoommate_sql->execute();
     $getRoommate_sql->store_result();
 
-    if ($getRoommate_sql->num_rows() > 0) {
+    if ($getRoommate_sql->num_rows > 0) {
         $getRoommate_sql->bind_result($RID, $Rname, $Rtype, $Rphoto);
 
         $roommates = [];
@@ -24,10 +24,22 @@ if (isset($_SESSION['ID'])) {
     $getRoommate_sql->free_result();
     $getRoommate_sql->close();
 
+    $getRating_sql = $conn->prepare("SELECT Reviewee_ID, Reviewee_name, ROUND(AVG(Rating_one), 3), ROUND(AVG(Rating_two), 3), ROUND(AVG(Rating_three), 3), ROUND(AVG(Rating_four), 3), ROUND(AVG(Rating_five), 3) FROM Rating GROUP BY Reviewee_ID, Reviewee_name");
+    $getRating_sql->execute();
+    $getRating_sql->store_result();
 
+    if ($getRating_sql->num_rows) {
+        $getRating_sql->bind_result($EID, $Ename, $r1, $r2, $r3, $r4, $r5);
 
+        $reviewees = [];
 
+        while ($getRating_sql->fetch()) {
+            $reviewees[] = ['EID' => $EID, 'Ename' => $Ename, 'r1' => $r1, 'r2' => $r2, 'r3' => $r3, 'r4' => $r4, 'r5' => $r5];
+        }
+    }
 
+    $getRating_sql->free_result();
+    $getRating_sql->close();
 } else {
     echo "<script>alert('請先登入!!!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
@@ -150,41 +162,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <tr>
                                 <th scope="col">學號</th>
                                 <th scope="col">姓名</th>
-                                <th scope="col">衛生習慣</th>
-                                <th scope="col">生活作息</th>
-                                <th scope="col">安靜程度</th>
-                                <th scope="col">準時還錢</th>
-                                <th scope="col">人際互動</th>
+                                <th scope="col">衛生習慣(/5)</th>
+                                <th scope="col">生活作息(/5)</th>
+                                <th scope="col">安靜程度(/5)</th>
+                                <th scope="col">準時還錢(/5)</th>
+                                <th scope="col">人際互動(/5)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
+                            <?php if (!empty($reviewees)) : ?>
+                                <?php foreach ($reviewees as $reviewee) : ?>
+                                    <tr>
+                                        <th scope="row"><?php echo $reviewee['EID']; ?></th>
+                                        <td><?php echo $reviewee['Ename']; ?></td>
+                                        <td><?php echo $reviewee['r1']; ?></td>
+                                        <td><?php echo $reviewee['r2']; ?></td>
+                                        <td><?php echo $reviewee['r3']; ?></td>
+                                        <td><?php echo $reviewee['r4']; ?></td>
+                                        <td><?php echo $reviewee['r5']; ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
