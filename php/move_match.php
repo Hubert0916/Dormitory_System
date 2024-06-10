@@ -197,7 +197,7 @@ foreach ($matches as $match) {
 </head>
 <body>
     <div class="container">
-        <h1>Matching Entries</h1>
+        <h1>已為您搜尋到以下結果</h1>
         <?php if (!empty($matched_profiles)): ?>
             <?php foreach ($matched_profiles as $index => $match): ?>
                 <div class="profile" onclick='openModal(<?php echo json_encode($match); ?>)'>
