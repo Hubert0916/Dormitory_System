@@ -82,12 +82,12 @@
                         </div>
                         <div class="service-box-text">
                             <p>您可選擇提供搬遷服務或是尋找搬遷服務。</p>
-                            <ul>
+                            <ul class="service-intro">
                                 <li>選擇有空的時間</li>
                                 <li>選擇搬遷的物品</li>
                                 <li>選擇搬遷的地點</li>
                                 <li>選擇交通工具</li>
-                                <li>配對啦！</li>
+                                <li>快來配對啦！</li>
                             </ul>
                             <div class="service-box-link">
                                 <a href="../php/move.php" alt="">Learn More</a>
@@ -100,6 +100,13 @@
                         </div>
                         <div class="service-box-text">
                             <p>我們提供室友配對服務，讓您可以找到合適的室友。</p>
+                            <ul class="service-intro">
+                                <li>選擇睡眠習慣</li>
+                                <li>選擇宿舍音量</li>
+                                <li>選擇住宿地點</li>
+                                <li>輸入其他要求</li>
+                                <li>快來配對啦！</li>
+                            </ul>
                             <div class="service-box-link">
                                 <a href="../php/roomate.php">Learn More</a>
                             </div>
