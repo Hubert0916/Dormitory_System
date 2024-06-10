@@ -5,9 +5,6 @@ require_once dirname(__FILE__) . '/connection.php';
 
 if (isset($_SESSION['ID'])) {
 
-    if ($conn->connect_error) {
-        die("Connection failed. $conn->connect_error");
-    }
     $id = intval($_SESSION['ID']);
     $getRoommate_sql = $conn->prepare("SELECT pr.ID, pr.Name, ph.photo_type, ph.photo_content FROM Dorm.Profile as pr, Dorm.photo as ph WHERE pr.ID = ph.id and pr.id != ? and pr.Room = (SELECT p.Room from Dorm.Profile as p WHERE p.ID = ?) and pr.Dorm = (SELECT p.Dorm from Dorm.Profile as p WHERE p.ID = ?)");
     $getRoommate_sql->bind_param("iii", $id, $id, $id);
