@@ -1,6 +1,6 @@
 <?php
     require_once dirname(__FILE__) . "/overlay_nav.php";
-    
+
     if (isset($_SESSION['ID'])) {
 
         if ($conn->connect_error) {
@@ -36,12 +36,13 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-color: #F0EBE3;
             font-family: 'Noto Sans TC', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
+            width: 100%;
         }
         .container {
             display: flex;
@@ -53,7 +54,7 @@
         }
         .box {
             width: 30%; /* 保持寬度不變 */
-            height: 80%; /* 設置高度為 100% 以使用容器的高度 */
+            height: 50%; /* 設置高度為 100% 以使用容器的高度 */
             background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
@@ -65,6 +66,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center; /* 添加這一行以致中圖片 */
+            margin-top: 150px;
         }
         .box:hover {
             transform: translateY(-10px);
@@ -84,13 +86,13 @@
             font-size: 16px;
             text-decoration: none;
             border-radius: 5px;
-            background-color: #495057;
+            background-color: #576F72;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
         .box a:hover {
-            background-color: #343a40;
+            background-color: #99A799;
             transform: translateY(-2px);
         }
     </style>
