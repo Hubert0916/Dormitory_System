@@ -87,7 +87,7 @@
             text-decoration: none;
             border-radius: 5px;
             background-color: #576F72;
-            color: white;
+            color: #F0EBE3;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }

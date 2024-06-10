@@ -44,7 +44,7 @@
 						<a class="nav-link" href="../php/report.php">檢舉鄰居</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">吧啦吧啦</a>
+						<a class="nav-link" href="../php/makefriend.php">吧啦吧啦</a>
 					</li>
 				</div>
 				<?php if (isset($_SESSION['ID'])): ?>
