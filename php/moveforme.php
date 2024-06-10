@@ -11,24 +11,25 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
-            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #F0EBE3;
+            font-family: "Noto Serif TC", serif !important;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
+            width: 100%;
         }
         .container {
             display: flex;
             justify-content: center;
             gap: 20px;
-            width: 80%;
+            width: 100%;
             max-width: 1000px;
-            height: 80%;
+            height: 100%;
         }
         .box {
-            width: 30%;
-            height: 80%;
+            width: 100%;
+            height: 100%;
             background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
@@ -54,12 +55,12 @@
             object-fit: cover;
         }
         .box.selected {
-            border-color: #007bff;
+            background-color: #ADC2A9;
         }
         .box p {
             margin-top: 20px;
-            font-size: 18px;
-            color: #495057;
+            font-size: 25px;
+            color: #576F72;
         }
         .question {
             display: none;
@@ -69,10 +70,13 @@
         }
         table {
             border-collapse: collapse;
-            width: 100%;
+            width: 140%;
+            height: 40%;
+            font-size: 25px;
+            margin-left: -20%;
         }
         table, th, td {
-            border: 1px solid blue;
+            border: 2px solid #576F72;
         }
         th, td {
             text-align: center;
@@ -82,7 +86,7 @@
             cursor: pointer;
         }
         .selected {
-            background-color: lightblue;
+            background-color: #99A799;
         }
         .options-row {
             display: flex;
@@ -135,12 +139,20 @@
             font-size: 16px;
             resize: none;
         }
+        .move {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            color: #576F72;
+            font-size: 25px;
+        }
     </style>
 </head>
 <body>
     <form id="questionForm" action="submit.php" method="post">
         <div class="question active" id="question1">
-            <label for="time">你有空的時間：</label>
+            <label for="time" class="move">你有空的時間：</label>
             <table>
                 <tr>
                     <th>時間</th>
@@ -187,18 +199,18 @@
             <button type="button" class="button" onclick="nextQuestion(1)">繼續</button>
         </div>
         <div class="question" id="question2">
-            <label for="services">搬家資訊 (可複選)：</label>
+            <label for="services" class="move">搬家資訊 (可複選)：</label>
             <div class="options-row">
                 <div class="box service-option" data-service="雜物">
                     <img src="../pic/grocery.png" alt="雜物">
                     <p>雜物</p>
                 </div>
                 <div class="box service-option" data-service="衣服">
-                    <img src="../pic/clothes.png" alt="衣服">
+                    <img src="../pic/clothes.jpg" alt="衣服">
                     <p>衣服</p>
                 </div>
                 <div class="box service-option" data-service="大型物件">
-                    <img src="../pic/furniture.png" alt="大型物件">
+                    <img src="../pic/furniture.jpg" alt="大型物件">
                     <p>大型物件</p>
                 </div>
             </div>
@@ -206,7 +218,7 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
-            <label for="transport">你想用什麼交通工具？</label>
+            <label for="transport" class="move">你想用什麼交通工具？</label>
             <div class="options-row">
                 <div class="box transport-option" data-transport="汽車">
                     <img src="../pic/vehicle.png" alt="汽車">

@@ -196,11 +196,11 @@
                     <p>雜物</p>
                 </div>
                 <div class="box service-option" data-service="衣服">
-                    <img src="../pic/clothes.png" alt="衣服">
+                    <img src="../pic/clothes.jpg" alt="衣服">
                     <p>衣服</p>
                 </div>
                 <div class="box service-option" data-service="大型物件">
-                    <img src="../pic/furniture.png" alt="大型物件">
+                    <img src="../pic/furniture.jpg" alt="大型物件">
                     <p>大型物件</p>
                 </div>
             </div>

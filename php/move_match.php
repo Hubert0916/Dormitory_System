@@ -131,7 +131,7 @@ foreach ($unique_matches as $match) {
     <title>已為您搜尋到以下結果:</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Noto Serif TC", serif !important;
         }
         .container {
             width: 80%;
