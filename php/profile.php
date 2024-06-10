@@ -32,16 +32,16 @@ if (isset($_GET['ID'])) {
     $getProfile_sql->free_result();
     $getProfile_sql->close();
 
-    $getRating_sql = $conn->prepare("SELECT ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2) FROM Rating WHERE Reviewee_ID = ?");
+    $getRating_sql = $conn->prepare("SELECT ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2), ROUND(AVG(Rating_six), 2) FROM Rating WHERE Reviewee_ID = ?");
     $getRating_sql->bind_param("i", $id);
     $getRating_sql->execute();
     $getRating_sql->store_result();
 
     if ($getRating_sql->num_rows) {
-        $getRating_sql->bind_result($r1, $r2, $r3, $r4, $r5);
+        $getRating_sql->bind_result($r1, $r2, $r3, $r4, $r5, $r6);
         $getRating_sql->fetch();
-        if ($r1 !== null || $r2 !== null || $r3 !== null || $r4 !== null || $r5 !== null) {
-            $reviewee = ['r1' => $r1, 'r2' => $r2, 'r3' => $r3, 'r4' => $r4, 'r5' => $r5];
+        if ($r1 !== null || $r2 !== null || $r3 !== null || $r4 !== null || $r5 !== null || $r6 !== null) {
+            $reviewee = ['r1' => $r1, 'r2' => $r2, 'r3' => $r3, 'r4' => $r4, 'r5' => $r5, 'r6' => $r6];
 
             $getReview_sql = $conn->prepare("SELECT Review FROM Dorm.Rating WHERE Reviewee_ID = ?");
             $getReview_sql->bind_param("i", $id);
@@ -53,7 +53,8 @@ if (isset($_GET['ID'])) {
                 $getReview_sql->bind_result($rv);
 
                 while ($getReview_sql->fetch()) {
-                    $reviews[] = ['rv' => $rv];
+                    if ($rv !== null)
+                        $reviews[] = ['rv' => $rv];
                 }
             }
 
@@ -67,16 +68,16 @@ if (isset($_GET['ID'])) {
     $id = $_SESSION['ID'];
     $user_data = $_SESSION['user_data'];
 
-    $getRating_sql = $conn->prepare("SELECT ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2) FROM Rating WHERE Reviewee_ID = ?");
+    $getRating_sql = $conn->prepare("SELECT ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2, ROUND(AVG(Rating_six), 2) FROM Rating WHERE Reviewee_ID = ?");
     $getRating_sql->bind_param("i", $id);
     $getRating_sql->execute();
     $getRating_sql->store_result();
 
     if ($getRating_sql->num_rows) {
-        $getRating_sql->bind_result($r1, $r2, $r3, $r4, $r5);
+        $getRating_sql->bind_result($r1, $r2, $r3, $r4, $r5, $r6);
         $getRating_sql->fetch();
-        if ($r1 !== null || $r2 !== null || $r3 !== null || $r4 !== null || $r5 !== null) {
-            $reviewee = ['r1' => $r1, 'r2' => $r2, 'r3' => $r3, 'r4' => $r4, 'r5' => $r5];
+        if ($r1 !== null || $r2 !== null || $r3 !== null || $r4 !== null || $r5 !== null || $r6 !== null) {
+            $reviewee = ['r1' => $r1, 'r2' => $r2, 'r3' => $r3, 'r4' => $r4, 'r5' => $r5, 'r6' => $r6];
 
             $getReview_sql = $conn->prepare("SELECT Review FROM Dorm.Rating WHERE Reviewee_ID = ?");
             $getReview_sql->bind_param("i", $id);
@@ -88,7 +89,8 @@ if (isset($_GET['ID'])) {
                 $getReview_sql->bind_result($rv);
 
                 while ($getReview_sql->fetch()) {
-                    $reviews[] = ['rv' => $rv];
+                    if ($rv !== null)
+                        $reviews[] = ['rv' => $rv];
                 }
             }
 
@@ -235,8 +237,7 @@ if (isset($_GET['ID'])) {
                             <p>財富</p>
                         </div>
                         <div>
-                            <p><?php echo $reviewee['r5']; ?></p>
-                            <!-- not finished yet -->
+                            <p><?php echo $reviewee['r6']; ?></p>
                         </div>
                     </div>
                     <br>

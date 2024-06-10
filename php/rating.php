@@ -24,17 +24,17 @@ if (isset($_SESSION['ID'])) {
     $getRoommate_sql->free_result();
     $getRoommate_sql->close();
 
-    $getRating_sql = $conn->prepare("SELECT Reviewee_ID, Reviewee_name, ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2) FROM Rating GROUP BY Reviewee_ID, Reviewee_name");
+    $getRating_sql = $conn->prepare("SELECT Reviewee_ID, Reviewee_name, ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2), ROUND(AVG(Rating_six), 2)FROM Rating GROUP BY Reviewee_ID, Reviewee_name");
     $getRating_sql->execute();
     $getRating_sql->store_result();
 
     if ($getRating_sql->num_rows) {
-        $getRating_sql->bind_result($EID, $Ename, $r1, $r2, $r3, $r4, $r5);
+        $getRating_sql->bind_result($EID, $Ename, $r1, $r2, $r3, $r4, $r5, $r6);
 
         $reviewees = [];
 
         while ($getRating_sql->fetch()) {
-            $reviewees[] = ['EID' => $EID, 'Ename' => $Ename, 'r1' => $r1, 'r2' => $r2, 'r3' => $r3, 'r4' => $r4, 'r5' => $r5];
+            $reviewees[] = ['EID' => $EID, 'Ename' => $Ename, 'r1' => $r1, 'r2' => $r2, 'r3' => $r3, 'r4' => $r4, 'r5' => $r5, 'r6' => $r6];
         }
     }
 
@@ -56,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rating3 = htmlspecialchars($_POST['rating3']);
     $rating4 = htmlspecialchars($_POST['rating4']);
     $rating5 = htmlspecialchars($_POST['rating5']);
+    $rating6 = htmlspecialchars($_POST['rating6']);
     $review = htmlspecialchars($_POST['txtcomment']);
 
     $count_sql = $conn->prepare("SELECT * FROM Dorm.Rating WHERE Reviewer_ID = ? and Reviewee_ID = ?");
@@ -64,13 +65,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $count_sql->store_result();
 
     if ($count_sql->num_rows) {
-        $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ? , Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
-        $update_sql->bind_param("dddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $review, $ReviewerID, $RevieweeID);
+        $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ? , Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Rating_six = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
+        $update_sql->bind_param("ddddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $rating6 ,$review, $ReviewerID, $RevieweeID);
         $update_sql->execute();
         $update_sql->close();
     } else {
-        $insert_sql = $conn->prepare("INSERT INTO Dorm.Rating (Reviewer_ID, Reviewee_ID, Reviewer_name, Reviewee_name, Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Review)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $insert_sql->bind_param("iissddddds", $ReviewerID, $RevieweeID, $ReviewerName, $RevieweeName, $rating1, $rating2, $rating3, $rating4, $rating5, $review);
+        $insert_sql = $conn->prepare("INSERT INTO Dorm.Rating (Reviewer_ID, Reviewee_ID, Reviewer_name, Reviewee_name, Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Rating_six, Review)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $insert_sql->bind_param("iissdddddds", $ReviewerID, $RevieweeID, $ReviewerName, $RevieweeName, $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review);
         $insert_sql->execute();
         $insert_sql->close();
     }
@@ -171,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <tbody>
                             <?php if (!empty($reviewees)) : ?>
                                 <?php foreach ($reviewees as $reviewee) : ?>
-                                    <tr onclick="openProfile(<?php echo $reviewee['EID']; ?>);">
+                                    <tr class="table-row" onclick="openProfile(<?php echo $reviewee['EID']; ?>);">
                                         <th scope="row"><?php echo $reviewee['EID']; ?></th>
                                         <td><?php echo $reviewee['Ename']; ?></td>
                                         <td><?php echo $reviewee['r1']; ?></td>
@@ -179,6 +180,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <td><?php echo $reviewee['r3']; ?></td>
                                         <td><?php echo $reviewee['r4']; ?></td>
                                         <td><?php echo $reviewee['r5']; ?></td>
+                                        <td><?php echo $reviewee['r6']; ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -197,7 +199,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="container-fluid d-flex flex-column align-items-center justify-content-center">
 
                     <div class="form-group">
-                        <label>衛生習慣</label>
+                        <label>衛生</label>
                         <div class="star-rating d-inline-block">
                             <input class="d-none" id="star5-1" type="radio" name="rating1" value="5"><label for="star5-1" title="5 stars"><i class="fas fa-star"></i></label>
                             <input class="d-none" id="star4-1" type="radio" name="rating1" value="4"><label for="star4-1" title="4 stars"><i class="fas fa-star"></i></label>
@@ -209,7 +211,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     <div class="form-group">
-                        <label>生活作息</label>
+                        <label>作息</label>
                         <div class="star-rating d-inline-block">
                             <input class="d-none" id="star5-2" type="radio" name="rating2" value="5"><label for="star5-2" title="5 stars"><i class="fas fa-star"></i></label>
                             <input class="d-none" id="star4-2" type="radio" name="rating2" value="4"><label for="star4-2" title="4 stars"><i class="fas fa-star"></i></label>
@@ -221,7 +223,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     <div class="form-group">
-                        <label>安靜程度</label>
+                        <label>課業</label>
                         <div class="star-rating d-inline-block">
                             <input class="d-none" id="star5-3" type="radio" name="rating3" value="5"><label for="star5-3" title="5 stars"><i class="fas fa-star"></i></label>
                             <input class="d-none" id="star4-3" type="radio" name="rating3" value="4"><label for="star4-3" title="4 stars"><i class="fas fa-star"></i></label>
@@ -233,7 +235,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     <div class="form-group">
-                        <label>準時還錢</label>
+                        <label>外貌</label>
                         <div class="star-rating d-inline-block">
                             <input class="d-none" id="star5-4" type="radio" name="rating4" value="5"><label for="star5-4" title="5 stars"><i class="fas fa-star"></i></label>
                             <input class="d-none" id="star4-4" type="radio" name="rating4" value="4"><label for="star4-4" title="4 stars"><i class="fas fa-star"></i></label>
@@ -245,7 +247,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     <div class="form-group">
-                        <label>人際互動</label>
+                        <label>人品</label>
                         <div class="star-rating d-inline-block">
                             <input class="d-none" id="star5-5" type="radio" name="rating5" value="5"><label for="star5-5" title="5 stars"><i class="fas fa-star"></i></label>
                             <input class="d-none" id="star4-5" type="radio" name="rating5" value="4"><label for="star4-5" title="4 stars"><i class="fas fa-star"></i></label>
@@ -256,7 +258,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="form-group">
-                        <label for="comments">留言</label>
+                        <label>財富</label>
+                        <div class="star-rating d-inline-block">
+                            <input class="d-none" id="star5-6" type="radio" name="rating6" value="5"><label for="star5-6" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-6" type="radio" name="rating6" value="4"><label for="star4-6" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-6" type="radio" name="rating6" value="3"><label for="star3-6" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-6" type="radio" name="rating6" value="2"><label for="star2-6" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-6" type="radio" name="rating6" value="1"><label for="star1-6" title="1 star"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">評論</label>
                         <textarea id="comments" class="form-control" name="txtcomment" rows="4" placeholder="輸入您的留言"></textarea>
                     </div>
 
