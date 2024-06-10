@@ -134,7 +134,7 @@ footer{
 	gap: 120px;
 	margin-left: 170px;
 	margin-top: 50px;
-	margin-bottom: 150px;
+	margin-bottom: 800px;
 }
 .home-content h1 {
 	font-size: 4.5rem;
@@ -223,9 +223,9 @@ footer{
 	padding: 10px;
 	color: #576F72;
 	gap: 100px;
-	margin-left: 100px;
+	margin-left: 175px;
 	margin-top: 150px;
-	margin-bottom: 300px;
+	margin-bottom: 1000px;
 }
 .service-box-content {
 	display: flex;
@@ -233,7 +233,7 @@ footer{
 	justify-content: left;
 	align-items: center;
 	text-align: center;
-	gap: 20px;
+	gap: 80px;
 }
 .service-box-link a{
     color: #F0EBE3;
@@ -249,5 +249,5 @@ footer{
 }
 .service-box-pic img{
 	width: 450px;
-	height: 450px;
+	height: 350px;
 }

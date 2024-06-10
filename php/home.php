@@ -91,25 +91,28 @@
                         <div class="service-box-title">
                             <h2>配對室友</h2>
                         </div>
-                        <div class="service-box-pic">
-                            <img src="../pic/roomate.gif" alt="">
-                        </div>
                         <div class="service-box-text">
                             <p>我們提供室友配對服務，讓您可以找到合適的室友。</p>
                             <div class="service-box-link">
                                 <a href="../php/roomate.php">Learn More</a>
                             </div>
                         </div>
+                        <div class="service-box-pic">
+                            <img src="../pic/roomate.gif" alt="" class="roomate">
+                        </div>
                     </div>
                     <div class="service-box-content">
                         <div class="service-box-title">
                             <h2>評分室友</h2>
                         </div>
-                        <div class="service-box-text">
-                            <p>我們提供評分室友服務，讓您可以幫室友品頭論足。</p>
+                        <div class="service-box-pic">
+                            <img src="../pic/rating.gif" alt="">
                         </div>
-                        <div class="service-box-link">
-                            <a href="#service3">Learn More</a>
+                        <div class="service-box-text">
+                            <p>我們提供室友評分服務，讓您可以評分室友。</p>
+                            <div class="service-box-link">
+                                <a href="../php/rating.php">Learn More</a>
+                            </div>
                         </div>
                     </div>
                     <div class="service-box-content">
@@ -117,21 +120,27 @@
                             <h2>檢舉鄰居</h2>
                         </div>
                         <div class="service-box-text">
-                            <p>我們提供檢舉鄰居服務，讓您可以舉報不良鄰居。</p>
+                            <p>我們提供檢舉鄰居服務，讓您可以檢舉鄰居。</p>
+                            <div class="service-box-link">
+                                <a href="../php/report.php">Learn More</a>
+                            </div>
                         </div>
-                        <div class="service-box-link">
-                            <a href="../php/report.php">Learn More</a>
+                        <div class="service-box-pic">
+                            <img src="../pic/report.gif" alt="">
                         </div>
                     </div>
                     <div class="service-box-content">
                         <div class="service-box-title">
                             <h2>吧啦吧啦</h2>
                         </div>
-                        <div class="service-box-text">
-                            <p>我們提供吧啦吧啦服務，讓您可以與其他宿舍生互動。</p>
+                        <div class="service-box-pic">
+                            <img src="../pic/chat.gif" alt="">
                         </div>
-                        <div class="service-box-link">
-                            <a href="#service5">Learn More</a>
+                        <div class="service-box-text">
+                            <p>我們提供吧啦吧啦服務，讓您可以吧啦吧啦。</p>
+                            <div class="service-box-link">
+                                <a href="#service5">Learn More</a>
+                            </div>
                         </div>
                     </div>
                 </div>
