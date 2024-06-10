@@ -23,7 +23,7 @@
 <body>
 <main>
     <!-- Container -->
-	<div class="container animatedParent animateOnce clearfix">
+	<div class="container animatedParent animateOnce clearfix" id="home">
 		<!-- PHP-Navigation -->
 		<!-- Navigation -->
 		<nav class="navigation animated fadeInDownShort clearfix">
@@ -34,7 +34,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="../php/move.php">協 助 搬 遷</a></li>
                         <li><a href="../php/roomate.php">配 對 室 友</a></li>
-                        <li><a href="#service3">評 分 室 友</a></li>
+                        <li><a href="../php/rating.php">評 分 室 友</a></li>
                         <li><a href="../php/report.php">檢 舉 鄰 居</a></li>
                         <li><a href="#service5">吧 啦 吧 啦</a></li>
                     </ul>
@@ -51,7 +51,7 @@
 		</nav>
 		<!-- Navigation (End) -->
         <!-- Home -->
-        <div class="home animated fadeInUpShort" id="home">
+        <div class="home animated fadeInUpShort">
             <div class="home-content">
                 <div class="title">
                     <div class="content-name">
@@ -67,9 +67,9 @@
         </div>
         <!-- Home (End) -->
         <!-- 介紹 Services 有哪些，跟一些服務的詳細資訊-->
-        <div class="service animated fadeInUpShort" id="service">
+        <div class="service animated fadeInUpShort">
             <div class="service-content">
-                <div class="service-title">
+                <div class="service-title" id="service">
                     <h1>服務</h1>
                 </div>
                 <div class="service-box">
@@ -77,11 +77,21 @@
                         <div class="service-box-title">
                             <h2>協助搬遷</h2>
                         </div>
-                        <div class="service-box-text">
-                            <p>我們提供搬遷服務，讓您可以輕鬆搬遷到新的宿舍。</p>
+                        <div class="service-box-pic">
+                            <img src="../pic/move.gif" alt="">
                         </div>
-                        <div class="service-box-link">
-                            <a href="../php/move.php">Learn More</a>
+                        <div class="service-box-text">
+                            <p>您可選擇提供搬遷服務或是尋找搬遷服務。</p>
+                            <ul class="service-intro">
+                                <li>選擇有空的時間</li>
+                                <li>選擇搬遷的物品</li>
+                                <li>選擇搬遷的地點</li>
+                                <li>選擇交通工具</li>
+                                <li>快來配對啦！</li>
+                            </ul>
+                            <div class="service-box-link">
+                                <a href="../php/move.php" alt="">Learn More</a>
+                            </div>
                         </div>
                     </div>
                     <div class="service-box-content">
@@ -89,21 +99,34 @@
                             <h2>配對室友</h2>
                         </div>
                         <div class="service-box-text">
-                            <p>我們提供室友配對服務，讓您可以找到適合的室友。</p>
+                            <p>我們提供室友配對服務，讓您可以找到合適的室友。</p>
+                            <ul class="service-intro">
+                                <li>選擇睡眠習慣</li>
+                                <li>選擇宿舍音量</li>
+                                <li>選擇住宿地點</li>
+                                <li>輸入其他要求</li>
+                                <li>快來配對啦！</li>
+                            </ul>
+                            <div class="service-box-link">
+                                <a href="../php/roomate.php">Learn More</a>
+                            </div>
                         </div>
-                        <div class="service-box-link">
-                            <a href="#service2">Learn More</a>
+                        <div class="service-box-pic">
+                            <img src="../pic/roomate.gif" alt="" class="roomate">
                         </div>
                     </div>
                     <div class="service-box-content">
                         <div class="service-box-title">
                             <h2>評分室友</h2>
                         </div>
-                        <div class="service-box-text">
-                            <p>我們提供評分室友服務，讓您可以幫室友品頭論足。</p>
+                        <div class="service-box-pic">
+                            <img src="../pic/rating.gif" alt="">
                         </div>
-                        <div class="service-box-link">
-                            <a href="#service3">Learn More</a>
+                        <div class="service-box-text">
+                            <p>我們提供室友評分服務，讓您可以評分室友。</p>
+                            <div class="service-box-link">
+                                <a href="../php/rating.php">Learn More</a>
+                            </div>
                         </div>
                     </div>
                     <div class="service-box-content">
@@ -111,21 +134,27 @@
                             <h2>檢舉鄰居</h2>
                         </div>
                         <div class="service-box-text">
-                            <p>我們提供檢舉鄰居服務，讓您可以舉報不良鄰居。</p>
+                            <p>我們提供檢舉鄰居服務，讓您可以檢舉鄰居。</p>
+                            <div class="service-box-link">
+                                <a href="../php/report.php">Learn More</a>
+                            </div>
                         </div>
-                        <div class="service-box-link">
-                            <a href="../php/report.php">Learn More</a>
+                        <div class="service-box-pic">
+                            <img src="../pic/report.gif" alt="">
                         </div>
                     </div>
                     <div class="service-box-content">
                         <div class="service-box-title">
                             <h2>吧啦吧啦</h2>
                         </div>
-                        <div class="service-box-text">
-                            <p>我們提供吧啦吧啦服務，讓您可以與其他宿舍生互動。</p>
+                        <div class="service-box-pic">
+                            <img src="../pic/chat.gif" alt="">
                         </div>
-                        <div class="service-box-link">
-                            <a href="#service5">Learn More</a>
+                        <div class="service-box-text">
+                            <p>我們提供吧啦吧啦服務，讓您可以吧啦吧啦。</p>
+                            <div class="service-box-link">
+                                <a href="#service5">Learn More</a>
+                            </div>
                         </div>
                     </div>
                 </div>

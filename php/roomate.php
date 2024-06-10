@@ -1,5 +1,31 @@
 <?php
     require_once dirname(__FILE__) . "/overlay_nav.php";
+
+    if (isset($_SESSION['ID'])) {
+
+        if ($conn->connect_error) {
+            die("Connection failed. $conn->connect_error");
+        }
+        $id = intval($_SESSION['ID']);
+        $getRoommate_sql = $conn->prepare("SELECT pr.ID, pr.Name, ph.photo_type, ph.photo_content FROM Dorm.Profile as pr, Dorm.photo as ph WHERE pr.ID = ph.id and pr.id != ? and pr.Room = (SELECT p.Room from Dorm.Profile as p WHERE p.ID = ?) and pr.Dorm = (SELECT p.Dorm from Dorm.Profile as p WHERE p.ID = ?)");
+        $getRoommate_sql->bind_param("iii", $id, $id, $id);
+        $getRoommate_sql->execute();
+        $getRoommate_sql->store_result();
+    
+        if ($getRoommate_sql->num_rows() > 0) {
+            $getRoommate_sql->bind_result($RID, $Rname, $Rtype, $Rphoto);
+    
+            $roommates = [];
+    
+            while ($getRoommate_sql->fetch()) {
+                $roommates[] = ['RID' => $RID, 'Rname' => $Rname, 'Rtype' => $Rtype, 'Rphoto' => base64_encode($Rphoto)];
+            }
+        }
+        $getRoommate_sql->close();
+    } else {
+        echo "<script>alert('請先登入');</script>";
+        echo "<script>window.location.href = 'login.php';</script>";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="zh-Hant">
@@ -187,7 +213,7 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question2" id="question3">
-            <label for="location" class="sleep">住哪：</label>
+            <label for="location" class="sleep">住 哪：</label>
             <div class="location-options">
                 <div class="box location-option" data-location="8舍">
                     <img src="../pic/8.jpg" alt="8舍">

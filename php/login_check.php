@@ -2,8 +2,8 @@
 session_start();
 require_once dirname(__FILE__) . "/connection.php";
 
-// 設定最長登入時間為5小時(以秒為單位)
-define('MAX_LOGIN_TIME', 5 * 60 * 60);
+// 設定最長登入時間為2小時(以秒為單位)
+define('MAX_LOGIN_TIME', 2 * 60 * 60);
 
 $query = [
   'ID' => htmlspecialchars($_POST["ID"]),
@@ -14,7 +14,7 @@ checkData($query['ID'], md5($query['Password'], false), $conn);
 
 function checkData($ID, $Password, $conn)
 {
-  $sql = "SELECT ID, Room FROM Dorm.Profile WHERE ID = '$ID' AND Password = '$Password'";
+  $sql = "SELECT ID, Name, Room FROM Dorm.Profile WHERE ID = '$ID' AND Password = '$Password'";
   $result = mysqli_query($conn, $sql);
 
   if (mysqli_num_rows($result) == 0) {
@@ -25,6 +25,7 @@ function checkData($ID, $Password, $conn)
     echo "登入成功";
     $_SESSION['login'] = true;
     $_SESSION['ID'] = $ID;
+    $_SESSION['name'] = $row['Name'];
     $_SESSION['room'] = $row['Room'];
 
     $_SESSION['LAST_ACTIVITY'] = time();

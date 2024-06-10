@@ -26,6 +26,12 @@ footer{
     bottom: 0;
     width: 100%;
 }
+.foot{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
 
 /*Navigation*/
 
@@ -128,6 +134,7 @@ footer{
 	gap: 120px;
 	margin-left: 170px;
 	margin-top: 50px;
+	margin-bottom: 800px;
 }
 .home-content h1 {
 	font-size: 4.5rem;
@@ -204,4 +211,51 @@ footer{
     font-size: 15px; 
     margin-left: 20px;
     transition: transform 0.5s ease; 
+}
+/* service-content design */
+.service-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	height: 70vh;
+	padding: 10px;
+	color: #576F72;
+	gap: 100px;
+	margin-left: 175px;
+	margin-top: 150px;
+	margin-bottom: 800px;
+}
+.service-box-content {
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	align-items: center;
+	text-align: left;
+	gap: 80px;
+}
+.service-box-link a{
+    color: #F0EBE3;
+    text-decoration: none;
+    background: #576F72;
+    padding: 5px 10px;
+    transition: 0.5s;
+}
+
+.service-box-link a:hover{
+    color: #576F72;
+    background: #E4DCCF;
+}
+.service-box-pic img{
+	width: 450px;
+	height: 350px;
+}
+.service-intro ul{
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+.service-intro li{
+	padding: 5px 0;
 }
