@@ -7,65 +7,60 @@ if (!isset($_SESSION['ID'])) {
     exit();
 }
 
+$full_matches = isset($_SESSION['full_matches']) ? $_SESSION['full_matches'] : [];
+$partial_matches = isset($_SESSION['partial_matches']) ? $_SESSION['partial_matches'] : [];
+
 // Include connection.php
 include 'connection.php';
+
+function fetchProfile($conn, $user_id) {
+    $sql_profile = "SELECT Name, FB, IG, Email FROM Profile WHERE ID = ?";
+    $stmt = $conn->prepare($sql_profile);
+    if ($stmt === false) {
+        die("Error preparing statement: " . $conn->error);
+    }
+    $stmt->bind_param("s", $user_id);
+    $stmt->execute();
+    $result_profile = $stmt->get_result();
+    $profile_data = $result_profile->fetch_assoc();
+    $stmt->close();
+    return $profile_data;
+}
+
+function fetchPhoto($conn, $user_id) {
+    $sql_photo = "SELECT photo_content FROM photo WHERE ID = ?";
+    $stmt = $conn->prepare($sql_photo);
+    if ($stmt === false) {
+        die("Error preparing statement: " . $conn->error);
+    }
+    $stmt->bind_param("s", $user_id);
+    $stmt->execute();
+    $result_photo = $stmt->get_result();
+    $photo_data = $result_photo->fetch_assoc();
+    $stmt->close();
+    return $photo_data;
+}
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// 獲取所有已提交的室友數據
-$sql = "SELECT * FROM Dorm.roomate";
-$result = $conn->query($sql);
-
-$roommates = [];
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $roommates[] = $row;
-    }
-} else {
-    echo "No roomate data found";
-    exit();
+// 獲取每個篩選結果的詳細信息
+foreach ($full_matches as &$match) {
+    $profile_data = fetchProfile($conn, $match['user_id']);
+    $photo_data = fetchPhoto($conn, $match['user_id']);
+    $match['profile'] = $profile_data;
+    $match['photo'] = $photo_data ? ['photo_content' => base64_encode($photo_data['photo_content'])] : ['photo_content' => ''];
 }
+unset($match);
 
-// 匹配條件：睡眠習慣、宿舍音量和住宿地點必須相同
-$matched_profiles = [];
-foreach ($roommates as $roommate) {
-    foreach ($roommates as $potential_match) {
-        if ($roommate['user_id'] != $potential_match['user_id'] &&
-            $roommate['sleep_habit'] == $potential_match['sleep_habit'] &&
-            $roommate['dorm_volume'] == $potential_match['dorm_volume'] &&
-            $roommate['location'] == $potential_match['location']) {
-            
-            $student_id = $roommate['user_id'];
-            $sql_profile = "SELECT Name, FB, IG, Email FROM Profile WHERE ID = '$student_id'";
-            $result_profile = $conn->query($sql_profile);
-            if ($result_profile === false) {
-                die("Error fetching profile data: " . $conn->error);
-            } else {
-                $profile_data = $result_profile->fetch_assoc();
-            }
-
-            $sql_photo = "SELECT photo_content FROM photo WHERE ID = '$student_id'";
-            $result_photo = $conn->query($sql_photo);
-            if ($result_photo === false) {
-                die("Error fetching photo data: " . $conn->error);
-            } else {
-                $photo_data = $result_photo->fetch_assoc();
-            }
-
-            // 確保照片數據被正確地base64編碼
-            if ($photo_data) {
-                $photo_data['photo_content'] = base64_encode($photo_data['photo_content']);
-                $matched_profiles[] = array_merge($roommate, ['profile' => $profile_data], ['photo' => $photo_data]);
-            } else {
-                // 處理缺少照片數據的情況
-                $matched_profiles[] = array_merge($roommate, ['profile' => $profile_data], ['photo' => ['photo_content' => '']]);
-            }
-        }
-    }
+foreach ($partial_matches as &$match) {
+    $profile_data = fetchProfile($conn, $match['user_id']);
+    $photo_data = fetchPhoto($conn, $match['user_id']);
+    $match['profile'] = $profile_data;
+    $match['photo'] = $photo_data ? ['photo_content' => base64_encode($photo_data['photo_content'])] : ['photo_content' => ''];
 }
+unset($match);
 
 $conn->close();
 ?>
@@ -75,7 +70,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>匹配結果</title>
+    <title>篩選結果</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
@@ -91,6 +86,11 @@ $conn->close();
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        .section-title {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #495057;
         }
         .profile {
             display: flex;
@@ -184,9 +184,11 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <h2>匹配到的室友：</h2>
-        <?php if (!empty($matched_profiles)): ?>
-            <?php foreach ($matched_profiles as $index => $match): ?>
+        <h2>篩選到的室友：</h2>
+
+        <div class="section-title">完全符合條件：</div>
+        <?php if (!empty($full_matches)): ?>
+            <?php foreach ($full_matches as $index => $match): ?>
                 <div class="profile" onclick='openModal(<?php echo json_encode($match); ?>)'>
                     <?php if ($match['photo']['photo_content']): ?>
                         <img src="data:image/jpeg;base64,<?php echo htmlspecialchars($match['photo']['photo_content']); ?>" alt="Avatar">
@@ -203,7 +205,29 @@ $conn->close();
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>No matches found.</p>
+            <p>No exact matches found.</p>
+        <?php endif; ?>
+
+        <div class="section-title">宿舍相同但其他條件不同：</div>
+        <?php if (!empty($partial_matches)): ?>
+            <?php foreach ($partial_matches as $index => $match): ?>
+                <div class="profile" onclick='openModal(<?php echo json_encode($match); ?>)'>
+                    <?php if ($match['photo']['photo_content']): ?>
+                        <img src="data:image/jpeg;base64,<?php echo htmlspecialchars($match['photo']['photo_content']); ?>" alt="Avatar">
+                    <?php else: ?>
+                        <img src="path/to/default/avatar.png" alt="Avatar"> <!-- 替換為預設的頭像圖片路徑 -->
+                    <?php endif; ?>
+                    <div class="profile-info">
+                        <strong>名字: <?php echo htmlspecialchars($match['profile']['Name']); ?></strong>
+                        <p>學號: <?php echo htmlspecialchars($match['user_id']); ?></p>
+                        <p>睡眠習慣: <?php echo htmlspecialchars($match['sleep_habit']); ?></p>
+                        <p>宿舍音量: <?php echo htmlspecialchars($match['dorm_volume']); ?></p>
+                        <p>住宿地點: <?php echo htmlspecialchars($match['location']); ?></p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No partial matches found.</p>
         <?php endif; ?>
     </div>
 
