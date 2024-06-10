@@ -34,7 +34,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="../php/move.php">協 助 搬 遷</a></li>
                         <li><a href="../php/roomate.php">配 對 室 友</a></li>
-                        <li><a href="#service3">評 分 室 友</a></li>
+                        <li><a href="../php/rating.php">評 分 室 友</a></li>
                         <li><a href="../php/report.php">檢 舉 鄰 居</a></li>
                         <li><a href="#service5">吧 啦 吧 啦</a></li>
                     </ul>
@@ -76,6 +76,8 @@
                     <div class="service-box-content">
                         <div class="service-box-title">
                             <h2>協助搬遷</h2>
+                        </div>
+                        <div class="service-box-pic">
                             <img src="../pic/move.gif" alt="">
                         </div>
                         <div class="service-box-text">
@@ -88,6 +90,8 @@
                     <div class="service-box-content">
                         <div class="service-box-title">
                             <h2>配對室友</h2>
+                        </div>
+                        <div class="service-box-pic">
                             <img src="../pic/roomate.gif" alt="">
                         </div>
                         <div class="service-box-text">
