@@ -24,7 +24,7 @@ if (isset($_SESSION['ID'])) {
     $getRoommate_sql->free_result();
     $getRoommate_sql->close();
 
-    $getRating_sql = $conn->prepare("SELECT Reviewee_ID, Reviewee_name, ROUND(AVG(Rating_one), 3), ROUND(AVG(Rating_two), 3), ROUND(AVG(Rating_three), 3), ROUND(AVG(Rating_four), 3), ROUND(AVG(Rating_five), 3) FROM Rating GROUP BY Reviewee_ID, Reviewee_name");
+    $getRating_sql = $conn->prepare("SELECT Reviewee_ID, Reviewee_name, ROUND(AVG(Rating_one), 2), ROUND(AVG(Rating_two), 2), ROUND(AVG(Rating_three), 2), ROUND(AVG(Rating_four), 2), ROUND(AVG(Rating_five), 2) FROM Rating GROUP BY Reviewee_ID, Reviewee_name");
     $getRating_sql->execute();
     $getRating_sql->store_result();
 
@@ -64,7 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $count_sql->store_result();
 
     if ($count_sql->num_rows) {
-
         $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ? , Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
         $update_sql->bind_param("dddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $review, $ReviewerID, $RevieweeID);
         $update_sql->execute();
@@ -77,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -111,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-md-3  block-container mx-5">
                             <div class="rect-block d-flex flex-column" onclick="submitStep1('b')">
                                 <img src="../pic/search.jpg" class="img-fluid rounded">
-                                <h3 class="mt-2">X</h3>
+                                <h3 class="mt-2">查看評分</h3>
                             </div>
                         </div>
                     </div>
@@ -157,16 +155,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <hr>
 
                 <div class="container-fluid w-75 justify-content-center align-items-center">
-                    <table class="table table-striped table-bordered">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">學號</th>
                                 <th scope="col">姓名</th>
-                                <th scope="col">衛生習慣(/5)</th>
-                                <th scope="col">生活作息(/5)</th>
-                                <th scope="col">安靜程度(/5)</th>
-                                <th scope="col">準時還錢(/5)</th>
-                                <th scope="col">人際互動(/5)</th>
+                                <th scope="col">衛生(/5)</th>
+                                <th scope="col">作息(/5)</th>
+                                <th scope="col">課業(/5)</th>
+                                <th scope="col">外貌(/5)</th>
+                                <th scope="col">人品(/5)</th>
+                                <th scope="col">財富(/5)</th>
                             </tr>
                         </thead>
                         <tbody>
