@@ -62,6 +62,9 @@
             font-size: 25px;
             color: #576F72;
         }
+        .box.selected p {
+            color: #F0EBE3;
+        }
         .question {
             display: none;
         }
@@ -95,12 +98,13 @@
             margin: 20px 0;
         }
         .location-options {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
             justify-content: center;
+            grid-template-columns: repeat(4, 2fr);
             gap: 20px;
-            margin: 20px 0;
-            max-width: 1000px;
+            margin: 10px 0;
+            width: 1000px;
+            height: 1000px;
         }
         .button {
             display: inline-block;
@@ -109,13 +113,14 @@
             font-size: 16px;
             text-decoration: none;
             border-radius: 5px;
-            background-color: #495057;
+            background-color: #576F72;
+            border: none;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
         .button:hover {
-            background-color: #343a40;
+            background-color: #99A799;
             transform: translateY(-2px);
         }
         .note {
