@@ -126,14 +126,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         echo 'icon: "error",';
         echo 'title: "ID already exists",';
         echo 'text: "Please use a different ID.",';
-        echo '});';
-        echo '</script>';
+        echo 'confirmButtonText: "OK",';
+        echo 'willClose: () => { window.location.href = "registration.php"; },';
+        echo '});';        echo '</script>';
     } else if (mysqli_num_rows($email_result) > 0) {
         echo '<script>';
         echo 'Swal.fire({';
         echo 'icon: "error",';
         echo 'title: "Email already exists",';
         echo 'text: "Please use a different Email.",';
+        echo 'confirmButtonText: "OK",';
+        echo 'willClose: () => { window.location.href = "registration.php"; },';
         echo '});';
         echo '</script>';
     } else {
@@ -374,6 +377,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         outline: none; 
     }
     textarea:focus {
+        border-color: #576F72; 
+        box-shadow: 0 0 5px rgba(87, 111, 114, 0.5);
+        outline: none; 
+    }
+    select:focus {
         border-color: #576F72; 
         box-shadow: 0 0 5px rgba(87, 111, 114, 0.5);
         outline: none; 
