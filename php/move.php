@@ -86,13 +86,13 @@
             font-size: 16px;
             text-decoration: none;
             border-radius: 5px;
-            background-color: #576F72;
+            background-color: #576f72a2;
             color: #F0EBE3;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
         }
         .box a:hover {
-            background-color: #99A799;
+            background-color: #576F72;
             transform: translateY(-2px);
         }
     </style>
