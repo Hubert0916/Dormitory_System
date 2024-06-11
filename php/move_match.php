@@ -170,7 +170,7 @@ foreach ($unique_matches as $match) {
         }
         h1 {
             text-align: center;
-            margin-top: 250px;
+            margin-top: 0px;
         }
         .profile {
             border: 1px solid #dee2e6;
@@ -257,6 +257,25 @@ foreach ($unique_matches as $match) {
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+        .return {
+            display: block;
+            margin-top: 50px;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            background-color: #576f72a2;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s; 
+            margin-left: auto;
+            margin-right: auto;
+            border: none;
+        }
+        .return:hover {
+            background-color: #576F72;
+            transform: translateY(-2px);
         }
     </style>
     <!-- Font Awesome for icons -->
