@@ -162,13 +162,16 @@ foreach ($unique_matches as $match) {
             height: 100vh;
         }
         .container {
-            width: 80%;
-            max-width: 1200px;
+            width: 100%;
             margin: auto;
             background-color: #FFF;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-top: 0px;
         }
         .profile {
             border: 1px solid #dee2e6;
@@ -189,6 +192,7 @@ foreach ($unique_matches as $match) {
             margin-right: 10px;
             width: 50px;
             height: 50px;
+            object-fit: cover;
         }
         .profile-info {
             flex: 1;
@@ -255,43 +259,32 @@ foreach ($unique_matches as $match) {
             text-decoration: none;
             cursor: pointer;
         }
-        .icon {
-            font-size: 30px;
-            margin: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .icon a {
-            color: #576F72;
-            text-decoration: none;
-        }
-        .icon a:hover {
-            color: #576F72a2;
-        }
-
-        
-        .container h1 {
-            font-size: 30px;        
-        }
-        .modal-content img {
+        .return {
             display: block;
-            margin: 0 auto 20px auto;
-            border-radius: 50%;
-            margin-top: 20px;
+            margin-top: 50px;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            background-color: #576f72a2;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s; 
+            margin-left: auto;
+            margin-right: auto;
+            border: none;
         }
-        .modal-content p {
-            text-align: left;
+        .return:hover {
+            background-color: #576F72;
+            transform: translateY(-2px);
         }
-
-
     </style>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>為您搜尋到以下結果</h1>
+        <h1>已為您搜尋到以下結果</h1>
         <?php if (!empty($matched_profiles)): ?>
             <?php foreach ($matched_profiles as $index => $match): ?>
                 <div class="profile" onclick='openModal(<?php echo json_encode($match); ?>)'>
@@ -304,14 +297,15 @@ foreach ($unique_matches as $match) {
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>No matches found.</p>
+            <p class="fail">目前沒有符合的搬家服務配對。</p>
+            <button onclick="window.location.href='move.php'" class="return">返回</button>
         <?php endif; ?>
     </div>
 
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="" alt="Avatar" style="width:100px; height:100px; border-radius:50%; margin-bottom:20px;">
+            <img id="modalImg" src="" alt="Avatar" style="width:100px; height:100px; border-radius:50%; margin-bottom:20px; object-fit: cover;">
             <p id="modalName"></p>
             <p id="modalServices"></p>
             <p id="modalLocation"></p>
