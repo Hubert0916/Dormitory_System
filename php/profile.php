@@ -186,12 +186,14 @@ $conn->close();
         </div>
 
     </section>
-
+    <br><br>
+    <hr>
+    <br>
     <section class="rating-seciton">
         <?php if (!empty($reviewee)) : ?>
             <div class="d-flex flex-column">
                 <div class="text-center">
-                    <h2>評分<h2>
+                    <h3>評分<h3>
                 </div>
                 <div class="d-flex flex-column container-fluid w-50">
                     <div class="d-flex justify-content-between">
@@ -245,8 +247,8 @@ $conn->close();
                     <br>
                     <?php if (!empty($reviews)) : ?>
                         <div>
-                            <h2 class="text-center">評論</h2>
-                            <table class="table table-bordered">
+                            <h3 class="text-center">評論</h3>
+                            <table class="table table-striped">
                                 <tbody>
                                     <?php foreach ($reviews as $review) : ?>
                                         <?php if (!empty($review['rv'])) : ?>
@@ -373,5 +375,16 @@ $conn->close();
 
     .left-side {
         text-align: left;
+    }
+    h3 {
+        font-size: 30px;
+        font-weight: bold;
+        color: #576F72;
+    }
+    p {
+        font-size: 20px;
+    }
+    td {
+        font-size: 20px;
     }
 </style>
