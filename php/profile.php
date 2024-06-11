@@ -167,33 +167,33 @@ $conn->close();
 
     <section class="lower-section">
         <div class="left-side">
-            <h2><span class="head">姓 名  :  </span><span class="chinese"> <?php echo $user_data['Name']; ?></span></h2>
+            <h2><span class="head">姓 名 : </span><span class="chinese"> <?php echo $user_data['Name']; ?></span></h2>
             <br>
-            <h2><span class="head">性 別  :  </span><span class="chinese"> <?php echo $user_data['Sex']; ?></span></h2>
+            <h2><span class="head">性 別 : </span><span class="chinese"> <?php echo $user_data['Sex']; ?></span></h2>
             <br>
-            <h2><span class="head">科 系  :  </span><span class="chinese"> <?php echo $user_data['Department']; ?></span></h2>
+            <h2><span class="head">科 系 : </span><span class="chinese"> <?php echo $user_data['Department']; ?></span></h2>
             <br>
-            <h2><span class="head">年 級  :  </span><span class="chinese"> <?php echo $user_data['Grade']; ?></span></h2>
+            <h2><span class="head">年 級 : </span><span class="chinese"> <?php echo $user_data['Grade']; ?></span></h2>
             <br>
-            <h2><span class="head">宿 舍  :  </span><span class="chinese"> <?php echo $user_data['Dorm']; ?></span></h2>
+            <h2><span class="head">宿 舍 : </span><span class="chinese"> <?php echo $user_data['Dorm']; ?></span></h2>
         </div>
         <div class="right-side">
             <h2<span class="ii">簡 介 . . . </span></h2>
-            <div class="intro">
-                <br>
-                <?php echo $user_data['Intro']; ?>
-            </div>
+                <div class="intro">
+                    <br>
+                    <?php echo $user_data['Intro']; ?>
+                </div>
         </div>
 
     </section>
 
     <section class="rating-seciton">
         <?php if (!empty($reviewee)) : ?>
-        <div class="d-flex flex-column">
-            <div class="text-center">
-                <h2>評分<h2>
-            </div>
-            <div class="d-flex flex-column container-fluid w-50">
+            <div class="d-flex flex-column">
+                <div class="text-center">
+                    <h2>評分<h2>
+                </div>
+                <div class="d-flex flex-column container-fluid w-50">
                     <div class="d-flex justify-content-between">
                         <div>
                             <p>衛生</p>
@@ -249,18 +249,20 @@ $conn->close();
                             <table class="table table-bordered">
                                 <tbody>
                                     <?php foreach ($reviews as $review) : ?>
-                                        <tr>
-                                            <td><?php echo $review['rv']; ?></td>
-                                        </tr>
+                                        <?php if (!empty($review['rv'])) : ?>
+                                            <tr>
+                                                <td><?php echo $review['rv']; ?></td>
+                                            </tr>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
-            </div>
+                </div>
             <?php endif; ?>
-                <?php else : ?>
-                <?php endif; ?>
-        </div>
+        <?php else : ?>
+        <?php endif; ?>
+            </div>
     </section>
 </body>
 
@@ -332,18 +334,21 @@ $conn->close();
         display: flex;
     }
 
-    .lower-section .left-side, .right-side {
+    .lower-section .left-side,
+    .right-side {
         flex: 1;
         font-size: 20px;
         margin-top: 70px;
     }
 
-    .left-side .head , .ii{
+    .left-side .head,
+    .ii {
         color: #576F72;
         margin-bottom: 20PX;
         font-weight: bold;
         font-size: 25px;
     }
+
     .left-side .head {
         margin-left: 400px;
     }
@@ -352,17 +357,20 @@ $conn->close();
         color: black;
         font-size: 20px;
     }
+
     .right-side {
         text-align: left;
         margin-left: 30px;
     }
+
     .right-side .intro {
         margin-left: 20px;
         margin-right: 200px;
         font-size: 20px;
-        color:black;
+        color: black;
         font-weight: normal;
     }
+
     .left-side {
         text-align: left;
     }
