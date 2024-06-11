@@ -15,7 +15,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
+            width: 100%;
             background-color: #F0EBE3;
         }
         .container {
@@ -23,7 +24,7 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            width: 80%;
+            width: 100%;
             max-width: 1000px;
             height: 100%;
             padding: 20px;
@@ -53,8 +54,9 @@
             display: flex;
         }
         .box {
-            width: 30%;
-            height: 80%;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
             padding: 20px;
@@ -69,7 +71,6 @@
             background-color: white;
             font-weight: bold;
         }
-
         .box:hover {
             transform: translateY(-10px);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -82,7 +83,7 @@
             object-fit: cover;
         }
         .box.selected {
-            border-color: #99A799;
+            background-color: #99A799;
         }
         .box p {
             margin-top: 10px;
@@ -91,24 +92,6 @@
         }
         .box.selected p {
             color: #F0EBE3;
-        }
-        .question1 {
-            display: none;
-        }
-        .question1.active {
-            display: block;
-        }
-        .question2 {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .question2.active {
-            display: flex;
         }
         table {
             border-collapse: collapse;
@@ -146,7 +129,6 @@
             height: 1000px;
         }
         .button {
-            display: inline-block;
             margin-top: 50px;
             padding: 10px 20px;
             font-size: 16px;
@@ -159,6 +141,7 @@
             display: block; 
             margin-left: auto;
             margin-right: auto;
+            border: none;
         }
         .button:hover {
             background-color: #576F72;
@@ -238,6 +221,14 @@
         textarea::placeholder {
             color: #999;
         }
+        .move {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            color: #576F72;
+            font-size: 25px;
+        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
@@ -246,7 +237,7 @@
 <body>
     <form id="questionForm" action="offer.php" method="POST">
         <div class="question1 active" id="question1">
-            <label for="time" class="move">你有空的時間：</label>
+            <label for="time" class="move">你 有 空 的 時 間：</label>
             <table>
                 <tr>
                     <th>時間</th>
@@ -293,7 +284,7 @@
             <button type="button" class="button" onclick="nextQuestion(1)">繼續</button>
         </div>
         <div class="question1" id="question2">
-            <label for="services" class="move">搬家資訊 (可複選)：</label>
+            <label for="services" class="move">搬 家 資 訊 (可複選)：</label>
             <div class="options-row">
                 <div class="box service-option" data-service="雜物">
                     <img src="../pic/thing.webp" alt="雜物">

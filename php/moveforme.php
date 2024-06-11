@@ -21,8 +21,8 @@
         }
         .container {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
             max-width: 1000px;
             height: 100%;
@@ -58,11 +58,11 @@
             object-fit: cover;
         }
         .box.selected {
-            background-color: #ADC2A9;
+            background-color: #99A799;
         }
         .box p {
             margin-top: 20px;
-            font-size: 25px;
+            font-size: 18px;
             color: #576F72;
         }
         .box.selected p {
@@ -70,9 +70,15 @@
         }
         .question {
             display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            margin-top: 250px;
         }
         .question.active {
-            display: block;
+            display: flex;
         }
         table {
             border-collapse: collapse;
@@ -101,7 +107,7 @@
             margin: 20px 0;
         }
         .button {
-            display: inline-block;
+            display: block;
             margin-top: 50px;
             padding: 10px 20px;
             font-size: 16px;
@@ -110,10 +116,10 @@
             background-color: #576f72a2;
             color: white;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            display: block; 
+            transition: background-color 0.3s, transform 0.3s; 
             margin-left: auto;
             margin-right: auto;
+            border: none;
         }
         .button:hover {
             background-color: #576F72;
@@ -124,20 +130,6 @@
             font-size: 14px;
             color: #6c757d;
             text-align: center;
-        }
-        .textarea-container {
-            margin-top: 20px;
-            width: 100%;
-            text-align: center;
-        }
-        .textarea-container textarea {
-            width: 80%;
-            height: 100px;
-            padding: 10px;
-            border: 2px solid #dee2e6;
-            border-radius: 10px;
-            font-size: 16px;
-            resize: none;
         }
         .move {
             display: flex;
@@ -153,7 +145,7 @@
 <body>
     <form id="questionForm" action="submit.php" method="post">
         <div class="question active" id="question1">
-            <label for="time" class="move">你有空的時間：</label>
+            <label for="time" class="move">你 有 空 的 時 間：</label>
             <table>
                 <tr>
                     <th>時間</th>
