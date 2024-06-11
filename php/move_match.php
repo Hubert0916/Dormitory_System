@@ -3,19 +3,16 @@ require_once 'connection.php';
 require_once dirname(__FILE__)."/session.php";
 require_once dirname(__FILE__)."/overlay_nav.php";
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Ensure session data is available
 if (!isset($_SESSION['ID'])) {
     die("Session not found.");
 }
 
 $sessionID = $_SESSION['ID'];
 
-// Fetch latest data from the "move_requests" table using session ID
 $sql1 = "SELECT mr.student_id, mr.available_time, mr.move_services, mr.transport_mode, MAX(mr.reg_date) as latest_date, dp.Dorm
         FROM move_requests mr
         JOIN Profile dp ON mr.student_id = dp.ID
@@ -128,21 +125,55 @@ foreach ($unique_matches as $match) {
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>已為您搜尋到以下結果:</title>
+    <title>Match</title>
     <style>
         body {
-            font-family: "Noto Serif TC", serif !important;
+            font-family: "Noto Serif TC", serif;
+            background-color: #F0EBE3;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: auto;
+            background-color: #FFF;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        body {
+            font-family: "Noto Serif TC", serif;
+            background-color: #F0EBE3;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
         }
         .container {
             width: 100%;
             margin: auto;
+            background-color: #FFF;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         h1 {
             text-align: center;
             margin-top: 250px;
         }
         .profile {
-            border: 1px solid #ddd;
+            border: 1px solid #dee2e6;
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 5px;
@@ -197,6 +228,7 @@ foreach ($unique_matches as $match) {
             word-wrap: break-word;
             overflow-wrap: break-word;
             animation: bounceIn 0.5s; /* Add bounce animation */
+            text-align: center; /* Center align content */
         }
         @keyframes bounceIn {
             0% {
@@ -221,33 +253,10 @@ foreach ($unique_matches as $match) {
             font-weight: bold;
             cursor: pointer;
         }
-        .close:hover,
-        .close:focus {
+        .close:hover, .close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
-        }
-        .fail {
-            text-align: center;
-            margin-top: 50px;
-        }
-        .return {
-            display: block;
-            margin-top: 50px;
-            margin-left: 47%;
-            padding: 10px 20px;
-            font-size: 16px;
-            text-decoration: none;
-            border-radius: 5px;
-            background-color: #576F72;
-            border: none;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .return:hover {
-            background-color: #99A799;
-            transform: translateY(-2px);
         }
     </style>
     <!-- Font Awesome for icons -->
@@ -255,15 +264,15 @@ foreach ($unique_matches as $match) {
 </head>
 <body>
     <div class="container">
-        <h1>已為您搜尋到以下結果:</h1>
+        <h1>已為您搜尋到以下結果</h1>
         <?php if (!empty($matched_profiles)): ?>
             <?php foreach ($matched_profiles as $index => $match): ?>
                 <div class="profile" onclick='openModal(<?php echo json_encode($match); ?>)'>
                     <img src="data:image/jpeg;base64,<?php echo htmlspecialchars($match['photo']['photo_content']); ?>" alt="Avatar">
                     <div class="profile-info">
-                        <strong>名字: <?php echo htmlspecialchars($match['profile']['Name']); ?></strong>
-                        <p>搬家服務: <?php echo htmlspecialchars($match['幫你搬']['move_services']); ?></p>
-                        <p>起始地點: <?php echo htmlspecialchars($match['幫你搬']['start_location']); ?></p>
+                        <strong>名字 : <?php echo htmlspecialchars($match['profile']['Name']); ?></strong>
+                        <p>搬家服務 : <?php echo htmlspecialchars($match['幫你搬']['move_services']); ?></p>
+                        <p>起始地點 : <?php echo htmlspecialchars($match['幫你搬']['start_location']); ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -273,7 +282,6 @@ foreach ($unique_matches as $match) {
         <?php endif; ?>
     </div>
 
-    <!-- The Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -283,41 +291,74 @@ foreach ($unique_matches as $match) {
             <p id="modalLocation"></p>
             <p id="modalTime"></p>
             <p id="modalNote"></p>
-            <div style="display: flex; gap: 10px;">
-                <a id="modalFB" href="" target="_blank"><i class="fab fa-facebook" style="font-size: 30px; color: #3b5998;"></i></a>
-                <a id="modalIG" href="" target="_blank"><i class="fab fa-instagram" style="font-size: 30px; color: #E1306C;"></i></a>
-                <a id="modalEmail" href="" target="_blank"><i class="fas fa-envelope" style="font-size: 30px; color: #D44638;"></i></a>
+            <div class="icon">
+                <a id="modalFB" href="" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a id="modalIG" href="" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a id="modalEmail" href="" target="_blank"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
     </div>
 
     <script>
         function openModal(match) {
-            if (match && match.photo && match.photo.photo_content) {
-                document.getElementById('modalImg').src = "data:image/jpeg;base64," + match.photo.photo_content;
-            } else {
-                document.getElementById('modalImg').src = ""; // Default or placeholder image
-            }
+    if (match && match.photo && match.photo.photo_content) {
+        document.getElementById('modalImg').src = "data:image/jpeg;base64," + match.photo.photo_content;
+    } else {
+        document.getElementById('modalImg').src = ""; // Default or placeholder image
+    }
 
-            document.getElementById('modalName').textContent = "名字: " + (match && match.profile ? match.profile.Name : '');
-            document.getElementById('modalServices').textContent = "搬家服務: " + (match && match['幫你搬'] ? match['幫你搬'].move_services : '');
-            document.getElementById('modalLocation').textContent = "起始地點: " + (match && match['幫你搬'] ? match['幫你搬'].start_location : '');
-            document.getElementById('modalTime').textContent = "可用時間: " + (match && match['幫你搬'] ? match['幫你搬'].available_time : '');
-            document.getElementById('modalNote').textContent = "備註: " + (match && match['幫你搬'] ? match['幫你搬'].note : '');
+    document.getElementById('modalName').textContent = "名字 : " + (match && match.profile ? match.profile.Name : '');
+    document.getElementById('modalServices').textContent = "搬家服務 : " + (match && match['幫你搬'] ? match['幫你搬'].move_services : '');
+    document.getElementById('modalLocation').textContent = "起始地點 : " + (match && match['幫你搬'] ? match['幫你搬'].start_location : '');
+    document.getElementById('modalTime').textContent = "可用時間 : " + translateAvailableTime(match && match['幫你搬'] ? match['幫你搬'].available_time : '');
+    document.getElementById('modalNote').textContent = "備註 : " + (match && match['幫你搬'] ? match['幫你搬'].note : '');
 
-            // Assuming these fields are available in your Profile table
-            if (match && match.profile) {
-                document.getElementById('modalFB').href = match.profile.FB;
-                document.getElementById('modalIG').href = match.profile.IG;
-                document.getElementById('modalEmail').href = "mailto:" + match.profile.Email;
-            }
+    // Assuming these fields are available in your Profile table
+    if (match && match.profile) {
+        document.getElementById('modalFB').href = match.profile.FB;
+        document.getElementById('modalIG').href = match.profile.IG;
+        document.getElementById('modalEmail').href = "mailto:" + match.profile.Email;
+    }
 
-            document.getElementById('myModal').style.display = "block";
-        }
+    document.getElementById('myModal').style.display = "block";
+    }
 
-        function closeModal() {
-            document.getElementById('myModal').style.display = "none";
-        }
+    function closeModal() {
+        document.getElementById('myModal').style.display = "none";
+    }
+
+    // Function to translate available time to Chinese
+    function translateAvailableTime(timeString) {
+        const timeMap = {
+            "mon_morning": "星期一早上",
+            "mon_afternoon": "星期一下午",
+            "mon_evening": "星期一晚上",
+            "tue_morning": "星期二早上",
+            "tue_afternoon": "星期二下午",
+            "tue_evening": "星期二晚上",
+            "wed_morning": "星期三早上",
+            "wed_afternoon": "星期三下午",
+            "wed_evening": "星期三晚上",
+            "thu_morning": "星期四早上",
+            "thu_afternoon": "星期四下午",
+            "thu_evening": "星期四晚上",
+            "fri_morning": "星期五早上",
+            "fri_afternoon": "星期五下午",
+            "fri_evening": "星期五晚上",
+            "sat_morning": "星期六早上",
+            "sat_afternoon": "星期六下午",
+            "sat_evening": "星期六晚上",
+            "sun_morning": "星期天早上",
+            "sun_afternoon": "星期天下午",
+            "sun_evening": "星期天晚上"
+        };
+
+        if (!timeString) return '';
+
+        const times = timeString.split(',');
+        return times.map(time => timeMap[time] || time).join('、');
+    }
+
     </script>
 </body>
 </html>

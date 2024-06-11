@@ -11,19 +11,19 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #F0EBE3;
-            font-family: "Noto Serif TC", serif !important;
+            font-family: "Noto Serif TC", serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
-            width: 100%;
+            height: 100vh;
+            background-color: #F0EBE3;
         }
         .container {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            width: 100%;
+            gap: 20px;
+            width: 80%;
             max-width: 1000px;
             height: 100%;
             padding: 20px;
@@ -53,9 +53,8 @@
             display: flex;
         }
         .box {
-            width: 100%;
-            height: 100%;
-            background-color: #ffffff;
+            width: 30%;
+            height: 80%;
             border: 2px solid #dee2e6;
             border-radius: 10px;
             padding: 20px;
@@ -67,6 +66,8 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            background-color: white;
+            font-weight: bold;
         }
 
         .box:hover {
@@ -81,7 +82,7 @@
             object-fit: cover;
         }
         .box.selected {
-            background-color: #99A799;
+            border-color: #99A799;
         }
         .box p {
             margin-top: 10px;
@@ -90,6 +91,24 @@
         }
         .box.selected p {
             color: #F0EBE3;
+        }
+        .question1 {
+            display: none;
+        }
+        .question1.active {
+            display: block;
+        }
+        .question2 {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .question2.active {
+            display: flex;
         }
         table {
             border-collapse: collapse;
@@ -128,19 +147,21 @@
         }
         .button {
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 50px;
             padding: 10px 20px;
             font-size: 16px;
             text-decoration: none;
             border-radius: 5px;
-            background-color: #576F72;
-            border: none;
+            background-color: #576f72a2;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
+            display: block; 
+            margin-left: auto;
+            margin-right: auto;
         }
         .button:hover {
-            background-color: #99A799;
+            background-color: #576F72;
             transform: translateY(-2px);
         }
         .note {
@@ -151,36 +172,81 @@
         }
         .textarea-container {
             width: 100%;
-            margin-top: 20px;
+            max-width: 600px;
+        }
+        .textarea-container textarea {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-family: "Noto Serif TC", serif;
+            font-size: 15px;
+            resize: none;   
+            text-align: left;
+        }
+        .selectable.selected {
+            background-color: #576f72a2;
+        }
+        .question.active label {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            display: block;
+            text-align: center;
+        }
+        .question.active table {
+            margin: 0 auto;
+            height: 300px;
+            width: 500px;
+            font-size: large;
+            font-weight: bold;
+        }
+        .question.active th, .question.active td {
+            padding: 10px;
+            border: 1px solid #576F72;
+        }
+        .question.active th {
+            background-color: #576F72;
+            color: white;
+        }
+        .question.active .selectable.selected {
+            background-color: #576f72a2;
+        }
+        .note {
+            font-size: 16px;
+            font-weight: bold;
+            color: #495057;
+            margin-top: 30px;
+            text-align: center;
+            font-family: "Noto Serif TC", serif;        
+        }
+        .textarea-container {
+            margin: 20px 0;
         }
         textarea {
             width: 100%;
-            height: 100px;
+            height: 150px;
             padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #576F72;
+            font-family: "Noto Serif TC", serif;
             font-size: 16px;
-            border-radius: 5px;
-            border: 2px solid #dee2e6;
+            resize: none;
+            box-sizing: border-box;
         }
-        textarea:focus {
-            border-color: #99A799;
-            outline: none;
-        }
-        .move {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-            color: #576F72;
-            font-size: 25px;
+        textarea::placeholder {
+            color: #999;
         }
     </style>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
     </script>
 </head>
 <body>
     <form id="questionForm" action="offer.php" method="POST">
         <div class="question1 active" id="question1">
-            <label for="time" class="move">你 有 空 的 時 間：</label>
+            <label for="time" class="move">你有空的時間：</label>
             <table>
                 <tr>
                     <th>時間</th>
@@ -227,7 +293,7 @@
             <button type="button" class="button" onclick="nextQuestion(1)">繼續</button>
         </div>
         <div class="question1" id="question2">
-            <label for="services" class="move">搬 家 資 訊 (可複選)：</label>
+            <label for="services" class="move">搬家資訊 (可複選)：</label>
             <div class="options-row">
                 <div class="box service-option" data-service="雜物">
                     <img src="../pic/thing.webp" alt="雜物">

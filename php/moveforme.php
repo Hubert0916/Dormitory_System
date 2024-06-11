@@ -21,8 +21,8 @@
         }
         .container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            gap: 20px;
             width: 100%;
             max-width: 1000px;
             height: 100%;
@@ -43,6 +43,8 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            background-color: white;
+            font-weight: bold;
         }
         .box:hover {
             transform: translateY(-10px);
@@ -56,7 +58,7 @@
             object-fit: cover;
         }
         .box.selected {
-            background-color: #99A799;
+            background-color: #ADC2A9;
         }
         .box p {
             margin-top: 20px;
@@ -68,15 +70,9 @@
         }
         .question {
             display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            margin-top: 250px;
         }
         .question.active {
-            display: flex;
+            display: block;
         }
         table {
             border-collapse: collapse;
@@ -106,19 +102,21 @@
         }
         .button {
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 50px;
             padding: 10px 20px;
             font-size: 16px;
             text-decoration: none;
             border-radius: 5px;
-            background-color: #576F72;
-            border: none;
+            background-color: #576f72a2;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
+            display: block; 
+            margin-left: auto;
+            margin-right: auto;
         }
         .button:hover {
-            background-color: #99A799;
+            background-color: #576F72;
             transform: translateY(-2px);
         }
         .note {
@@ -126,6 +124,20 @@
             font-size: 14px;
             color: #6c757d;
             text-align: center;
+        }
+        .textarea-container {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .textarea-container textarea {
+            width: 80%;
+            height: 100px;
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 16px;
+            resize: none;
         }
         .move {
             display: flex;
@@ -136,11 +148,12 @@
             font-size: 25px;
         }
     </style>
+
 </head>
 <body>
     <form id="questionForm" action="submit.php" method="post">
         <div class="question active" id="question1">
-            <label for="time" class="move">你 有 空 的 時 間：</label>
+            <label for="time" class="move">你有空的時間：</label>
             <table>
                 <tr>
                     <th>時間</th>

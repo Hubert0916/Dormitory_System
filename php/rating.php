@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($count_sql->num_rows) {
         $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ?, Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Rating_six = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
-        $update_sql->bind_param("ddddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $rating6 ,$review, $ReviewerID, $RevieweeID);
+        $update_sql->bind_param("ddddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review, $ReviewerID, $RevieweeID);
         $update_sql->execute();
         $update_sql->close();
     } else {
@@ -86,12 +86,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roommate Rating</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="../css/rating.css">
 </head>
 
 <body>
-    <form id="ratingForm" method="post" action="rating.php">
+    <form id="ratingForm" method="post" action="rating.php" onkeydown="return event.key != 'Enter';">
         <div class="container-fluid mx-3 my-5">
             <div class="step d-flex flex-column" id="step1">
                 <div class="text-center">
@@ -121,18 +122,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="container-fluid mx-3 my-5">
             <div class="step d-flex d-none flex-column" id="step2a">
-                <div class="text-center">
+                <div class="container-fluid mx-3 my-2 text-center">
                     <h2>哪個室友...<h2>
                 </div>
                 <hr>
-                <div class="container-fluid p-5">
+                <div class="container-fluid mx-3 my-2">
                     <input type="hidden" name="chooseRID" id="chooseRID">
                     <input type="hidden" name="chooseRname" id="chooseRname">
                     <?php if (!empty($roommates)) : ?>
                         <div class="d-flex">
                             <?php foreach ($roommates as $roommate) : ?>
-                                <div class="rect-block d-flex flex-column justify-content-center align-items-center mx-5">
-                                    <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>" onclick="submitStep2a('<?php echo $roommate['RID']; ?>', '<?php echo $roommate['Rname']; ?>');" />
+                                <div class="rect-block d-flex flex-column justify-content-center align-items-center mx-5" onclick="submitStep2a('<?php echo $roommate['RID']; ?>', '<?php echo $roommate['Rname']; ?>');">
+                                    <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>">
                                     <br>
                                     <p><?php echo "ID : " . $roommate['RID']; ?></p>
                                     <p><?php echo "Name : " . $roommate['Rname']; ?></p>
@@ -145,6 +146,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     <?php endif; ?>
                 </div>
+                <div>
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-previous mt-2" onclick="backtoStep1('a');"><i class="bi bi-arrow-left"></i>上一步</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -154,9 +160,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h2>評分資訊<h2>
                 </div>
                 <hr>
+                <div class="container-fluid w-75 my-3">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <button type="button" class="btn btn-previous" onclick="backtoStep1('b');"><i class="bi bi-arrow-left"></i>上一步</button>
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" id="searchInput" onkeyup="filterTable()" placeholder="Search for Reviewee ID">
+                        </div>
+                    </div>
+                </div>
 
                 <div class="container-fluid w-75 justify-content-center align-items-center">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="ratingTable">
                         <thead>
                             <tr>
                                 <th scope="col">學號</th>
@@ -269,12 +285,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="form-group">
-                        <label for="comments">評論</label>
                         <textarea id="comments" class="form-control" name="txtcomment" rows="4" placeholder="輸入您的留言"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">提交</button>
-
+                    <button type="button" class="btn btn-previous mt-2" onclick="backtoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
                 </div>
             </div>
         </div>
