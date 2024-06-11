@@ -72,6 +72,12 @@
 		<div class="function-bar-arrow" id="back-to-top">
 			<img src="../pic/arrow.png" alt="top">
 		</div>
+		<!-- 新增登入後的頭像 -->
+		<?php if (isset($_SESSION['ID'])): ?>
+			<div class="function-bar-avatar">
+				<img src="data:image/jpeg;base64,<?php echo base64_encode($_SESSION['Photo']); ?>" alt="Avatar">
+			</div>
+		<?php endif; ?>
 		<!-- Function Bar (End) -->
 	</div>
 </div>
