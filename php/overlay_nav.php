@@ -1,35 +1,6 @@
 <?php
     require_once dirname(__FILE__) . "/session.php";
 	require_once dirname(__FILE__) . "/connection.php";
-
-	if (isset($_SESSION['ID'])) {
-		$id = $_SESSION['ID'];
-		$getProfile_sql = $conn->prepare("SELECT * FROM Dorm.Profile WHERE ID = ?");
-		$getProfile_sql->bind_param("i", $id);
-		$getProfile_sql->execute();
-		$result = $getProfile_sql->get_result();
-	
-		if ($result->num_rows) {
-			$row = $result->fetch_assoc();
-			$user_data = $row;
-	
-			$getPhoto_sql = $conn->prepare("SELECT photo_type, photo_content FROM Dorm.photo WHERE ID = ?");
-			$getPhoto_sql->bind_param("i", $id);
-			$getPhoto_sql->execute();
-			$result = $getPhoto_sql->get_result();
-	
-			if ($result->num_rows) {
-				$row = $result->fetch_assoc();
-				$user_data['photo'] = $row;
-			}
-	
-			$getPhoto_sql->free_result();
-			$getPhoto_sql->close();
-		}
-		$getProfile_sql->free_result();
-		$getProfile_sql->close();
-	
-	}
 ?>
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -100,14 +71,6 @@
 		</div>	
 		<div class="function-bar-arrow" id="back-to-top">
 			<img src="../pic/arrow.png" alt="top">
-		</div>
-		<!-- 新增登入後的頭像 -->
-		<div class="profile-icon">
-		<?php if (isset($_SESSION['ID'])): ?>
-			<img src="data:image/jpeg;base64,<?php echo base64_encode($user_data['photo']['photo_content']); ?>" alt="Profile Photo">
-		<?php else: ?>
-			<img src="../pic/profile-who.webp" alt="Profile Photo">
-		<?php endif; ?>
 		</div>
 		<!-- Function Bar (End) -->
 	</div>
