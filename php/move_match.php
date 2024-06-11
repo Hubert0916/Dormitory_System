@@ -134,8 +134,12 @@ foreach ($unique_matches as $match) {
             font-family: "Noto Serif TC", serif !important;
         }
         .container {
-            width: 80%;
+            width: 100%;
             margin: auto;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 250px;
         }
         .profile {
             border: 1px solid #ddd;
@@ -156,6 +160,7 @@ foreach ($unique_matches as $match) {
             margin-right: 10px;
             width: 50px;
             height: 50px;
+            object-fit: cover;
         }
         .profile-info {
             flex: 1;
@@ -222,13 +227,35 @@ foreach ($unique_matches as $match) {
             text-decoration: none;
             cursor: pointer;
         }
+        .fail {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .return {
+            display: block;
+            margin-top: 50px;
+            margin-left: 47%;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            background-color: #576F72;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .return:hover {
+            background-color: #99A799;
+            transform: translateY(-2px);
+        }
     </style>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>已為您搜尋到以下結果</h1>
+        <h1>已為您搜尋到以下結果:</h1>
         <?php if (!empty($matched_profiles)): ?>
             <?php foreach ($matched_profiles as $index => $match): ?>
                 <div class="profile" onclick='openModal(<?php echo json_encode($match); ?>)'>
@@ -241,7 +268,8 @@ foreach ($unique_matches as $match) {
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>No matches found.</p>
+            <p class="fail">目前沒有符合的搬家服務配對。</p>
+            <button onclick="window.location.href='move.php'" class="return">返回</button>
         <?php endif; ?>
     </div>
 
@@ -249,7 +277,7 @@ foreach ($unique_matches as $match) {
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="" alt="Avatar" style="width:100px; height:100px; border-radius:50%; margin-bottom:20px;">
+            <img id="modalImg" src="" alt="Avatar" style="width:100px; height:100px; border-radius:50%; margin-bottom:20px; object-fit: cover;">
             <p id="modalName"></p>
             <p id="modalServices"></p>
             <p id="modalLocation"></p>

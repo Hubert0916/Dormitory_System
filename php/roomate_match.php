@@ -115,6 +115,7 @@ $conn->close();
             height: 100px;
             border-radius: 50%;
             margin-right: 20px;
+            object-fit: cover;
         }
         .profile-info {
             flex: 1;
@@ -159,6 +160,7 @@ $conn->close();
             height: 100px;
             border-radius: 50%;
             margin-bottom: 20px;
+            object-fit: cover;
         }
         .modal p {
             margin: 10px 0;
@@ -196,7 +198,7 @@ $conn->close();
                         <img src="path/to/default/avatar.png" alt="Avatar"> <!-- 替換為預設的頭像圖片路徑 -->
                     <?php endif; ?>
                     <div class="profile-info">
-                        <strong>名字: <?php echo htmlspecialchars($match['profile']['Name']); ?></strong>
+                        <p>名字: <?php echo htmlspecialchars($match['profile']['Name']); ?></p>
                         <p>學號: <?php echo htmlspecialchars($match['user_id']); ?></p>
                         <p>睡眠習慣: <?php echo htmlspecialchars($match['sleep_habit']); ?></p>
                         <p>宿舍音量: <?php echo htmlspecialchars($match['dorm_volume']); ?></p>
@@ -218,7 +220,7 @@ $conn->close();
                         <img src="path/to/default/avatar.png" alt="Avatar"> <!-- 替換為預設的頭像圖片路徑 -->
                     <?php endif; ?>
                     <div class="profile-info">
-                        <strong>名字: <?php echo htmlspecialchars($match['profile']['Name']); ?></strong>
+                        <p>名字: <?php echo htmlspecialchars($match['profile']['Name']); ?></p>
                         <p>學號: <?php echo htmlspecialchars($match['user_id']); ?></p>
                         <p>睡眠習慣: <?php echo htmlspecialchars($match['sleep_habit']); ?></p>
                         <p>宿舍音量: <?php echo htmlspecialchars($match['dorm_volume']); ?></p>

@@ -58,7 +58,7 @@
             background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -81,7 +81,7 @@
             object-fit: cover;
         }
         .box.selected {
-            border-color: #99A799;
+            background-color: #99A799;
         }
         .box p {
             margin-top: 10px;
@@ -91,30 +91,12 @@
         .box.selected p {
             color: #F0EBE3;
         }
-        .question1 {
-            display: none;
-        }
-        .question1.active {
-            display: block;
-        }
-        .question2 {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .question2.active {
-            display: flex;
-        }
         table {
             border-collapse: collapse;
             width: 140%;
             height: 40%;
             font-size: 25px;
-            margin-left: -20%;
+            margin-left: -1%;
         }
         table, th, td {
             border: 2px solid #576F72;
@@ -198,7 +180,7 @@
 <body>
     <form id="questionForm" action="offer.php" method="POST">
         <div class="question1 active" id="question1">
-            <label for="time" class="move">你有空的時間：</label>
+            <label for="time" class="move">你 有 空 的 時 間：</label>
             <table>
                 <tr>
                     <th>時間</th>
@@ -245,7 +227,7 @@
             <button type="button" class="button" onclick="nextQuestion(1)">繼續</button>
         </div>
         <div class="question1" id="question2">
-            <label for="services" class="move">搬家資訊 (可複選)：</label>
+            <label for="services" class="move">搬 家 資 訊 (可複選)：</label>
             <div class="options-row">
                 <div class="box service-option" data-service="雜物">
                     <img src="../pic/thing.webp" alt="雜物">
@@ -264,7 +246,7 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question1" id="question3">
-            <label for="transport" class="move">交通工具：</label>
+            <label for="transport" class="move">交 通 工 具：</label>
             <div class="options-row">
                 <div class="box transport-option" data-transport="汽車">
                     <img src="../pic/car.webp" alt="汽車">
@@ -286,7 +268,7 @@
             <button type="button" class="button" onclick="nextQuestion(3)">下一題</button>
         </div>
         <div class="question2" id="question4">
-            <label for="location" class="move">開始的地點：</label>
+            <label for="location" class="move">開 始 的 地 點：</label>
             <div class="location-options">
                 <div class="box location-option" data-location="8舍">
                     <img src="../pic/8.jpg" alt="8舍">
@@ -341,7 +323,7 @@
             <button type="button" class="button" onclick="nextQuestion(4)">下一題</button>
         </div>
         <div class="question1" id="question5">
-            <label for="notes" class="move">其他特殊需求：</label>
+            <label for="notes" class="move">其 他 特 殊 需 求：</label>
             <div class="textarea-container">
                 <textarea id="notes" name="notes" placeholder="請在此輸入其他特殊需求..."></textarea>
             </div>

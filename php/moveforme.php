@@ -21,11 +21,12 @@
         }
         .container {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
             max-width: 1000px;
             height: 100%;
+            padding: 20px;
         }
         .box {
             width: 100%;
@@ -55,7 +56,7 @@
             object-fit: cover;
         }
         .box.selected {
-            background-color: #ADC2A9;
+            background-color: #99A799;
         }
         .box p {
             margin-top: 20px;
@@ -67,16 +68,22 @@
         }
         .question {
             display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            margin-top: 250px;
         }
         .question.active {
-            display: block;
+            display: flex;
         }
         table {
             border-collapse: collapse;
             width: 140%;
             height: 40%;
             font-size: 25px;
-            margin-left: -20%;
+            margin-left: -1%;
         }
         table, th, td {
             border: 2px solid #576F72;
@@ -96,15 +103,6 @@
             justify-content: center;
             gap: 20px;
             margin: 20px 0;
-        }
-        .location-options {
-            display: grid;
-            justify-content: center;
-            grid-template-columns: repeat(4, 2fr);
-            gap: 20px;
-            margin: 10px 0;
-            width: 1000px;
-            height: 1000px;
         }
         .button {
             display: inline-block;
@@ -129,20 +127,6 @@
             color: #6c757d;
             text-align: center;
         }
-        .textarea-container {
-            margin-top: 20px;
-            width: 100%;
-            text-align: center;
-        }
-        .textarea-container textarea {
-            width: 80%;
-            height: 100px;
-            padding: 10px;
-            border: 2px solid #dee2e6;
-            border-radius: 10px;
-            font-size: 16px;
-            resize: none;
-        }
         .move {
             display: flex;
             justify-content: center;
@@ -156,7 +140,7 @@
 <body>
     <form id="questionForm" action="submit.php" method="post">
         <div class="question active" id="question1">
-            <label for="time" class="move">你有空的時間：</label>
+            <label for="time" class="move">你 有 空 的 時 間：</label>
             <table>
                 <tr>
                     <th>時間</th>
@@ -203,7 +187,7 @@
             <button type="button" class="button" onclick="nextQuestion(1)">繼續</button>
         </div>
         <div class="question" id="question2">
-            <label for="services" class="move">搬家資訊 (可複選)：</label>
+            <label for="services" class="move">搬 家 資 訊 (可複選)：</label>
             <div class="options-row">
                 <div class="box service-option" data-service="雜物">
                     <img src="../pic/thing.webp" alt="雜物">
@@ -222,7 +206,7 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
-            <label for="transport" class="move">你想用什麼交通工具？</label>
+            <label for="transport" class="move">你 想 用 什 麼 交 通 工 具？</label>
             <div class="options-row">
                 <div class="box transport-option" data-transport="汽車">
                     <img src="../pic/car.webp" alt="汽車">

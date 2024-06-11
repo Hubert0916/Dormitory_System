@@ -1,5 +1,6 @@
 <?php
     require_once dirname(__FILE__) . "/session.php";
+	require_once dirname(__FILE__) . "/connection.php";
 ?>
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
