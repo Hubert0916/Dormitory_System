@@ -229,7 +229,16 @@ foreach ($unique_matches as $match) {
             word-wrap: break-word;
             overflow-wrap: break-word;
             animation: bounceIn 0.5s; /* Add bounce animation */
-            text-align: center; /* Center align content */
+            text-align: left;
+        }
+        .modal-content img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+            margin-left: auto;
+            margin-right: auto;
         }
         @keyframes bounceIn {
             0% {
@@ -278,6 +287,27 @@ foreach ($unique_matches as $match) {
             background-color: #576F72;
             transform: translateY(-2px);
         }
+    
+        .icon {
+            display: flex;
+            gap: 15px;
+            flex-direction: row;   
+            justify-content: center;
+        }
+        .icon a {
+            color: #576F72;
+            text-decoration: none;
+        }
+        .icon svg {
+            width: 17px;
+            height: 17px;
+            color: #576F72;
+        }
+        .icon a:hover {
+            color: #576F722a;
+        }
+
+
     </style>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
