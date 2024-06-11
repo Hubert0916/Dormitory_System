@@ -28,20 +28,21 @@ if (isset($_SESSION['ID'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $Dorm = htmlspecialchars($_POST["imageChoice"]);
+
     if (isset($_POST["room"])) {
         $Room = $_POST["room"];
     } else if (!empty($_POST["chooserm"])) {
         $RoommateID = htmlspecialchars($_POST["chooserm"]);
         $Room = htmlspecialchars($_SESSION["room"]);
     }
+
     $Reason = htmlspecialchars($_POST["Radios"]);
-    if (isset($_POST["other"])) {
-        $other = htmlspecialchars($_POST["other"]);
-    }
+
+    $other = htmlspecialchars($_POST["txtcomment_a"] . $_POST["txtcomment_a"] . $_POST["txtcomment_c"]);
 
     if (isset($RoommateID)) {
-        $report_sql = $conn->prepare("INSERT INTO Dorm.Report (Dormitory, Roommate_ID, Room, Reason, Note)  VALUES (?, ?, ?, ?, ?)");
-        $report_sql->bind_param("ssiss", $Dorm, $Room, $RoomateID, $Reason, $other);
+        $report_sql = $conn->prepare("INSERT INTO Dorm.Report (Dormitory, Room, Roommate_ID, Reason, Note)  VALUES (?, ?, ?, ?, ?)");
+        $report_sql->bind_param("ssiss", $Dorm, $Room, $RoommateID, $Reason, $other);
     } else if (isset($Room)) {
 
         $report_sql = $conn->prepare("INSERT INTO Dorm.Report (Dormitory, Room, Reason, Note)  VALUES (?, ?, ?, ?)");
@@ -337,10 +338,12 @@ $conn->close();
                         </div>
                         <div class="form-check py-2">
                             <label class="form-check-label" for="radioOption11">
-                                <input class="form-check-input" type="radio" name="Radios" id="radioOption11" value="other" required>
+                                <input class="form-check-input" type="radio" name="Radios" id="radioOption11" value="其他" required>
                                 其他
                             </label>
-                            <input type="text" class="form-control mt-1" id="other" name="other" placeholder="請輸入其他選項" disabled>
+                        </div>
+                        <div class="py-2">
+                            <textarea id="a" class="form-control" name="txtcomment_a" rows="4" placeholder="其他..."></textarea>
                         </div>
                     </div>
                     <button type="button" class="btn btn-previous w-100 mt-3" onclick="back4atoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
@@ -418,10 +421,12 @@ $conn->close();
                         </div>
                         <div class="form-check py-2">
                             <label class="form-check-label" for="radioOption11b">
-                                <input class="form-check-input" type="radio" name="Radios" id="radioOption11b" value="other" required>
+                                <input class="form-check-input" type="radio" name="Radios" id="radioOption11b" value="其他" required>
                                 其他
                             </label>
-                            <input type="text" class="form-control mt-1" id="other" name="other" placeholder="請輸入其他選項" disabled>
+                        </div>
+                        <div class="py-2">
+                            <textarea id="b" class="form-control" name="txtcomment_b" rows="4" placeholder="其他..."></textarea>
                         </div>
                     </div>
                     <button type="button" class="btn btn-previous w-100 mt-3" onclick="back4btoStep3b();"><i class="bi bi-arrow-left"></i>上一步</button>
@@ -499,11 +504,14 @@ $conn->close();
                         </div>
                         <div class="form-check py-2">
                             <label class="form-check-label" for="radioOption11c">
-                                <input class="form-check-input" type="radio" name="Radios" id="radioOption11c" value="other" required>
+                                <input class="form-check-input" type="radio" name="Radios" id="radioOption11c" value="其他" required>
                                 其他
                             </label>
-                            <input type="text" class="form-control mt-1" id="other" name="other" placeholder="請輸入其他選項" disabled>
                         </div>
+                        <div class="py-2">
+                            <textarea id="c" class="form-control" name="txtcomment_c" rows="4" placeholder="其他..."></textarea>
+                        </div>
+
                     </div>
                     <button type="button" class="btn btn-previous w-100 mt-3" onclick="back4ctoStep3c();"><i class="bi bi-arrow-left"></i>上一步</button>
                     <button type="submit" class="btn btn-primary w-100 mt-2">提交</button>
