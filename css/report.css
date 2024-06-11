@@ -62,7 +62,7 @@ body {
 
 .form-check-input:checked+.form-check-label {
     font-weight: bold;
-    color: #007bff;
+    color: #576F72;
 }
 
 .fixed-size {
