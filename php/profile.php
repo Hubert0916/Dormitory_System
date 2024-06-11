@@ -104,6 +104,7 @@ if (isset($_GET['ID'])) {
     echo "未找到該用戶資料。";
 }
 
+$conn->close();
 ?>
 
 <!DOCTYPE html>

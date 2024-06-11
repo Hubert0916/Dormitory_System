@@ -50,3 +50,16 @@ function filterTable() {
     }
 }
 
+function Message() {
+    preventDefault();
+    Swal.fire({
+        icon: 'success',
+        title: '恭喜! 評分成功',
+        text: '你是品頭論足高手!',
+        confirmButtonText: "OK",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('ratingForm').submit();
+        }
+    })
+}
