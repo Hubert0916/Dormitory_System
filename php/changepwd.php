@@ -24,7 +24,6 @@
             </form>
         </div>
     </body>
-    <body>
         <script>
             function validateForm(event) {
             var w = document.getElementById('Password').value;
@@ -79,7 +78,6 @@
             }
 
     </script>
-    </body>
 </html>
 
 <style>
@@ -89,8 +87,6 @@
     margin:0;
     padding:0;
     box-sizing: border-box;
-    font-family: "Noto Serif TC", serif;
-
 }
 body
 {
@@ -100,6 +96,7 @@ body
     align-items:center;
     min-height:100vh;
     background-color: #576F72 !important;
+    font-family: "Noto Serif TC", serif !important;
 }
 
 
@@ -134,10 +131,16 @@ h1
     border-radius: 5px;
     background-color: #f2f2f2;
     color: #576F72;
+    border: 2px solid #576F72;
+}
+
+.write input:focus {
+    border-color: #99A799;
+    outline: none;
 }
 
 .ID input {
-    margin-left: 70px;
+    margin-left: 75px;
 }
 
 .Password input {
@@ -149,7 +152,7 @@ h1
 }
 
 .Password2 input {
-    margin-left: 40px;
+    margin-left: 35px;
 }   
 
 .write button
@@ -163,7 +166,6 @@ h1
     margin: 0 auto;
     background-color: #576f72d8;
     color: #F0EBE3;
-    font-family: "Noto Serif TC", serif;
     margin-bottom: -30px;
     margin-top: 40px;
 }

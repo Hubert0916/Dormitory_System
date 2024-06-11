@@ -124,6 +124,12 @@
                         </div>
                         <div class="service-box-text">
                             <p>我們提供室友評分服務，讓您可以評分室友。</p>
+                            <ul class="service-intro">
+                                <li>選擇室友</li>
+                                <li>選擇評分分數</li>
+                                <li>輸入評論</li>
+                                <li>快來評分啦！</li>
+                            </ul>
                             <div class="service-box-link">
                                 <a href="../php/rating.php">Learn More</a>
                             </div>
@@ -135,6 +141,12 @@
                         </div>
                         <div class="service-box-text">
                             <p>我們提供檢舉鄰居服務，讓您可以檢舉鄰居。</p>
+                            <ul class="service-intro">
+                                <li>選擇檢舉地點</li>
+                                <li>選擇檢舉對象</li>
+                                <li>選擇檢舉原因</li>
+                                <li>快來檢舉啦！</li>
+                            </ul>
                             <div class="service-box-link">
                                 <a href="../php/report.php">Learn More</a>
                             </div>
@@ -152,6 +164,10 @@
                         </div>
                         <div class="service-box-text">
                             <p>我們提供吧啦吧啦服務，讓您可以吧啦吧啦。</p>
+                            <ul class="service-intro">
+                                <li>查看大家的個人資訊</li>
+                                <li>快來吧啦吧啦啦！</li>
+                            </ul>
                             <div class="service-box-link">
                                 <a href="../php/makefriend.php">Learn More</a>
                             </div>

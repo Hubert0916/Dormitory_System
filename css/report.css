@@ -72,15 +72,17 @@ body {
 }
 
 .btn{
-
     border: none;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+    background-color: #576f72a2;
+    color: white;
 }
 
 .btn:hover{
-  
+    background-color: #576f72;
+    color: white;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
@@ -89,5 +91,8 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transform: translateY(0);
 }
-
-
+h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #576F72;
+}

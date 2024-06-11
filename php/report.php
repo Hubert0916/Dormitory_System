@@ -83,7 +83,7 @@ $conn->close();
                 <div class="text-center">
                     <h2>檢舉的宿舍位於...<h2>
                 </div>
-                <hr>
+                <br>
                 <div class="container-fluid">
                     <input type="hidden" name="imageChoice" id="imageChoice">
                     <div class="row justify-content-center">
@@ -177,7 +177,7 @@ $conn->close();
                 <div class="text-center">
                     <h2>你要檢舉的對象...<h2>
                 </div>
-                <hr>
+                <br>
                 <div class="container-fluid">
                     <div class="row ms-5">
                         <input type="hidden" name="blockChoice">
@@ -224,7 +224,7 @@ $conn->close();
                 <div class="text-center">
                     <h2>房號...<h2>
                 </div>
-                <hr>
+                <br>
 
                 <div class="d-flex flex-column align-items-center">
                     <input class="w-75 mb-4 mx-5" type="text" name="room" id="room" placeholder="e.g., 501" disabled>
@@ -241,7 +241,7 @@ $conn->close();
                 <div class="container-fluid text-center">
                     <h2>哪個室友...<h2>
                 </div>
-                <hr>
+                <br>
                 <div class="container-fluid">
                     <input type="hidden" id="chooserm" name="chooserm" disabled>
                     <?php if (!empty($roommates)) : ?>
@@ -346,8 +346,10 @@ $conn->close();
                             <textarea id="a" class="form-control" name="txtcomment_a" rows="4" placeholder="其他..."></textarea>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-previous w-100 mt-3" onclick="back4atoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
-                    <button type="submit" class="btn btn-primary w-100 mt-2">提交</button>
+                    <div class="col-12 text-center">
+                        <button type="button" class="btn btn-previous w-30 mt-2" onclick="back4atoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
+                        <button type="submit" class="btn btn-primary w-30 mt-2">提交</button>
+                    </div>
                 </div>
             </div>
         </div>

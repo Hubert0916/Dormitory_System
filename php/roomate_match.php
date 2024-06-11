@@ -74,7 +74,7 @@ $conn->close();
     <style>
         body {
             font-family: "Noto Serif TC", serif !important;
-            background-color: #f8f9fa;
+            background-color: #F0EBE3 !important;
             margin: 0;
             padding: 20px;
         }

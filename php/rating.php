@@ -105,7 +105,7 @@ $conn->close();
                 <div class="text-center">
                     <h2>評分系統<h2>
                 </div>
-                <hr>
+                <br>
                 <div class="container-fluid p-5">
                     <input type="hidden" name="ratingsys" id="ratingsys">
                     <div class="row justify-content-center text-center">
@@ -132,7 +132,7 @@ $conn->close();
                 <div class="container-fluid text-center">
                     <h2>哪個室友...<h2>
                 </div>
-                <hr>
+                <br>
                 <div class="container-fluid">
                     <input type="hidden" name="chooseRID" id="chooseRID">
                     <input type="hidden" name="chooseRname" id="chooseRname">

@@ -124,6 +124,11 @@ $stmt_photo->close();
         .left p, .right p {
             margin: 8px 0;
         }
+        h2 {
+            font-size: 40px;
+            font-weight: bold;
+            margin-left: 0px;
+        }
     </style>
 </head>
 <body>
@@ -164,8 +169,7 @@ $stmt_photo->close();
                 <p>性別 : <?php echo htmlspecialchars($user_data['Sex']); ?></p>
                 <p>系別 : <?php echo htmlspecialchars($user_data['Department']); ?></p>
                 <p>年級 : <?php echo htmlspecialchars($user_data['Grade']); ?></p>
-                <p>宿舍 : <?php echo htmlspecialchars($user_data['Dorm']); ?></p>
-                <p>房號 : <?php echo htmlspecialchars($user_data['Room']); ?></p>
+                <p>宿舍 : <?php echo htmlspecialchars($user_data['Dorm']) . " " . htmlspecialchars($user_data['Room']); ?></p>
             </div>
             <div class="right">
                 <p>小簡介＆近期的我 : </p>

@@ -175,7 +175,7 @@ $conn->close();
             <br>
             <h2><span class="head">年 級 : </span><span class="chinese"> <?php echo $user_data['Grade']; ?></span></h2>
             <br>
-            <h2><span class="head">宿 舍 : </span><span class="chinese"> <?php echo $user_data['Dorm']; ?></span></h2>
+            <h2><span class="head">宿 舍 : </span><span class="chinese"> <?php echo $user_data['Dorm'] . " " . $user_data['Room']; ?></span></h2>
         </div>
         <div class="right-side">
             <h2<span class="ii">簡 介 . . . </span></h2>
