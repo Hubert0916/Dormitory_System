@@ -70,8 +70,8 @@ function back3ctoStep2() {
     step3c.classList.add('d-none');
 }
 
-function Message() {
-    preventDefault();
+function Message(e) {
+    e.preventDefault();
 
     Swal.fire({
         icon: 'success',
