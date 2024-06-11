@@ -111,52 +111,16 @@ $conn->close();
                     <div class="row justify-content-center text-center">
                         <div class="col-md-3 block-container mx-5">
                             <div class="rect-block d-flex flex-column" onclick="submitStep1('a')">
-                                <img src="../pic/star.jpg" class="img-fluid rounded">
+                                <img src="../pic/star.jpg" class="img-fluid rounded" id="photo1">
                                 <h3 class="mt-2">評分室友</h3>
                             </div>
                         </div>
                         <div class="col-md-3  block-container mx-5">
                             <div class="rect-block d-flex flex-column" onclick="submitStep1('b')">
-                                <img src="../pic/search.jpg" class="img-fluid rounded">
+                                <img src="../pic/search.jpg" class="img-fluid rounded" id="photo1">
                                 <h3 class="mt-2">查看評分</h3>
                             </div>
                         </div>
-                        <style>
-                            .rect-block {
-                                height: 100%; 
-                                border: 1px solid #dee2e6;
-                                border-radius: 10px;
-                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                                transition: transform 0.3s, box-shadow 0.3s;
-                                padding: 20px;
-                                text-align: center;
-                            }
-
-                            .rect-block img {
-                                max-width: 100%;
-                                height: 400px;
-                                border-radius: 10px;
-                                object-fit: cover;
-                            }
-
-                            .rect-block:hover {
-                                transform: translateY(-10px);
-                                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-                            }
-
-                            .rect-block h3 {
-                                margin-top: 20px;
-                                font-size: 1.5rem;
-                                color: #576F72;
-                            }
-
-                            .block-container {
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                height: 100%;
-                            }
-                        </style>
                     </div>
                 </div>
 
