@@ -126,14 +126,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         echo 'icon: "error",';
         echo 'title: "ID already exists",';
         echo 'text: "Please use a different ID.",';
-        echo '});';
-        echo '</script>';
+        echo 'confirmButtonText: "OK",';
+        echo 'willClose: () => { window.location.href = "registration.php"; },';
+        echo '});';        echo '</script>';
     } else if (mysqli_num_rows($email_result) > 0) {
         echo '<script>';
         echo 'Swal.fire({';
         echo 'icon: "error",';
         echo 'title: "Email already exists",';
         echo 'text: "Please use a different Email.",';
+        echo 'confirmButtonText: "OK",';
+        echo 'willClose: () => { window.location.href = "registration.php"; },';
         echo '});';
         echo '</script>';
     } else {
@@ -318,22 +321,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
         margin-top: 26px;
     }
 
-
     button {
-        font-size: 24px;
-        background-color: #576f72d8;
-        color: #F0EBE3;
-        padding: 7px 20px;
-        border: none;
-        border-radius: 6px;
+        margin-top: -30px;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-decoration: none;
+        border-radius: 5px;
+        background-color: #576f72a2;
+        color: white;
         cursor: pointer;
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-        margin: 0 auto;
+        transition: background-color 0.3s, transform 0.3s;
         display: block;
-        margin-top: -45px;
-        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        border: none;
+    }
+    button:hover {
+        background-color: #576f72;
+        transform: scale(1.05);
     }
 
     .first-column {
@@ -364,5 +369,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"]) && $_FILES["
 
     p a:hover {
         color: #576F72;
+    }
+
+    input:focus {
+        border-color: #576F72; 
+        box-shadow: 0 0 5px rgba(87, 111, 114, 0.5);
+        outline: none; 
+    }
+    textarea:focus {
+        border-color: #576F72; 
+        box-shadow: 0 0 5px rgba(87, 111, 114, 0.5);
+        outline: none; 
+    }
+    select:focus {
+        border-color: #576F72; 
+        box-shadow: 0 0 5px rgba(87, 111, 114, 0.5);
+        outline: none; 
     }
 </style>

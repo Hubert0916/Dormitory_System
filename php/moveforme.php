@@ -21,11 +21,12 @@
         }
         .container {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
             max-width: 1000px;
             height: 100%;
+            padding: 20px;
         }
         .box {
             width: 100%;
@@ -42,6 +43,8 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            background-color: white;
+            font-weight: bold;
         }
         .box:hover {
             transform: translateY(-10px);
@@ -55,11 +58,11 @@
             object-fit: cover;
         }
         .box.selected {
-            background-color: #ADC2A9;
+            background-color: #99A799;
         }
         .box p {
             margin-top: 20px;
-            font-size: 25px;
+            font-size: 18px;
             color: #576F72;
         }
         .box.selected p {
@@ -67,16 +70,22 @@
         }
         .question {
             display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            margin-top: 250px;
         }
         .question.active {
-            display: block;
+            display: flex;
         }
         table {
             border-collapse: collapse;
             width: 140%;
             height: 40%;
             font-size: 25px;
-            margin-left: -20%;
+            margin-left: -1%;
         }
         table, th, td {
             border: 2px solid #576F72;
@@ -97,30 +106,23 @@
             gap: 20px;
             margin: 20px 0;
         }
-        .location-options {
-            display: grid;
-            justify-content: center;
-            grid-template-columns: repeat(4, 2fr);
-            gap: 20px;
-            margin: 10px 0;
-            width: 1000px;
-            height: 1000px;
-        }
         .button {
-            display: inline-block;
-            margin-top: 20px;
+            display: block;
+            margin-top: 50px;
             padding: 10px 20px;
             font-size: 16px;
             text-decoration: none;
             border-radius: 5px;
-            background-color: #576F72;
-            border: none;
+            background-color: #576f72a2;
             color: white;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: background-color 0.3s, transform 0.3s; 
+            margin-left: auto;
+            margin-right: auto;
+            border: none;
         }
         .button:hover {
-            background-color: #99A799;
+            background-color: #576F72;
             transform: translateY(-2px);
         }
         .note {
@@ -132,16 +134,71 @@
         .textarea-container {
             margin-top: 20px;
             width: 100%;
-            text-align: center;
+            max-width: 600px;
         }
         .textarea-container textarea {
-            width: 80%;
-            height: 100px;
+            width: 100%;
+            height: 300px;
             padding: 10px;
             border: 2px solid #dee2e6;
             border-radius: 10px;
+            font-family: "Noto Serif TC", serif;
+            font-size: 15px;
+            resize: none;   
+            text-align: left;
+        }
+        .selectable.selected {
+            background-color: #576f72a2;
+        }
+        .question.active label {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            display: block;
+            text-align: center;
+        }
+        .question.active table {
+            margin: 0 auto;
+            height: 300px;
+            width: 500px;
+            font-size: large;
+            font-weight: bold;
+        }
+        .question.active th, .question.active td {
+            padding: 10px;
+            border: 1px solid #576F72;
+        }
+        .question.active th {
+            background-color: #576F72;
+            color: white;
+        }
+        .question.active .selectable.selected {
+            background-color: #576f72a2;
+        }
+        .note {
+            font-size: 16px;
+            font-weight: bold;
+            color: #495057;
+            margin-top: 30px;
+            text-align: center;
+            font-family: "Noto Serif TC", serif;        
+        }
+        .textarea-container {
+            margin: 20px 0;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #576F72;
+            font-family: "Noto Serif TC", serif;
             font-size: 16px;
             resize: none;
+            box-sizing: border-box;
+        }
+        textarea::placeholder {
+            color: #999;
         }
         .move {
             display: flex;
@@ -152,11 +209,12 @@
             font-size: 25px;
         }
     </style>
+
 </head>
 <body>
     <form id="questionForm" action="submit.php" method="post">
         <div class="question active" id="question1">
-            <label for="time" class="move">你有空的時間：</label>
+            <label for="time" class="move">你 有 空 的 時 間：</label>
             <table>
                 <tr>
                     <th>時間</th>
@@ -203,7 +261,7 @@
             <button type="button" class="button" onclick="nextQuestion(1)">繼續</button>
         </div>
         <div class="question" id="question2">
-            <label for="services" class="move">搬家資訊 (可複選)：</label>
+            <label for="services" class="move">搬 家 資 訊 (可複選)：</label>
             <div class="options-row">
                 <div class="box service-option" data-service="雜物">
                     <img src="../pic/thing.webp" alt="雜物">
@@ -222,7 +280,7 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
-            <label for="transport" class="move">你想用什麼交通工具？</label>
+            <label for="transport" class="move">你 想 用 什 麼 交 通 工 具？</label>
             <div class="options-row">
                 <div class="box transport-option" data-transport="汽車">
                     <img src="../pic/car.webp" alt="汽車">

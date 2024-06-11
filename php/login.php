@@ -121,33 +121,40 @@ h1
     margin-top: 10px;
 
 }
-button
-{
-    font-size: 19px;
-    padding: 7px 16px;
-    border: none;
-    border-radius: 6px;
+button {
+    margin-top: -10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: #576f72a2;
+    color: white;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
     display: block;
-    margin: 0 auto;
-    background-color: #576f72d8;
-    color: #F0EBE3;
-    font-family: "Noto Serif TC", serif;
-    margin-bottom: -30px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+}
 
+button:hover {
+    background-color: #576f72;
+    transform: scale(1.05);
 }
 
 p 
 {
     font-size: 15px; 
     text-align: center;
-    margin-top: 30px;
-
+    margin-top: 10px;
+    margin-bottom: -20px;
 }
 p a
 {
     color: #576F72;
     text-decoration: none;
+    color: #576f72a2;
+    transition: color 0.3s, transform 0.3s;
 }
 p a:hover
 {

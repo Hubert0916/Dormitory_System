@@ -166,32 +166,33 @@ if (isset($_GET['ID'])) {
 
     <section class="lower-section">
         <div class="left-side">
-            <div class="box1">
-                <h2><span class="english">Name : </span><span class="chinese"> <?php echo $user_data['Name']; ?></span></h2>
-                <h2><span class="english">Sex : </span><span class="chinese"> <?php echo $user_data['Sex']; ?></span></h2>
-                <h2><span class="english">Depart. : </span><span class="chinese"> <?php echo $user_data['Department']; ?></span></h2>
-                <h2><span class="english">Grade : </span><span class="chinese"> <?php echo $user_data['Grade']; ?></span></h2>
-                <h2><span class="english">Dorm : </span><span class="chinese"> <?php echo $user_data['Dorm']; ?></span></h2>
-            </div>
+            <h2><span class="head">姓 名  :  </span><span class="chinese"> <?php echo $user_data['Name']; ?></span></h2>
+            <br>
+            <h2><span class="head">性 別  :  </span><span class="chinese"> <?php echo $user_data['Sex']; ?></span></h2>
+            <br>
+            <h2><span class="head">科 系  :  </span><span class="chinese"> <?php echo $user_data['Department']; ?></span></h2>
+            <br>
+            <h2><span class="head">年 級  :  </span><span class="chinese"> <?php echo $user_data['Grade']; ?></span></h2>
+            <br>
+            <h2><span class="head">宿 舍  :  </span><span class="chinese"> <?php echo $user_data['Dorm']; ?></span></h2>
         </div>
         <div class="right-side">
-            <div class="box2">
-                <h2>About me ...</h2>
-                <div class="intro">
-                    <?php echo $user_data['Intro']; ?>
-                </div>
+            <h2<span class="ii">簡 介 . . . </span></h2>
+            <div class="intro">
+                <br>
+                <?php echo $user_data['Intro']; ?>
             </div>
         </div>
 
     </section>
 
     <section class="rating-seciton">
+        <?php if (!empty($reviewee)) : ?>
         <div class="d-flex flex-column">
             <div class="text-center">
                 <h2>評分<h2>
             </div>
             <div class="d-flex flex-column container-fluid w-50">
-                <?php if (!empty($reviewee)) : ?>
                     <div class="d-flex justify-content-between">
                         <div>
                             <p>衛生</p>
@@ -254,11 +255,10 @@ if (isset($_GET['ID'])) {
                                 </tbody>
                             </table>
                         </div>
-                    <?php endif; ?>
-                <?php else : ?>
-                    <p>尚未有任何評分.</p>
-                <?php endif; ?>
             </div>
+            <?php endif; ?>
+                <?php else : ?>
+                <?php endif; ?>
         </div>
     </section>
 </body>
@@ -312,9 +312,9 @@ if (isset($_GET['ID'])) {
 
     .icon ul li {
         list-style: none;
-        margin: 25px;
-        width: 30px;
-        height: 30px;
+        margin: 18px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
     }
 
@@ -329,60 +329,40 @@ if (isset($_GET['ID'])) {
 
     .lower-section {
         display: flex;
-        margin: 5%;
     }
 
-    .lower-section .left-side,
-    .right-side {
+    .lower-section .left-side, .right-side {
         flex: 1;
-        justify-content: center;
-        align-items: center;
-        left: 5px;
-        font-size: 30px;
+        font-size: 20px;
+        margin-top: 70px;
     }
 
-    .left-side .box1 {
-        padding: 20px;
-        margin-left: 25%;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .left-side .english {
+    .left-side .head , .ii{
         color: #576F72;
         margin-bottom: 20PX;
-        font-size: 35px;
+        font-weight: bold;
+        font-size: 25px;
+    }
+    .left-side .head {
+        margin-left: 400px;
     }
 
     .left-side .chinese {
-        color: #576F72;
-        margin-bottom: 20PX;
-        font-size: 25px;
-    }
-
-    .right-side .box2 {
-        padding: 30px;
-        margin: 20px;
-
-    }
-
-    .right-side .box2 h2 {
-        margin-left: 20px;
-        color: #576F72;
-        font-size: 35px;
-    }
-
-    .right-side .box2 h1 {
-        margin-left: 20px;
-        margin-top: 10px;
-        margin-top: 10px;
-    }
-
-    .right-side .box2 .intro {
-        margin-left: 20px;
-        margin-top: 10px;
-        margin-top: 10px;
+        color: black;
         font-size: 20px;
-        color: #576F72;
+    }
+    .right-side {
+        text-align: left;
+        margin-left: 30px;
+    }
+    .right-side .intro {
+        margin-left: 20px;
+        margin-right: 200px;
+        font-size: 20px;
+        color:black;
+        font-weight: normal;
+    }
+    .left-side {
+        text-align: left;
     }
 </style>
