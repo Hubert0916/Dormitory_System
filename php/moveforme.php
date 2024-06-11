@@ -11,25 +11,27 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: "Noto Serif TC", serif;
+            background-color: #F0EBE3;
+            font-family: "Noto Serif TC", serif !important;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #F0EBE3;
+            height: 100%;
+            width: 100%;
         }
         .container {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 20px;
-            width: 80%;
+            width: 100%;
             max-width: 1000px;
-            height: 80%;
+            height: 100%;
         }
         .box {
-            width: 30%;
-            height: 80%;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
             padding: 20px;
@@ -62,8 +64,11 @@
         }
         .box p {
             margin-top: 20px;
-            font-size: 18px;
-            color: #495057;
+            font-size: 25px;
+            color: #576F72;
+        }
+        .box.selected p {
+            color: #F0EBE3;
         }
         .question {
             display: none;
@@ -76,10 +81,13 @@
         }
         table {
             border-collapse: collapse;
-            width: 100%;
+            width: 140%;
+            height: 40%;
+            font-size: 25px;
+            margin-left: -20%;
         }
         table, th, td {
-            border: 1px solid blue;
+            border: 2px solid #576F72;
         }
         th, td {
             text-align: center;
@@ -89,7 +97,7 @@
             cursor: pointer;
         }
         .selected {
-            background-color: lightblue;
+            background-color: #99A799;
         }
         .options-row {
             display: flex;
@@ -98,12 +106,13 @@
             margin: 20px 0;
         }
         .location-options {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
             justify-content: center;
+            grid-template-columns: repeat(4, 2fr);
             gap: 20px;
-            margin: 20px 0;
-            max-width: 1000px;
+            margin: 10px 0;
+            width: 1000px;
+            height: 1000px;
         }
         .button {
             display: inline-block;
@@ -199,6 +208,14 @@
         textarea::placeholder {
             color: #999;
         }
+        .move {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            color: #576F72;
+            font-size: 25px;
+        }
     </style>
 
 </head>
@@ -252,18 +269,18 @@
             <button type="button" class="button" onclick="nextQuestion(1)">繼續</button>
         </div>
         <div class="question" id="question2">
-            <label for="services">搬家資訊 (可複選)：</label>
+            <label for="services" class="move">搬家資訊 (可複選)：</label>
             <div class="options-row">
                 <div class="box service-option" data-service="雜物">
-                    <img src="../pic/grocery.png" alt="雜物">
+                    <img src="../pic/thing.webp" alt="雜物">
                     <p>雜物</p>
                 </div>
                 <div class="box service-option" data-service="衣服">
-                    <img src="../pic/clothes.png" alt="衣服">
+                    <img src="../pic/clothes.webp" alt="衣服">
                     <p>衣服</p>
                 </div>
                 <div class="box service-option" data-service="大型物件">
-                    <img src="../pic/furniture.png" alt="大型物件">
+                    <img src="../pic/furniture.webp" alt="大型物件">
                     <p>大型物件</p>
                 </div>
             </div>
@@ -271,10 +288,10 @@
             <button type="button" class="button" onclick="nextQuestion(2)">下一題</button>
         </div>
         <div class="question" id="question3">
-            <label for="transport">想用什麼交通工具？</label>
+            <label for="transport" class="move">你想用什麼交通工具？</label>
             <div class="options-row">
                 <div class="box transport-option" data-transport="汽車">
-                    <img src="../pic/vehicle.png" alt="汽車">
+                    <img src="../pic/car.webp" alt="汽車">
                     <p>汽車</p>
                 </div>
                 <div class="box transport-option" data-transport="徒手">
@@ -287,7 +304,7 @@
                 </div>
             </div>
             <div class="note">
-                徒手一趟$50，拖車一趟$150，汽車一趟$300
+                徒手一趟$50，拖車一趟$150，汽車一趟$250
             </div>
             <input type="hidden" id="transport" name="transport" value="">
             <button type="submit" class="button">開始尋找</button>

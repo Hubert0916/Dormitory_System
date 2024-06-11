@@ -36,8 +36,8 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #F0EBE3 !important;
-            font-family: "Noto Serif TC", serif;
+            background-color: #F0EBE3;
+            font-family: "Noto Serif TC", serif !important;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -47,7 +47,7 @@
         .container {
             display: flex;
             justify-content: center; /* 改為 center 以便將方塊向中間靠攏 */
-            gap: 20px; /* 增加間距控制 */
+            gap: 50px; /* 增加間距控制 */
             width: 80%;
             max-width: 1000px;
             height: 80%; /* 確保容器有足夠高度 */
