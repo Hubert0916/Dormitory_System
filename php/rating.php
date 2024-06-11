@@ -99,7 +99,7 @@ $conn->close();
 </head>
 
 <body>
-    <form id="ratingForm" method="post" action="rating.php" onkeydown="return event.key != 'Enter';">
+    <form id="ratingForm" method="post" action="rating.php" onsubmit="Message(event);" onkeydown="return event.key != 'Enter';">
         <div class="container-fluid mx-3 my-5">
             <div class="step d-flex flex-column" id="step1">
                 <div class="text-center">
@@ -303,6 +303,7 @@ $conn->close();
             </div>
         </div>
     </form>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/rating.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 

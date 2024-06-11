@@ -50,8 +50,9 @@ function filterTable() {
     }
 }
 
-function Message() {
-    preventDefault();
+function Message(e) {
+    e.preventDefault();
+
     Swal.fire({
         icon: 'success',
         title: '恭喜! 評分成功',
