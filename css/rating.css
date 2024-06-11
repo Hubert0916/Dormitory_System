@@ -63,7 +63,7 @@ tr:hover {
     color: #f39c12;
 }
 
-.btn-previous {
+.btn{
 
     border: none;
     border-radius: 5px;
@@ -71,13 +71,18 @@ tr:hover {
     transition: all 0.3s ease;
 }
 
-.btn-previous:hover {
+.btn:hover{
   
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
 
-.btn-previous:active {
+.btn:active{
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transform: translateY(0);
+}
+
+.btn-submit
+{
+    background-color: #81b8ca;
 }

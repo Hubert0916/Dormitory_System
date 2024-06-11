@@ -216,80 +216,82 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="form-group">
                         <label>衛生</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-1" type="radio" name="rating1" value="5"><label for="star5-1" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-1" type="radio" name="rating1" value="4"><label for="star4-1" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-1" type="radio" name="rating1" value="3"><label for="star3-1" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-1" type="radio" name="rating1" value="2"><label for="star2-1" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-1" type="radio" name="rating1" value="1"><label for="star1-1" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-1" type="radio" name="rating1" value="5" required><label for="star5-1" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-1" type="radio" name="rating1" value="4" required><label for="star4-1" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-1" type="radio" name="rating1" value="3" required><label for="star3-1" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-1" type="radio" name="rating1" value="2" required><label for="star2-1" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-1" type="radio" name="rating1" value="1" required><label for="star1-1" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <label>作息</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-2" type="radio" name="rating2" value="5"><label for="star5-2" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-2" type="radio" name="rating2" value="4"><label for="star4-2" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-2" type="radio" name="rating2" value="3"><label for="star3-2" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-2" type="radio" name="rating2" value="2"><label for="star2-2" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-2" type="radio" name="rating2" value="1"><label for="star1-2" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-2" type="radio" name="rating2" value="5" required><label for="star5-2" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-2" type="radio" name="rating2" value="4" required><label for="star4-2" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-2" type="radio" name="rating2" value="3" required><label for="star3-2" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-2" type="radio" name="rating2" value="2" required><label for="star2-2" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-2" type="radio" name="rating2" value="1" required><label for="star1-2" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <label>課業</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-3" type="radio" name="rating3" value="5"><label for="star5-3" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-3" type="radio" name="rating3" value="4"><label for="star4-3" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-3" type="radio" name="rating3" value="3"><label for="star3-3" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-3" type="radio" name="rating3" value="2"><label for="star2-3" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-3" type="radio" name="rating3" value="1"><label for="star1-3" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-3" type="radio" name="rating3" value="5" required><label for="star5-3" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-3" type="radio" name="rating3" value="4" required><label for="star4-3" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-3" type="radio" name="rating3" value="3" required><label for="star3-3" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-3" type="radio" name="rating3" value="2" required><label for="star2-3" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-3" type="radio" name="rating3" value="1" required><label for="star1-3" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <label>外貌</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-4" type="radio" name="rating4" value="5"><label for="star5-4" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-4" type="radio" name="rating4" value="4"><label for="star4-4" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-4" type="radio" name="rating4" value="3"><label for="star3-4" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-4" type="radio" name="rating4" value="2"><label for="star2-4" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-4" type="radio" name="rating4" value="1"><label for="star1-4" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-4" type="radio" name="rating4" value="5" required><label for="star5-4" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-4" type="radio" name="rating4" value="4" required><label for="star4-4" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-4" type="radio" name="rating4" value="3" required><label for="star3-4" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-4" type="radio" name="rating4" value="2" required><label for="star2-4" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-4" type="radio" name="rating4" value="1" required><label for="star1-4" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <label>人品</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-5" type="radio" name="rating5" value="5"><label for="star5-5" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-5" type="radio" name="rating5" value="4"><label for="star4-5" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-5" type="radio" name="rating5" value="3"><label for="star3-5" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-5" type="radio" name="rating5" value="2"><label for="star2-5" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-5" type="radio" name="rating5" value="1"><label for="star1-5" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-5" type="radio" name="rating5" value="5" required><label for="star5-5" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-5" type="radio" name="rating5" value="4" required><label for="star4-5" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-5" type="radio" name="rating5" value="3" required><label for="star3-5" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-5" type="radio" name="rating5" value="2" required><label for="star2-5" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-5" type="radio" name="rating5" value="1" required><label for="star1-5" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>財富</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-6" type="radio" name="rating6" value="5"><label for="star5-6" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-6" type="radio" name="rating6" value="4"><label for="star4-6" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-6" type="radio" name="rating6" value="3"><label for="star3-6" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-6" type="radio" name="rating6" value="2"><label for="star2-6" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-6" type="radio" name="rating6" value="1"><label for="star1-6" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-6" type="radio" name="rating6" value="5" required><label for="star5-6" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-6" type="radio" name="rating6" value="4" required><label for="star4-6" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-6" type="radio" name="rating6" value="3" required><label for="star3-6" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-6" type="radio" name="rating6" value="2" required><label for="star2-6" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-6" type="radio" name="rating6" value="1" required><label for="star1-6" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <textarea id="comments" class="form-control" name="txtcomment" rows="4" placeholder="輸入您的留言"></textarea>
+                    <div class="form-group my-2">
+                        <textarea id="comments" class="form-control" name="txtcomment" rows="4" placeholder="評論..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">提交</button>
-                    <button type="button" class="btn btn-previous mt-2" onclick="backtoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
+                    <div class="d-inline-block mt-2">
+                        <button type="button" class="btn btn-previous mx-1" onclick="backtoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
+                        <button type="submit" class="btn btn-primary btn-submit mx-1">提交</button>
+                    </div>
                 </div>
             </div>
         </div>

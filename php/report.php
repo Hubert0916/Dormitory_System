@@ -70,36 +70,13 @@ $conn->close();
 </head>
 
 <body>
-    <div class="container-fluid ms-3">
+    <div class="container-fluid mx-3 mt-5">
         <div class="row">
             <div class="col-md-12">
-                <div class="container-fluid p-5 align-items-center">
-                    <div class="d-flex justify-content-around">
-                        <div class="bg-success text-white rounded-pill cir" id="cir1" style="width: 2rem; height: 2rem">
-                            1
-                        </div>
-                        <span class="bg-secondary w-25 rounded mt-auto mb-auto" id="line1" style="height: 0.2rem">
-                        </span>
-                        <div class="bg-secondary text-white rounded-pill cir" id="cir2" style="width: 2rem; height: 2rem">
-                            2
-                        </div>
-                        <span class="bg-secondary w-25 rounded mt-auto mb-auto" id="line2" style="height: 0.2rem">
-                        </span>
-                        <div class="bg-secondary text-white rounded-pill cir" id="cir3" style="width: 2rem; height: 2rem">
-                            3
-                        </div>
-                        <span class="bg-secondary w-25 rounded mt-auto mb-auto" id="line3" style="height: 0.2rem">
-                        </span>
-                        <div class="bg-secondary text-white rounded-pill cir" id="cir4" style="width: 2rem; height: 2rem">
-                            4
-                        </div>
-
-                    </div>
-                </div>
 
                 <form id="reportForm" method="post" action="report.php" onsubmit="Message(event)">
                     <div class="step" id="step1">
-                        <div class="text-center">
+                        <div class="text-center mb-3">
                             <h2>檢舉的宿舍位於...<h2>
                         </div>
                         <hr>
@@ -200,23 +177,38 @@ $conn->close();
                             <div class="row ms-5">
                                 <input type="hidden" name="blockChoice">
                                 <div class="col-md-4 text-center block-container">
-                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('a');">
-                                        <i class="bi bi-person-x-fill icon fa-9x"></i>
-                                        <p>不知道</p>
+                                    <div class="rect-block d-flex flex-column align-items-center" onclick="submitStep2('a');">
+                                        <div class="my-3">
+                                            <i class="bi bi-person-x-fill icon fa-9x"></i>
+                                        </div>
+                                        <div>
+                                            <h3>不知道</h3>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-center block-container">
-                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('b'); inputRoom();">
-                                        <i class="bi bi-door-closed icon fa-9x"></i>
-                                        <p>房號</p>
+                                    <div class="rect-block d-flex flex-column align-items-center" onclick="submitStep2('b'); inputRoom();">
+                                        <div class="my-3">
+                                            <i class="bi bi-door-closed icon fa-9x"></i>
+                                        </div>
+                                        <div>
+                                            <h3>房號</h3>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4 text-center block-container">
-                                    <div class="rect-block d-flex flex-column" onclick="submitStep2('c'); reportRoommate();">
-                                        <i class="bi bi-person-raised-hand icon fa-9x"></i>
-                                        <p>室友</p>
+                                    <div class="rect-block d-flex flex-column align-items-center" onclick="submitStep2('c'); reportRoommate();">
+                                        <div class="my-3">
+                                            <i class="bi bi-person-raised-hand icon fa-9x"></i>
+                                        </div>
+                                        <div>
+                                            <h3>室友</h3>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="text-center mt-5">
+                                <button type="button" class="btn btn-previous" onclick="backtoStep1('b');"><i class="bi bi-arrow-left"></i>上一步</button>
                             </div>
                         </div>
                     </div>
@@ -228,8 +220,11 @@ $conn->close();
                         <hr>
 
                         <div class="d-flex flex-column align-items-center">
-                            <input class="w-75 mb-5 mx-5" type="text" name="room" id="room" placeholder="501" disabled>
-                            <button type="button" onclick="submitStep3('b');">下一步</button>
+                            <input class="w-75 mb-4 mx-5" type="text" name="room" id="room" placeholder="e.g., 501" disabled>
+                            <div class="text-center d-inline-block">
+                                <button type="button" class="btn btn-previous me-2" onclick="back3btoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
+                                <button type="button" class="btn btn-next ms-2" onclick="submitStep3('b');">下一步<i class="bi bi-arrow-right"></i></button>
+                            </div>
                         </div>
                     </div>
 
@@ -248,9 +243,9 @@ $conn->close();
                                     <div class="col-md-12 justify-content-center">
                                         <div class="d-flex justify-content-center">
                                             <?php foreach ($roommates as $roommate) : ?>
-                                                <div class="col-md-4 text-center">
+                                                <div class="col-md-4 text-center" onclick=" submitStep3('c', '<?php echo $roommate['RID']; ?>');">
                                                     <div class="rect-block d-flex flex-column">
-                                                        <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>" onclick="submitStep3('c', '<?php echo $roommate['RID']; ?>');" />
+                                                        <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>">
                                                         <br>
                                                         <p><?php echo "ID : " . $roommate['RID']; ?></p>
                                                         <p><?php echo "Name : " . $roommate['Rname']; ?></p>
@@ -260,92 +255,261 @@ $conn->close();
                                         </div>
                                     </div>
                                 </div>
+                                <div class="text-center mt-5">
+                                    <button type="button" class="btn btn-previous" onclick="back3ctoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
+                                </div>
                             <?php else : ?>
                                 <div class="d-flex flex-column align-items-center">
                                     <input class="reportID-input w-75 mb-5 mx-5" type="text" name="reportID" id="reportID" placeholder="學號 e.g., 111705001" required>
-                                    <button type="button" onclick="submitStep3('c', -1);">下一步</button>
+                                    <div class="text-center d-inline-block">
+                                        <button type="button" class="btn btn-previous me-2" onclick="back3ctoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
+                                        <button type="button" class="btn btn-next ms-2" onclick="submitStep3('c', -1);">下一步</button>
+                                    </div>
                                 </div>
                             <?php endif; ?>
                         </div>
                     </div>
 
-                    <div class="step d-none" id="step4">
+                    <div class="step d-none" id="step4a">
                         <div class="text-center">
-                            <h2>緣由...<h2>
+                            <h2>檢舉緣由...<h2>
                         </div>
                         <hr>
                         <div class="container-fluid px-5">
                             <div class="form-group ms-3">
                                 <div class="form-check py-2">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption1" value="吵">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption1" value="吵" required>
                                     <label class="form-check-label" for="radioOption1">
                                         未保持宿舍安寧影響他人者
                                     </label>
                                 </div>
                                 <div class="form-check py-2">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption2" value="髒">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption2" value="髒" required>
                                     <label class="form-check-label" for="radioOption2">
                                         未能保持宿舍內外清潔
                                     </label>
                                 </div>
                                 <div class="form-check py-2">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption3" value="抽菸">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption3" value="抽菸" required>
                                     <label class="form-check-label" for="radioOption3">
                                         宿舍內外十公尺內吸菸
                                     </label>
                                 </div>
                                 <div class="form-check py-2">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption4" value="亂堆">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption4" value="亂堆" required>
                                     <label class="form-check-label" for="radioOption4">
                                         公共區域堆放私人物品者
                                     </label>
                                 </div>
 
                                 <div class="form-check py-2">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption5" value="電器">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption5" value="電器" required>
                                     <label class="form-check-label" for="radioOption5">
                                         寢室內使用或置放有安全堪慮電器用品(電磁爐、電熨斗、微波爐等)
                                     </label>
                                 </div>
                                 <div class="form-check py-2">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption6" value="毀損">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption6" value="毀損" required>
                                     <label class="form-check-label" for="radioOption6">
                                         故意毀損宿舍
                                     </label>
                                 </div>
                                 <div class="form-check py-2">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption7" value="異性">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption7" value="異性" required>
                                     <label class="form-check-label" for="radioOption7">
                                         偷帶異性回去
                                     </label>
                                 </div>
                                 <div class="form-check py-2">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption8" value="賭博">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption8" value="賭博" required>
                                     <label class="form-check-label" for="radioOption8">
                                         宿舍內賭博等類似型態行為
                                     </label>
                                 </div>
                                 <div class="form-check py-2">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption9" value="怪人">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption9" value="怪人" required>
                                     <label class="form-check-label" for="radioOption9">
                                         有陌生怪人遊蕩
                                     </label>
                                 </div>
                                 <div class="form-check py-2">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption10" value="住宿權">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption10" value="住宿權" required>
                                     <label class="form-check-label" for="radioOption10">
                                         刊登買賣床位及住宿權頂讓訊息
                                     </label>
                                 </div>
                                 <div class="form-check py-2">
-                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption11" value="other">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption11" value="other" required>
                                     <label class="form-check-label" for="radioOption11">
                                         其他
                                     </label>
                                     <input type="text" class="form-control mt-1" id="other" name="other" placeholder="請輸入其他選項" disabled>
                                 </div>
                             </div>
-                            <button type="submit" id="btn-ok" class="btn btn-primary mt-5 w-100">提交</button>
+                            <button type="button" class="btn btn-previous w-100 mt-5" onclick="back4atoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
+                            <button type="submit" class="btn btn-primary w-100">提交</button>
+                        </div>
+                    </div>
+
+                    <div class="step d-none" id="step4b">
+                        <div class="text-center">
+                            <h2>檢舉緣由...<h2>
+                        </div>
+                        <hr>
+                        <div class="container-fluid px-5">
+                            <div class="form-group ms-3">
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption1" value="吵" required>
+                                    <label class="form-check-label" for="radioOption1">
+                                        未保持宿舍安寧影響他人者
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption2" value="髒" required>
+                                    <label class="form-check-label" for="radioOption2">
+                                        未能保持宿舍內外清潔
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption3" value="抽菸" required>
+                                    <label class="form-check-label" for="radioOption3">
+                                        宿舍內外十公尺內吸菸
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption4" value="亂堆" required>
+                                    <label class="form-check-label" for="radioOption4">
+                                        公共區域堆放私人物品者
+                                    </label>
+                                </div>
+
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption5" value="電器" required>
+                                    <label class="form-check-label" for="radioOption5">
+                                        寢室內使用或置放有安全堪慮電器用品(電磁爐、電熨斗、微波爐等)
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption6" value="毀損" required>
+                                    <label class="form-check-label" for="radioOption6">
+                                        故意毀損宿舍
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption7" value="異性" required>
+                                    <label class="form-check-label" for="radioOption7">
+                                        偷帶異性回去
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption8" value="賭博" required>
+                                    <label class="form-check-label" for="radioOption8">
+                                        宿舍內賭博等類似型態行為
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption9" value="怪人" required>
+                                    <label class="form-check-label" for="radioOption9">
+                                        有陌生怪人遊蕩
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption10" value="住宿權" required>
+                                    <label class="form-check-label" for="radioOption10">
+                                        刊登買賣床位及住宿權頂讓訊息
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption11" value="other" required>
+                                    <label class="form-check-label" for="radioOption11">
+                                        其他
+                                    </label>
+                                    <input type="text" class="form-control mt-1" id="other" name="other" placeholder="請輸入其他選項" disabled>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-previous w-100 mt-5" onclick="back4btoStep3b();"><i class="bi bi-arrow-left"></i>上一步</button>
+                            <button type="submit" class="btn btn-primary w-100">提交</button>
+                        </div>
+                    </div>
+
+                    <div class="step d-none" id="step4c">
+                        <div class="text-center">
+                            <h2>檢舉緣由...<h2>
+                        </div>
+                        <hr>
+                        <div class="container-fluid px-5">
+                            <div class="form-group ms-3">
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption1" value="吵" required>
+                                    <label class="form-check-label" for="radioOption1">
+                                        未保持宿舍安寧影響他人者
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption2" value="髒" required>
+                                    <label class="form-check-label" for="radioOption2">
+                                        未能保持宿舍內外清潔
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption3" value="抽菸" required>
+                                    <label class="form-check-label" for="radioOption3">
+                                        宿舍內外十公尺內吸菸
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption4" value="亂堆" required>
+                                    <label class="form-check-label" for="radioOption4">
+                                        公共區域堆放私人物品者
+                                    </label>
+                                </div>
+
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption5" value="電器" required>
+                                    <label class="form-check-label" for="radioOption5">
+                                        寢室內使用或置放有安全堪慮電器用品(電磁爐、電熨斗、微波爐等)
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption6" value="毀損" required>
+                                    <label class="form-check-label" for="radioOption6">
+                                        故意毀損宿舍
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption7" value="異性" required>
+                                    <label class="form-check-label" for="radioOption7">
+                                        偷帶異性回去
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption8" value="賭博" required>
+                                    <label class="form-check-label" for="radioOption8">
+                                        宿舍內賭博等類似型態行為
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption9" value="怪人" required>
+                                    <label class="form-check-label" for="radioOption9">
+                                        有陌生怪人遊蕩
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption10" value="住宿權" required>
+                                    <label class="form-check-label" for="radioOption10">
+                                        刊登買賣床位及住宿權頂讓訊息
+                                    </label>
+                                </div>
+                                <div class="form-check py-2">
+                                    <input class="form-check-input" type="radio" name="Radios" id="radioOption11" value="other" required>
+                                    <label class="form-check-label" for="radioOption11">
+                                        其他
+                                    </label>
+                                    <input type="text" class="form-control mt-1" id="other" name="other" placeholder="請輸入其他選項" disabled>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-previous w-100 mt-5" onclick="back4ctoStep3c();"><i class="bi bi-arrow-left"></i>上一步</button>
+                            <button type="submit" class="btn btn-primary w-100">提交</button>
                         </div>
                     </div>
                 </form>
