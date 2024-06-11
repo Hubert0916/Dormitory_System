@@ -68,14 +68,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ?, Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Rating_six = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
         $update_sql->bind_param("ddddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review, $ReviewerID, $RevieweeID);
         $update_sql->execute();
+        $update_sql->free_result();
         $update_sql->close();
     } else {
         $insert_sql = $conn->prepare("INSERT INTO Dorm.Rating (Reviewer_ID, Reviewee_ID, Reviewer_name, Reviewee_name, Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Rating_six, Review)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $insert_sql->bind_param("iissdddddds", $ReviewerID, $RevieweeID, $ReviewerName, $RevieweeName, $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review);
         $insert_sql->execute();
+        $insert_sql->free_result();
         $insert_sql->close();
     }
+
+    $count_sql->free_result();
+    $count_sql->close();
 }
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -121,22 +128,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="container-fluid mx-3 my-5">
-            <div class="step d-flex d-none flex-column" id="step2a">
-                <div class="container-fluid mx-3 my-2 text-center">
+            <div class="step d-flex flex-column d-none" id="step2a">
+                <div class="container-fluid text-center">
                     <h2>哪個室友...<h2>
                 </div>
                 <hr>
-                <div class="container-fluid mx-3 my-2">
+                <div class="container-fluid">
                     <input type="hidden" name="chooseRID" id="chooseRID">
                     <input type="hidden" name="chooseRname" id="chooseRname">
                     <?php if (!empty($roommates)) : ?>
-                        <div class="d-flex">
+                        <div class="row mx-5">
                             <?php foreach ($roommates as $roommate) : ?>
-                                <div class="rect-block d-flex flex-column justify-content-center align-items-center mx-5" onclick="submitStep2a('<?php echo $roommate['RID']; ?>', '<?php echo $roommate['Rname']; ?>');">
-                                    <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>">
-                                    <br>
-                                    <p><?php echo "ID : " . $roommate['RID']; ?></p>
-                                    <p><?php echo "Name : " . $roommate['Rname']; ?></p>
+                                <div class="col-md-4">
+                                    <div class="rect-block d-flex flex-column justify-content-center align-items-center mx-5" onclick="submitStep2a('<?php echo $roommate['RID']; ?>', '<?php echo $roommate['Rname']; ?>');">
+                                        <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>">
+                                        <br>
+                                        <p><?php echo "ID : " . $roommate['RID']; ?></p>
+                                        <p><?php echo "Name : " . $roommate['Rname']; ?></p>
+                                    </div>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -145,10 +154,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <h2>查無室友資料!!!</h2>
                         </div>
                     <?php endif; ?>
-                </div>
-                <div>
-                    <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-previous mt-2" onclick="backtoStep1('a');"><i class="bi bi-arrow-left"></i>上一步</button>
+                    <div class="text-center mt-5">
+                        <button type="button" class="btn btn-previous" onclick="backtoStep1('a');"><i class="bi bi-arrow-left"></i>上一步</button>
                     </div>
                 </div>
             </div>
