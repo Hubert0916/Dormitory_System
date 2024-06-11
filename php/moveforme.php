@@ -195,7 +195,7 @@
             margin: 20px 0;
         }
         textarea {
-            width: 100%;
+            width: 200px;
             height: 150px;
             padding: 10px;
             border-radius: 10px;
@@ -207,6 +207,7 @@
         }
         textarea::placeholder {
             color: #999;
+            font-family: "Noto Serif TC", serif;
         }
         .move {
             display: flex;
