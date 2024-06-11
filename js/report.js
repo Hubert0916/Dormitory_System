@@ -37,17 +37,20 @@ function submitStep3(number, id = -1) {
 function back4atoStep2() {
     step4a.classList.add('d-none');
     step2.classList.remove('d-none');
+    document.getElementById('a').value = '';
 }
 
 function back4btoStep3b() {
     step4b.classList.add('d-none');
     step3b.classList.remove('d-none');
+    document.getElementById('b').value = '';
 }
 
 function back4ctoStep3c() {
     document.getElementById('chooserm').value = null;
     step4c.classList.add('d-none');
     step3c.classList.remove('d-none');
+    document.getElementById('c').value = '';
 }
 
 function backtoStep1() {
@@ -82,11 +85,3 @@ function Message() {
     })
 }
 
-$('input[type=radio][name=Radios]').change(function () {
-    if (this.value === 'other') {
-        $('#other').prop('disabled', false);
-        $('#other').prop('required', true);
-    } else {
-        $('#other').prop('disabled', true).val('');
-    }
-})
