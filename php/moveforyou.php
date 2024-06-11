@@ -11,16 +11,17 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: "Noto Serif TC", serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background-color: #F0EBE3;
         }
         .container {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 20px;
             width: 80%;
             max-width: 1000px;
@@ -29,7 +30,6 @@
         .box {
             width: 30%;
             height: 80%;
-            background-color: #ffffff;
             border: 2px solid #dee2e6;
             border-radius: 10px;
             padding: 20px;
@@ -41,6 +41,8 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            background-color: white;
+            font-weight: bold;
         }
         .box:hover {
             transform: translateY(-10px);
@@ -54,7 +56,9 @@
             object-fit: cover;
         }
         .box.selected {
-            border-color: #007bff;
+            border-color: #576f72;
+            color: #576f72a2;
+            background-color: #576f72a2;
         }
         .box p {
             margin-top: 20px;
@@ -63,9 +67,12 @@
         }
         .question {
             display: none;
+            width: 100%;
         }
         .question.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         table {
             border-collapse: collapse;
@@ -100,18 +107,21 @@
         }
         .button {
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 50px;
             padding: 10px 20px;
             font-size: 16px;
             text-decoration: none;
             border-radius: 5px;
-            background-color: #495057;
+            background-color: #576f72a2;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
+            display: block; 
+            margin-left: auto;
+            margin-right: auto;
         }
         .button:hover {
-            background-color: #343a40;
+            background-color: #576F72;
             transform: translateY(-2px);
         }
         .note {
@@ -123,26 +133,81 @@
         .textarea-container {
             margin-top: 20px;
             width: 100%;
-            text-align: center;
+            max-width: 600px;
         }
         .textarea-container textarea {
-            width: 80%;
-            height: 100px;
+            width: 100%;
+            height: 300px;
             padding: 10px;
             border: 2px solid #dee2e6;
             border-radius: 10px;
-            font-family: 'Noto Sans TC', sans-serif;
+            font-family: "Noto Serif TC", serif;
+            font-size: 15px;
+            resize: none;   
+            text-align: left;
+        }
+        .selectable.selected {
+            background-color: #576f72a2;
+        }
+        .question.active label {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            display: block;
+            text-align: center;
+        }
+        .question.active table {
+            margin: 0 auto;
+            height: 300px;
+            width: 500px;
+            font-size: large;
+            font-weight: bold;
+        }
+        .question.active th, .question.active td {
+            padding: 10px;
+            border: 1px solid #576F72;
+        }
+        .question.active th {
+            background-color: #576F72;
+            color: white;
+        }
+        .question.active .selectable.selected {
+            background-color: #576f72a2;
+        }
+        .note {
+            font-size: 16px;
+            font-weight: bold;
+            color: #495057;
+            margin-top: 30px;
+            text-align: center;
+            font-family: "Noto Serif TC", serif;        
+        }
+        .textarea-container {
+            margin: 20px 0;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #576F72;
+            font-family: "Noto Serif TC", serif;
             font-size: 16px;
             resize: none;
+            box-sizing: border-box;
+        }
+        textarea::placeholder {
+            color: #999;
         }
     </style>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
     </script>
 </head>
 <body>
     <form id="questionForm" action="offer.php" method="POST">
         <div class="question active" id="question1">
-            <label for="time">你有空的時間：</label>
+            <label for="time">有空的時間</label>
             <table>
                 <tr>
                     <th>時間</th>
@@ -189,7 +254,7 @@
             <button type="button" class="button" onclick="nextQuestion(1)">繼續</button>
         </div>
         <div class="question" id="question2">
-            <label for="services">搬家資訊 (可複選)：</label>
+            <label for="services">搬家資訊 (可複選)</label>
             <div class="options-row">
                 <div class="box service-option" data-service="雜物">
                     <img src="../pic/grocery.png" alt="雜物">

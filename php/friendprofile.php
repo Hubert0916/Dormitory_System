@@ -57,6 +57,12 @@ $stmt_photo->close();
             color: #F0EBE3;
             padding: 20px;
             text-align: center;
+            height: 150px;
+        } 
+        .upper-section h2 {
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
         }
         .user-profile {
             display: flex;
