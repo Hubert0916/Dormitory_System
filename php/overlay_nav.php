@@ -29,11 +29,7 @@
 		$getProfile_sql->free_result();
 		$getProfile_sql->close();
 	
-	} else {
-		$user_data = null;
 	}
-	
-	$conn->close();
 ?>
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
