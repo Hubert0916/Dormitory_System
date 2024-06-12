@@ -3,6 +3,43 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
 require_once dirname(__FILE__) . '/session.php';
 require_once dirname(__FILE__) . '/connection.php';
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $ReviewerID = htmlspecialchars($_SESSION['ID']);
+    $RevieweeID = htmlspecialchars($_POST["chooseRID"]);
+    $RevieweeName = htmlspecialchars($_POST["chooseRname"]);
+    $ReviewerName = htmlspecialchars($_SESSION['name']);
+    $rating1 = htmlspecialchars($_POST['rating1']);
+    $rating2 = htmlspecialchars($_POST['rating2']);
+    $rating3 = htmlspecialchars($_POST['rating3']);
+    $rating4 = htmlspecialchars($_POST['rating4']);
+    $rating5 = htmlspecialchars($_POST['rating5']);
+    $rating6 = htmlspecialchars($_POST['rating6']);
+    $review = htmlspecialchars($_POST['txtcomment']);
+
+    $count_sql = $conn->prepare("SELECT * FROM Dorm.Rating WHERE Reviewer_ID = ? and Reviewee_ID = ?");
+    $count_sql->bind_param("ii", $ReviewerID, $RevieweeID);
+    $count_sql->execute();
+    $count_sql->store_result();
+
+    if ($count_sql->num_rows) {
+        $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ?, Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Rating_six = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
+        $update_sql->bind_param("ddddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review, $ReviewerID, $RevieweeID);
+        $update_sql->execute();
+        $update_sql->free_result();
+        $update_sql->close();
+    } else {
+        $insert_sql = $conn->prepare("INSERT INTO Dorm.Rating (Reviewer_ID, Reviewee_ID, Reviewer_name, Reviewee_name, Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Rating_six, Review)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $insert_sql->bind_param("iissdddddds", $ReviewerID, $RevieweeID, $ReviewerName, $RevieweeName, $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review);
+        $insert_sql->execute();
+        $insert_sql->free_result();
+        $insert_sql->close();
+    }
+
+    $count_sql->free_result();
+    $count_sql->close();
+}
+
 if (isset($_SESSION['ID'])) {
 
     $id = htmlspecialchars($_SESSION['ID']);
@@ -43,43 +80,6 @@ if (isset($_SESSION['ID'])) {
 } else {
     echo "<script>alert('請先登入!!!');</script>";
     echo "<script>window.location.href = 'login.php';</script>";
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $ReviewerID = htmlspecialchars($_SESSION['ID']);
-    $RevieweeID = htmlspecialchars($_POST["chooseRID"]);
-    $RevieweeName = htmlspecialchars($_POST["chooseRname"]);
-    $ReviewerName = htmlspecialchars($_SESSION['name']);
-    $rating1 = htmlspecialchars($_POST['rating1']);
-    $rating2 = htmlspecialchars($_POST['rating2']);
-    $rating3 = htmlspecialchars($_POST['rating3']);
-    $rating4 = htmlspecialchars($_POST['rating4']);
-    $rating5 = htmlspecialchars($_POST['rating5']);
-    $rating6 = htmlspecialchars($_POST['rating6']);
-    $review = htmlspecialchars($_POST['txtcomment']);
-
-    $count_sql = $conn->prepare("SELECT * FROM Dorm.Rating WHERE Reviewer_ID = ? and Reviewee_ID = ?");
-    $count_sql->bind_param("ii", $ReviewerID, $RevieweeID);
-    $count_sql->execute();
-    $count_sql->store_result();
-
-    if ($count_sql->num_rows) {
-        $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ?, Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Rating_six = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
-        $update_sql->bind_param("ddddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review, $ReviewerID, $RevieweeID);
-        $update_sql->execute();
-        $update_sql->free_result();
-        $update_sql->close();
-    } else {
-        $insert_sql = $conn->prepare("INSERT INTO Dorm.Rating (Reviewer_ID, Reviewee_ID, Reviewer_name, Reviewee_name, Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Rating_six, Review)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $insert_sql->bind_param("iissdddddds", $ReviewerID, $RevieweeID, $ReviewerName, $RevieweeName, $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review);
-        $insert_sql->execute();
-        $insert_sql->free_result();
-        $insert_sql->close();
-    }
-
-    $count_sql->free_result();
-    $count_sql->close();
 }
 
 $conn->close();
