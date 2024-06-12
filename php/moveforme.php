@@ -131,22 +131,6 @@
             color: #6c757d;
             text-align: center;
         }
-        .textarea-container {
-            margin-top: 20px;
-            width: 100%;
-            max-width: 600px;
-        }
-        .textarea-container textarea {
-            width: 100%;
-            height: 300px;
-            padding: 10px;
-            border: 2px solid #dee2e6;
-            border-radius: 10px;
-            font-family: "Noto Serif TC", serif;
-            font-size: 15px;
-            resize: none;   
-            text-align: left;
-        }
         .selectable.selected {
             background-color: #576f72a2;
         }
@@ -180,25 +164,7 @@
             font-weight: bold;
             color: #495057;
             margin-top: 30px;
-            text-align: center;
-            font-family: "Noto Serif TC", serif;        
-        }
-        .textarea-container {
-            margin: 20px 0;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 10px;
-            border-radius: 10px;
-            border: 2px solid #576F72;
-            font-family: "Noto Serif TC", serif;
-            font-size: 16px;
-            resize: none;
-            box-sizing: border-box;
-        }
-        textarea::placeholder {
-            color: #999;
+            text-align: center;     
         }
         .move {
             display: flex;

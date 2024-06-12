@@ -3,6 +3,43 @@ require_once dirname(__FILE__) . "/overlay_nav.php";
 require_once dirname(__FILE__) . '/session.php';
 require_once dirname(__FILE__) . '/connection.php';
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $ReviewerID = htmlspecialchars($_SESSION['ID']);
+    $RevieweeID = htmlspecialchars($_POST["chooseRID"]);
+    $RevieweeName = htmlspecialchars($_POST["chooseRname"]);
+    $ReviewerName = htmlspecialchars($_SESSION['name']);
+    $rating1 = htmlspecialchars($_POST['rating1']);
+    $rating2 = htmlspecialchars($_POST['rating2']);
+    $rating3 = htmlspecialchars($_POST['rating3']);
+    $rating4 = htmlspecialchars($_POST['rating4']);
+    $rating5 = htmlspecialchars($_POST['rating5']);
+    $rating6 = htmlspecialchars($_POST['rating6']);
+    $review = htmlspecialchars($_POST['txtcomment']);
+
+    $count_sql = $conn->prepare("SELECT * FROM Dorm.Rating WHERE Reviewer_ID = ? and Reviewee_ID = ?");
+    $count_sql->bind_param("ii", $ReviewerID, $RevieweeID);
+    $count_sql->execute();
+    $count_sql->store_result();
+
+    if ($count_sql->num_rows) {
+        $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ?, Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Rating_six = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
+        $update_sql->bind_param("ddddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review, $ReviewerID, $RevieweeID);
+        $update_sql->execute();
+        $update_sql->free_result();
+        $update_sql->close();
+    } else {
+        $insert_sql = $conn->prepare("INSERT INTO Dorm.Rating (Reviewer_ID, Reviewee_ID, Reviewer_name, Reviewee_name, Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Rating_six, Review)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $insert_sql->bind_param("iissdddddds", $ReviewerID, $RevieweeID, $ReviewerName, $RevieweeName, $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review);
+        $insert_sql->execute();
+        $insert_sql->free_result();
+        $insert_sql->close();
+    }
+
+    $count_sql->free_result();
+    $count_sql->close();
+}
+
 if (isset($_SESSION['ID'])) {
 
     $id = htmlspecialchars($_SESSION['ID']);
@@ -45,37 +82,7 @@ if (isset($_SESSION['ID'])) {
     echo "<script>window.location.href = 'login.php';</script>";
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $ReviewerID = htmlspecialchars($_SESSION['ID']);
-    $RevieweeID = htmlspecialchars($_POST["chooseRID"]);
-    $RevieweeName = htmlspecialchars($_POST["chooseRname"]);
-    $ReviewerName = htmlspecialchars($_SESSION['name']);
-    $rating1 = htmlspecialchars($_POST['rating1']);
-    $rating2 = htmlspecialchars($_POST['rating2']);
-    $rating3 = htmlspecialchars($_POST['rating3']);
-    $rating4 = htmlspecialchars($_POST['rating4']);
-    $rating5 = htmlspecialchars($_POST['rating5']);
-    $rating6 = htmlspecialchars($_POST['rating6']);
-    $review = htmlspecialchars($_POST['txtcomment']);
-
-    $count_sql = $conn->prepare("SELECT * FROM Dorm.Rating WHERE Reviewer_ID = ? and Reviewee_ID = ?");
-    $count_sql->bind_param("ii", $ReviewerID, $RevieweeID);
-    $count_sql->execute();
-    $count_sql->store_result();
-
-    if ($count_sql->num_rows) {
-        $update_sql = $conn->prepare("UPDATE Dorm.Rating SET Rating_one = ?, Rating_two = ?, Rating_three = ?, Rating_four = ?, Rating_five = ?, Rating_six = ?, Review = ? WHERE Reviewer_ID = ? and Reviewee_ID = ?");
-        $update_sql->bind_param("ddddddsii", $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review, $ReviewerID, $RevieweeID);
-        $update_sql->execute();
-        $update_sql->close();
-    } else {
-        $insert_sql = $conn->prepare("INSERT INTO Dorm.Rating (Reviewer_ID, Reviewee_ID, Reviewer_name, Reviewee_name, Rating_one, Rating_two, Rating_three, Rating_four, Rating_five, Rating_six, Review)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $insert_sql->bind_param("iissdddddds", $ReviewerID, $RevieweeID, $ReviewerName, $RevieweeName, $rating1, $rating2, $rating3, $rating4, $rating5, $rating6, $review);
-        $insert_sql->execute();
-        $insert_sql->close();
-    }
-}
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -92,25 +99,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <form id="ratingForm" method="post" action="rating.php" onkeydown="return event.key != 'Enter';">
+    <form id="ratingForm" method="post" action="rating.php" onsubmit="Message(event);" onkeydown="return event.key != 'Enter';">
         <div class="container-fluid mx-3 my-5">
             <div class="step d-flex flex-column" id="step1">
                 <div class="text-center">
                     <h2>評分系統<h2>
                 </div>
-                <hr>
+                <br>
                 <div class="container-fluid p-5">
                     <input type="hidden" name="ratingsys" id="ratingsys">
                     <div class="row justify-content-center text-center">
                         <div class="col-md-3 block-container mx-5">
                             <div class="rect-block d-flex flex-column" onclick="submitStep1('a')">
-                                <img src="../pic/star.jpg" class="img-fluid rounded">
+                                <img src="../pic/star.jpg" class="img-fluid rounded" id="photo1">
                                 <h3 class="mt-2">評分室友</h3>
                             </div>
                         </div>
                         <div class="col-md-3  block-container mx-5">
                             <div class="rect-block d-flex flex-column" onclick="submitStep1('b')">
-                                <img src="../pic/search.jpg" class="img-fluid rounded">
+                                <img src="../pic/search.jpg" class="img-fluid rounded" id="photo1">
                                 <h3 class="mt-2">查看評分</h3>
                             </div>
                         </div>
@@ -121,22 +128,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <div class="container-fluid mx-3 my-5">
-            <div class="step d-flex d-none flex-column" id="step2a">
-                <div class="container-fluid mx-3 my-2 text-center">
+            <div class="step d-flex flex-column d-none" id="step2a">
+                <div class="container-fluid text-center">
                     <h2>哪個室友...<h2>
                 </div>
-                <hr>
-                <div class="container-fluid mx-3 my-2">
+                <br>
+                <div class="container-fluid">
                     <input type="hidden" name="chooseRID" id="chooseRID">
                     <input type="hidden" name="chooseRname" id="chooseRname">
                     <?php if (!empty($roommates)) : ?>
-                        <div class="d-flex">
+                        <div class="row mx-5">
                             <?php foreach ($roommates as $roommate) : ?>
-                                <div class="rect-block d-flex flex-column justify-content-center align-items-center mx-5" onclick="submitStep2a('<?php echo $roommate['RID']; ?>', '<?php echo $roommate['Rname']; ?>');">
-                                    <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>">
-                                    <br>
-                                    <p><?php echo "ID : " . $roommate['RID']; ?></p>
-                                    <p><?php echo "Name : " . $roommate['Rname']; ?></p>
+                                <div class="col-md-4">
+                                    <div class="rect-block d-flex flex-column justify-content-center align-items-center mx-5" onclick="submitStep2a('<?php echo $roommate['RID']; ?>', '<?php echo $roommate['Rname']; ?>');">
+                                        <img class="fixed-size" src="data:<?php echo $roommate['Rtype']; ?>;base64,<?php echo $roommate['Rphoto']; ?>">
+                                        <br>
+                                        <p><?php echo "ID : " . $roommate['RID']; ?></p>
+                                        <p><?php echo "Name : " . $roommate['Rname']; ?></p>
+                                    </div>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -145,10 +154,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <h2>查無室友資料!!!</h2>
                         </div>
                     <?php endif; ?>
-                </div>
-                <div>
-                    <div class="d-flex justify-content-center">
-                        <button type="button" class="btn btn-previous mt-2" onclick="backtoStep1('a');"><i class="bi bi-arrow-left"></i>上一步</button>
+                    <div class="text-center mt-5">
+                        <button type="button" class="btn btn-previous" onclick="backtoStep1('a');"><i class="bi bi-arrow-left"></i>上一步</button>
                     </div>
                 </div>
             </div>
@@ -216,84 +223,87 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div class="form-group">
                         <label>衛生</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-1" type="radio" name="rating1" value="5"><label for="star5-1" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-1" type="radio" name="rating1" value="4"><label for="star4-1" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-1" type="radio" name="rating1" value="3"><label for="star3-1" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-1" type="radio" name="rating1" value="2"><label for="star2-1" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-1" type="radio" name="rating1" value="1"><label for="star1-1" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-1" type="radio" name="rating1" value="5" required><label for="star5-1" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-1" type="radio" name="rating1" value="4" required><label for="star4-1" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-1" type="radio" name="rating1" value="3" required><label for="star3-1" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-1" type="radio" name="rating1" value="2" required><label for="star2-1" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-1" type="radio" name="rating1" value="1" required><label for="star1-1" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <label>作息</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-2" type="radio" name="rating2" value="5"><label for="star5-2" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-2" type="radio" name="rating2" value="4"><label for="star4-2" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-2" type="radio" name="rating2" value="3"><label for="star3-2" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-2" type="radio" name="rating2" value="2"><label for="star2-2" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-2" type="radio" name="rating2" value="1"><label for="star1-2" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-2" type="radio" name="rating2" value="5" required><label for="star5-2" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-2" type="radio" name="rating2" value="4" required><label for="star4-2" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-2" type="radio" name="rating2" value="3" required><label for="star3-2" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-2" type="radio" name="rating2" value="2" required><label for="star2-2" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-2" type="radio" name="rating2" value="1" required><label for="star1-2" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <label>課業</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-3" type="radio" name="rating3" value="5"><label for="star5-3" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-3" type="radio" name="rating3" value="4"><label for="star4-3" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-3" type="radio" name="rating3" value="3"><label for="star3-3" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-3" type="radio" name="rating3" value="2"><label for="star2-3" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-3" type="radio" name="rating3" value="1"><label for="star1-3" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-3" type="radio" name="rating3" value="5" required><label for="star5-3" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-3" type="radio" name="rating3" value="4" required><label for="star4-3" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-3" type="radio" name="rating3" value="3" required><label for="star3-3" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-3" type="radio" name="rating3" value="2" required><label for="star2-3" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-3" type="radio" name="rating3" value="1" required><label for="star1-3" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <label>外貌</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-4" type="radio" name="rating4" value="5"><label for="star5-4" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-4" type="radio" name="rating4" value="4"><label for="star4-4" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-4" type="radio" name="rating4" value="3"><label for="star3-4" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-4" type="radio" name="rating4" value="2"><label for="star2-4" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-4" type="radio" name="rating4" value="1"><label for="star1-4" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-4" type="radio" name="rating4" value="5" required><label for="star5-4" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-4" type="radio" name="rating4" value="4" required><label for="star4-4" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-4" type="radio" name="rating4" value="3" required><label for="star3-4" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-4" type="radio" name="rating4" value="2" required><label for="star2-4" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-4" type="radio" name="rating4" value="1" required><label for="star1-4" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <label>人品</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-5" type="radio" name="rating5" value="5"><label for="star5-5" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-5" type="radio" name="rating5" value="4"><label for="star4-5" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-5" type="radio" name="rating5" value="3"><label for="star3-5" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-5" type="radio" name="rating5" value="2"><label for="star2-5" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-5" type="radio" name="rating5" value="1"><label for="star1-5" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-5" type="radio" name="rating5" value="5" required><label for="star5-5" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-5" type="radio" name="rating5" value="4" required><label for="star4-5" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-5" type="radio" name="rating5" value="3" required><label for="star3-5" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-5" type="radio" name="rating5" value="2" required><label for="star2-5" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-5" type="radio" name="rating5" value="1" required><label for="star1-5" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>財富</label>
-                        <div class="star-rating d-inline-block">
-                            <input class="d-none" id="star5-6" type="radio" name="rating6" value="5"><label for="star5-6" title="5 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star4-6" type="radio" name="rating6" value="4"><label for="star4-6" title="4 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star3-6" type="radio" name="rating6" value="3"><label for="star3-6" title="3 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star2-6" type="radio" name="rating6" value="2"><label for="star2-6" title="2 stars"><i class="fas fa-star"></i></label>
-                            <input class="d-none" id="star1-6" type="radio" name="rating6" value="1"><label for="star1-6" title="1 star"><i class="fas fa-star"></i></label>
+                        <div class="star-rating d-inline-block my-2">
+                            <input class="d-none" id="star5-6" type="radio" name="rating6" value="5" required><label for="star5-6" title="5 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star4-6" type="radio" name="rating6" value="4" required><label for="star4-6" title="4 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star3-6" type="radio" name="rating6" value="3" required><label for="star3-6" title="3 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star2-6" type="radio" name="rating6" value="2" required><label for="star2-6" title="2 stars"><i class="fas fa-star"></i></label>
+                            <input class="d-none" id="star1-6" type="radio" name="rating6" value="1" required><label for="star1-6" title="1 star"><i class="fas fa-star"></i></label>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <textarea id="comments" class="form-control" name="txtcomment" rows="4" placeholder="輸入您的留言"></textarea>
+                    <div class="form-group my-2">
+                        <textarea id="comments" class="form-control" name="txtcomment" rows="4" placeholder="評論..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">提交</button>
-                    <button type="button" class="btn btn-previous mt-2" onclick="backtoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
+                    <div class="d-inline-block mt-2">
+                        <button type="button" class="btn btn-previous mx-1" onclick="backtoStep2();"><i class="bi bi-arrow-left"></i>上一步</button>
+                        <button type="submit" class="btn btn-primary btn-submit mx-1">提交</button>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/rating.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 

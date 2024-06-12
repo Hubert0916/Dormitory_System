@@ -1,6 +1,5 @@
 <?php
 require_once dirname(__FILE__) . "/overlay_nav.php";
-session_start();
 
 if (!isset($_SESSION['ID'])) {
     header('Location: login.php');
@@ -75,7 +74,7 @@ $conn->close();
     <style>
         body {
             font-family: "Noto Serif TC", serif !important;
-            background-color: #f8f9fa;
+            background-color: #F0EBE3 !important;
             margin: 0;
             padding: 20px;
         }

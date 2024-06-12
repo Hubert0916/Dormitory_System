@@ -104,6 +104,7 @@ if (isset($_GET['ID'])) {
     echo "未找到該用戶資料。";
 }
 
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -166,36 +167,35 @@ if (isset($_GET['ID'])) {
 
     <section class="lower-section">
         <div class="left-side">
-            <h2><span class="head">姓 名  :  </span><span class="chinese"> <?php echo $user_data['Name']; ?></span></h2>
+            <h2><span class="head">姓 名 : </span><span class="chinese"> <?php echo $user_data['Name']; ?></span></h2>
             <br>
-            <h2><span class="head">性 別  :  </span><span class="chinese"> <?php echo $user_data['Sex']; ?></span></h2>
+            <h2><span class="head">性 別 : </span><span class="chinese"> <?php echo $user_data['Sex']; ?></span></h2>
             <br>
-            <h2><span class="head">科 系  :  </span><span class="chinese"> <?php echo $user_data['Department']; ?></span></h2>
+            <h2><span class="head">科 系 : </span><span class="chinese"> <?php echo $user_data['Department']; ?></span></h2>
             <br>
-            <h2><span class="head">年 級  :  </span><span class="chinese"> <?php echo $user_data['Grade']; ?></span></h2>
+            <h2><span class="head">年 級 : </span><span class="chinese"> <?php echo $user_data['Grade']; ?></span></h2>
             <br>
-            <h2><span class="head">宿 舍  :  </span><span class="chinese"> <?php echo $user_data['Dorm']; ?></span></h2>
+            <h2><span class="head">宿 舍 : </span><span class="chinese"> <?php echo $user_data['Dorm'] . " " . $user_data['Room']; ?></span></h2>
         </div>
         <div class="right-side">
             <h2<span class="ii">簡 介 . . . </span></h2>
-            <div class="intro">
-                <br>
-                <?php echo $user_data['Intro']; ?>
-            </div>
-        </div>
-        <div class="gif">
-            <img src="../pic/profile.gif" alt="profile">
+                <div class="intro">
+                    <br>
+                    <?php echo $user_data['Intro']; ?>
+                </div>
         </div>
 
     </section>
-
+    <br><br>
+    <hr>
+    <br>
     <section class="rating-seciton">
         <?php if (!empty($reviewee)) : ?>
-        <div class="d-flex flex-column">
-            <div class="text-center">
-                <h2>評分<h2>
-            </div>
-            <div class="d-flex flex-column container-fluid w-50">
+            <div class="d-flex flex-column">
+                <div class="text-center">
+                    <h3>評分<h3>
+                </div>
+                <div class="d-flex flex-column container-fluid w-50">
                     <div class="d-flex justify-content-between">
                         <div>
                             <p>衛生</p>
@@ -247,22 +247,24 @@ if (isset($_GET['ID'])) {
                     <br>
                     <?php if (!empty($reviews)) : ?>
                         <div>
-                            <h2 class="text-center">評論</h2>
-                            <table class="table table-bordered">
+                            <h3 class="text-center">評論</h3>
+                            <table class="table table-striped">
                                 <tbody>
                                     <?php foreach ($reviews as $review) : ?>
-                                        <tr>
-                                            <td><?php echo $review['rv']; ?></td>
-                                        </tr>
+                                        <?php if (!empty($review['rv'])) : ?>
+                                            <tr>
+                                                <td><?php echo $review['rv']; ?></td>
+                                            </tr>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
-            </div>
+                </div>
             <?php endif; ?>
-                <?php else : ?>
-                <?php endif; ?>
-        </div>
+        <?php else : ?>
+        <?php endif; ?>
+            </div>
     </section>
 </body>
 
@@ -334,49 +336,55 @@ if (isset($_GET['ID'])) {
         display: flex;
     }
 
-    .lower-section .left-side, .right-side {
+    .lower-section .left-side,
+    .right-side {
         flex: 1;
         font-size: 20px;
         margin-top: 70px;
     }
 
-    .left-side .head , .ii{
+    .left-side .head,
+    .ii {
         color: #576F72;
         margin-bottom: 20PX;
         font-weight: bold;
         font-size: 25px;
     }
+
     .left-side .head {
-        margin-left: 300px;
+        margin-left: 400px;
     }
 
     .left-side .chinese {
         color: black;
         font-size: 20px;
     }
+
     .right-side {
         text-align: left;
-        margin-left: 90px; 
-        margin-right: 0px;
-    }
-    .ii {
-        margin-left: 80px;
-    }
-    .right-side .intro {
-        margin-left: 100px;
-        font-size: 20px;
-        color:black;
-        font-weight: normal;
-    }
-    .left-side {
-        text-align: left;
-        margin-right: 0px;
-    }
-    .gif {
-        margin-top: 130px;
-        height: 40px;
-        width: 50px;
-        margin-right: 350px;
+        margin-left: 30px;
     }
 
+    .right-side .intro {
+        margin-left: 20px;
+        margin-right: 200px;
+        font-size: 20px;
+        color: black;
+        font-weight: normal;
+    }
+
+    .left-side {
+        text-align: left;
+    }
+    h3 {
+        font-size: 30px;
+        font-weight: bold;
+        color: #576F72;
+    }
+    p {
+        font-size: 20px;
+    }
+    td {
+        font-size: 20px;
+    }
 </style>

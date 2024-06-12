@@ -107,6 +107,7 @@ h1
     flex-direction: column;
     text-align: center;
     color: #576F72;
+
 }
 .write input {
     font-size: 15px; 
@@ -115,6 +116,11 @@ h1
     border-radius: 5px;
     background-color: #f2f2f2;
     color: #576F72;
+    border: 2px solid #576F72;
+}
+.write input:focus {
+    border-color: #99A799;
+    outline: none;
 }
 
 .Name {

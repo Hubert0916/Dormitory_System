@@ -11,7 +11,7 @@
        body {
            margin: 0;
            padding: 0;
-           font-family: "Noto Serif TC", serif;
+           font-family: "Noto Serif TC", serif !important;
            display: flex;
            justify-content: center;
            align-items: center;
@@ -54,23 +54,23 @@
            display: flex;
        }
        .box {
-           width: 100%;
-           height: 100%;
-           background-color: #ffffff;
-           border: 2px solid #dee2e6;
-           border-radius: 10px;
-           padding: 20px;
-           text-align: center;
-           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-           transition: transform 0.3s, box-shadow 0.3s;
-           display: flex;
-           flex-direction: column;
-           justify-content: center;
-           align-items: center;
-           cursor: pointer;
-           background-color: white;
-           font-weight: bold;
-       }
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background-color: white;
+            font-weight: bold;
+        }
        .box:hover {
            transform: translateY(-10px);
            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -171,29 +171,29 @@
        .selectable.selected {
            background-color: #576f72a2;
        }
-       .question.active label {
+       .question1.active label, .question2.active label {
            font-size: 20px;
            font-weight: bold;
            margin-bottom: 30px;
            display: block;
            text-align: center;
        }
-       .question.active table {
+       .question1.active table {
            margin: 0 auto;
            height: 300px;
            width: 500px;
            font-size: large;
            font-weight: bold;
        }
-       .question.active th, .question.active td {
+       .question1.active th, .question1.active td {
            padding: 10px;
            border: 1px solid #576F72;
        }
-       .question.active th {
+       .question1.active th {
            background-color: #576F72;
            color: white;
        }
-       .question.active .selectable.selected {
+       .question1.active .selectable.selected {
            background-color: #576f72a2;
        }
        .note {
@@ -201,8 +201,7 @@
            font-weight: bold;
            color: #495057;
            margin-top: 30px;
-           text-align: center;
-           font-family: "Noto Serif TC", serif;       
+           text-align: center;    
        }
        .textarea-container {
            margin: 20px 0;
@@ -213,11 +212,14 @@
            padding: 10px;
            border-radius: 10px;
            border: 2px solid #576F72;
-           font-family: "Noto Serif TC", serif;
            font-size: 16px;
            resize: none;
            box-sizing: border-box;
        }
+       textarea:focus {
+            border-color: #99A799;
+            outline: none;
+        }
        textarea::placeholder {
            color: #999;
        }

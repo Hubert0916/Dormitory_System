@@ -4,10 +4,27 @@ require_once dirname(__FILE__) . '/connection.php';
 require_once dirname(__FILE__) . '/head.php';
 require_once dirname(__FILE__)."/overlay_nav.php";
 
-session_start();
-if (!isset($_SESSION['ID'])) {
-    header('Location: login.php');
-    exit;
+if (isset($_SESSION['ID'])) {
+
+    $id = intval($_SESSION['ID']);
+    $getRoommate_sql = $conn->prepare("SELECT pr.ID, pr.Name, ph.photo_type, ph.photo_content FROM Dorm.Profile as pr, Dorm.photo as ph WHERE pr.ID = ph.id and pr.id != ? and pr.Room = (SELECT p.Room from Dorm.Profile as p WHERE p.ID = ?) and pr.Dorm = (SELECT p.Dorm from Dorm.Profile as p WHERE p.ID = ?)");
+    $getRoommate_sql->bind_param("iii", $id, $id, $id);
+    $getRoommate_sql->execute();
+    $getRoommate_sql->store_result();
+
+    if ($getRoommate_sql->num_rows() > 0) {
+        $getRoommate_sql->bind_result($RID, $Rname, $Rtype, $Rphoto);
+
+        $roommates = [];
+
+        while ($getRoommate_sql->fetch()) {
+            $roommates[] = ['RID' => $RID, 'Rname' => $Rname, 'Rtype' => $Rtype, 'Rphoto' => base64_encode($Rphoto)];
+        }
+    }
+    $getRoommate_sql->close();
+} else {
+    echo "<script>alert('請先登入');</script>";
+    echo "<script>window.location.href = 'login.php';</script>";
 }
 
 $getAllUsers_sql = $conn->prepare("SELECT ID, Name, Department, Grade FROM Dorm.Profile");
@@ -106,12 +123,16 @@ $getAllUsers_sql->close();
             background-color: #3C4A4D;
             color: #F0EBE3;
         }
-
+        h2 {
+            font-size: 40px;
+            font-weight: bold;
+            margin-left: 65px;
+        }
     </style>
 </head>
 <body>
 <section class="upper-section">
-        <h2>Make  Friends</h2>
+        <h2>Make Friends</h2>
 </section>
 
 <section class="user-list">
