@@ -183,6 +183,9 @@ if (isset($_GET['ID'])) {
                 <?php echo $user_data['Intro']; ?>
             </div>
         </div>
+        <div class="gif">
+            <img src="../pic/profile.gif" alt="profile">
+        </div>
 
     </section>
 
@@ -344,7 +347,7 @@ if (isset($_GET['ID'])) {
         font-size: 25px;
     }
     .left-side .head {
-        margin-left: 400px;
+        margin-left: 300px;
     }
 
     .left-side .chinese {
@@ -353,16 +356,27 @@ if (isset($_GET['ID'])) {
     }
     .right-side {
         text-align: left;
-        margin-left: 30px;
+        margin-left: 90px; 
+        margin-right: 0px;
+    }
+    .ii {
+        margin-left: 80px;
     }
     .right-side .intro {
-        margin-left: 20px;
-        margin-right: 200px;
+        margin-left: 100px;
         font-size: 20px;
         color:black;
         font-weight: normal;
     }
     .left-side {
         text-align: left;
+        margin-right: 0px;
     }
+    .gif {
+        margin-top: 130px;
+        height: 40px;
+        width: 50px;
+        margin-right: 350px;
+    }
+
 </style>
